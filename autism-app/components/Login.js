@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableOpacity, Dimensions } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
+// import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
 
 import { Button, Block, Text, Input, theme } from 'galio-framework';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -10,12 +12,17 @@ import { materialTheme, products, Images } from '../constants/';
 export default class Login extends Component {
     state = {
         email: '',
-        password: ''
+        password: '',
+        loggedIn: false
     };
+
+    userLogin() {
+        alert("Email: " + this.state.email + ", Password: " + this.state.password);
+    }
 
     render() {
         return (
-            <View style={styles.login}>
+            <KeyboardAvoidingView style={styles.login} behavior="padding">
                 <Text h5>Welcome Back!</Text>
                 <TouchableOpacity activeOpacity={0.9} style={styles.facebook}>
                     <View style={{ flexDirection: "row" }}>
@@ -30,17 +37,16 @@ export default class Login extends Component {
                     </View>
                 </TouchableOpacity>
                 <Text style={{ marginTop: 5, marginBottom: 20 }}>OR LOGIN WITH EMAIL</Text>
-                <Input placeholder="Email Address" style={styles.input} />
-                <Input placeholder="Password" style={styles.input} password viewPass />
+                <Input placeholder="Email Address" style={styles.input} onChangeText={(text) => this.setState({ email: text })} />
+                <Input placeholder="Password" value={this.state.password} style={styles.input} password viewPass onChangeText={(text) => this.setState({ password: text })} />
                 <Text color="#0275d8" p style={styles.forgotPwd}>Forgot Password?</Text>
-                <Button shadowless round color="#50C7C7">Login</Button>
-            </View>
+                <Button shadowless round color="#50C7C7" onPress={() => this.userLogin()}>Login</Button>
+            </KeyboardAvoidingView>
         );
     }
 
 };
 
-const width = Dimensions.get('window');
 
 const styles = StyleSheet.create({
     login: {
