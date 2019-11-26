@@ -16,8 +16,12 @@ export default class Login extends Component {
         loggedIn: false
     };
 
-    userLogin() {
+    _userLogin() {
         alert("Email: " + this.state.email + ", Password: " + this.state.password);
+    }
+
+    _forgotPassword() {
+        alert("Forgot Password Clicked");
     }
 
     render() {
@@ -39,8 +43,8 @@ export default class Login extends Component {
                 <Text style={{ marginTop: 5, marginBottom: 20 }}>OR LOGIN WITH EMAIL</Text>
                 <Input placeholder="Email Address" style={styles.input} onChangeText={(text) => this.setState({ email: text })} />
                 <Input placeholder="Password" value={this.state.password} style={styles.input} password viewPass onChangeText={(text) => this.setState({ password: text })} />
-                <Text color="#0275d8" p style={styles.forgotPwd}>Forgot Password?</Text>
-                <Button shadowless round color="#50C7C7" onPress={() => this.userLogin()}>Login</Button>
+                <Text color="#0275d8" p style={styles.forgotPwd} onPress={() => this._forgotPassword()}>Forgot Password?</Text>
+                <Button shadowless round color="#50C7C7" onPress={() => this._userLogin()}>Login</Button>
             </KeyboardAvoidingView>
         );
     }
