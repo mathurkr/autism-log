@@ -1,13 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import Login from './components/Login';
+import StartUp from './components/StartUp';
 
 
 export default function App() {
     return (
         <View style={styles.container}>
-            <Login />
+            <StartUp />
         </View>
     );
 }
