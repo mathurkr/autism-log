@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
+// import * as Google from 'expo-google-app-auth';
 // import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-
 
 import { Button, Block, Text, Input, theme } from 'galio-framework';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
 import { materialTheme, products, Images } from '../constants/';
 
 
@@ -13,8 +12,13 @@ export default class Login extends Component {
     state = {
         email: '',
         password: '',
-        loggedIn: false
+        // loggedIn: false,
+        // name: ''
     };
+    
+    constructor(props) {
+        super(props);
+    }
 
     _userLogin() {
         alert("Email: " + this.state.email + ", Password: " + this.state.password);
@@ -23,6 +27,7 @@ export default class Login extends Component {
     _forgotPassword() {
         alert("Forgot Password Clicked");
     }
+
 
     render() {
         return (
@@ -34,7 +39,7 @@ export default class Login extends Component {
                         <Text style={styles.iconText}>     Login with Facebook</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity activeOpacity={0.9} style={styles.google}>
+                <TouchableOpacity activeOpacity={0.9} style={styles.google} onPress={() => this.props._googleLogin()}>
                     <View style={{ flexDirection: "row" }}>
                         <Icon name="google" color="#ffffff" size={30} />
                         <Text style={styles.iconText}>     Login with Google</Text>
