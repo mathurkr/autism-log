@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import * as Google from 'expo-google-app-auth';
 
-import Welcome from './Welcome';
+import { Button } from 'galio-framework';
+
+import Profile from './Profile';
 import Login from './Login';
 
-export default class StartUp extends Component {
+export default class Authenticate extends Component {
     state = {
         loggedIn: false,
         name: ''
@@ -25,26 +27,41 @@ export default class StartUp extends Component {
                     name: result.user.name,
                     // photoUrl: result.user.photoUrl
                 })
-            } 
-            else {
-            console.log("cancelled")
             }
-        } 
+            else {
+                console.log("cancelled")
+            }
+        }
         catch (e) {
-          console.log("error", e)
+            console.log("error", e)
         }
     }
 
     render() {
         return (
-            <View>
+            <View style={styles.container}>
+
                 {this.state.loggedIn ? (
-                    <Welcome name={this.state.name} />
+                    <Profile name={this.state.name} />
                 ) : (
-                    <Login _googleLogin={this._googleLogin.bind(this)} />
-                )}
+                        <Login _googleLogin={this._googleLogin.bind(this)} />
+                    )}
             </View>
         );
     }
 
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    loginButton: {
+        marginTop: 20,
+        borderWidth: 1,
+        borderColor: '#000000',
+        color: '#ffffff'
+    }
+});
