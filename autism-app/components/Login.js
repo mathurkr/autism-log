@@ -22,9 +22,9 @@ class Login extends Component {
         // name: ''
     };
 
-    constructor(props) {
-        super(props);
-    }
+    // constructor(props) {
+    //     super(props);
+    // }
 
     _userLogin() {
         if (this.state.email == '') {

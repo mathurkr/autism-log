@@ -6,14 +6,37 @@ import { Button } from 'galio-framework';
 
 import Profile from './Profile';
 import Login from './Login';
+import SignUp from './SignUp';
 
 export default class Authenticate extends Component {
     state = {
+        signedUp: false,
         loggedIn: false,
+        authType: '',
         name: ''
     };
 
-    _googleLogin = async () => {
+    // constructor(props) {
+    //     super(props);
+    // }
+
+    componentDidMount() {
+        const { params } = this.props.navigation.state;
+        this.setState({ signedUp: params.signedUp, loggedIn: params.loggedIn });
+    }
+
+    componentDidUpdate() {
+        const { navigate } = this.props.navigation;
+        if (this.state.authType == 'Login') {
+            navigate('Profile', { name: this.state.name });
+        }
+        else if (this.state.authType == 'Sign Up') {
+            // Profile is a placeholder for now; should navigate to another page to complete registration process
+            navigate('Profile', { name: this.state.name });
+        }
+    }
+
+    _googleLogin = async signedUp => {
         try {
             const result = await Google.logInAsync({
                 androidClientId: "751957114156-lvkj70nh3oaihov2dl82nufuq0ra7a1m.apps.googleusercontent.com",
@@ -22,12 +45,22 @@ export default class Authenticate extends Component {
             });
 
             if (result.type === "success") {
-                this.setState({
-                    loggedIn: true,
-                    name: result.user.name,
-                    // photoUrl: result.user.photoUrl
-                });
-                // this.props.navigation.navigate('Profile', { name: this.state.name });
+                if (signedUp) {
+                    this.setState({
+                        loggedIn: true,
+                        name: result.user.name,
+                        authType: 'Login',
+                        // photoUrl: result.user.photoUrl
+                    });
+                }
+                else {
+                    this.setState({
+                        signedUp: true,
+                        name: result.user.name,
+                        authType: 'Sign Up',
+                        // photoUrl: result.user.photoUrl
+                    });
+                }
             }
             else {
                 console.log("cancelled");
@@ -38,16 +71,14 @@ export default class Authenticate extends Component {
         }
     }
 
-    componentDidUpdate() {
-        const { navigate } = this.props.navigation;
-        if (this.state.loggedIn) {
-            navigate('Profile', { name: this.state.name })
-        }
-    }
-
     render() {
+        // const { params } = this.props.navigation.state;
+        let destinationPage = (this.state.signedUp) ? <Login _googleLogin={this._googleLogin.bind(this)} /> : <SignUp _googleLogin={this._googleLogin.bind(this)} />;
+
         return (
-            <Login _googleLogin={this._googleLogin.bind(this)} />
+            <View style={styles.container}>
+                {destinationPage}
+            </View>
             // navigate('Login', { onGoogleLogin: this._googleLogin.bind(this) })
             // <View style={styles.container}>
             //     {/* {this.state.loggedIn ? (
@@ -69,10 +100,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    loginButton: {
-        marginTop: 20,
-        borderWidth: 1,
-        borderColor: '#000000',
-        color: '#ffffff'
-    }
+    // loginButton: {
+    //     marginTop: 20,
+    //     borderWidth: 1,
+    //     borderColor: '#000000',
+    //     color: '#ffffff'
+    // }
 });

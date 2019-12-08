@@ -9,19 +9,27 @@ export default class Welcome extends Component {
         title: 'Welcome'
     };
 
-    // state = {
-    //     loggedIn: false,
-    //     signedUp: false,
-    //     name: ''
-    // };
+    state = {
+        signedUp: false,
+        loggedIn: false
+        // name: ''
+    };
+
+    _toSignUpPage() {
+        this.props.navigation.navigate('Authenticate', { signedUp: this.state.signedUp, loggedIn: this.state.loggedIn })
+    }
+
+    _toLoginPage() {
+        // Need a more formal way of checking if user has an account
+        this.setState({ signedUp: true });
+        this.props.navigation.navigate('Authenticate', { signedUp: this.state.signedUp, loggedIn: this.state.loggedIn })
+    }
 
     render() {
-        const { navigate } = this.props.navigation;
-
         return (
             <View style={styles.container}>
-                <Button shadowless round color="#29d2e4" onPress={() => navigate('SignUp')}>Sign Up</Button>
-                <Button shadowless round color="#ffffff" onPress={() => navigate('Authenticate')} style={styles.loginButton}>
+                <Button shadowless round color="#29d2e4" onPress={() => this._toSignUpPage()}>Sign Up</Button>
+                <Button shadowless round color="#ffffff" onPress={() => this._toLoginPage()} style={styles.loginButton}>
                     <Text>Login</Text>
                 </Button>
             </View>
