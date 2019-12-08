@@ -3,9 +3,10 @@ import { StyleSheet, View, Text } from 'react-native';
 
 export default class Profile extends Component {
     render() {
+        const { params } = this.props.navigation.state;
         return (
             <View style={styles.container}>
-                <Text>Welcome {this.props.name}!</Text>
+                <Text>Welcome {params.name}!</Text>
             </View>
         );
     }

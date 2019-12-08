@@ -7,8 +7,14 @@ import { Button, Block, Text, Input, theme } from 'galio-framework';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { materialTheme, products, Images } from '../constants/';
 
+import { withNavigation } from 'react-navigation';
 
-export default class Login extends Component {
+
+class Login extends Component {
+    static navigationOptions = {
+        title: 'Login'
+    };
+
     state = {
         email: '',
         password: '',
@@ -21,13 +27,22 @@ export default class Login extends Component {
     }
 
     _userLogin() {
-        alert("Email: " + this.state.email + ", Password: " + this.state.password);
+        if (this.state.email == '') {
+            alert('Please Enter Email');
+        }
+        else if (this.state.password == '') {
+            alert('Please Enter Password');
+        }
+        else {
+            alert("Email: " + this.state.email + ", Password: " + this.state.password);
+        }
     }
 
     _forgotPassword() {
-        alert("Forgot Password Clicked");
+        //const { navigate } = this.props.navigation;
+        this.props.navigation.navigate('ForgotPassword');
+        // alert("Forgot Password Clicked");
     }
-
 
     render() {
         return (
@@ -98,3 +113,6 @@ const styles = StyleSheet.create({
         marginBottom: 20
     }
 });
+
+export default withNavigation(Login);
+

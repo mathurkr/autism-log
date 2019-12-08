@@ -38,17 +38,26 @@ export default class Authenticate extends Component {
         }
     }
 
-    render() {
+    componentDidUpdate() {
         const { navigate } = this.props.navigation;
-        return (
-            <View style={styles.container}>
+        if (this.state.loggedIn) {
+            navigate('Profile', { name: this.state.name })
+        }
+    }
 
-                {this.state.loggedIn ? (
-                    <Profile name={this.state.name} />
-                ) : (
-                        <Login _googleLogin={this._googleLogin.bind(this)} />
-                    )}
-            </View>
+    render() {
+        return (
+            <Login _googleLogin={this._googleLogin.bind(this)} />
+            // navigate('Login', { onGoogleLogin: this._googleLogin.bind(this) })
+            // <View style={styles.container}>
+            //     {/* {this.state.loggedIn ? (
+            //         // <Profile name={this.state.name} />
+            //         this.props.navigation.navigate('Profile', { name: this.state.name })
+            //     ) : (
+            //             // <Login _googleLogin={this._googleLogin.bind(this)} />
+            //             this.props.navigation.navigate('Login', { onGoogleLogin: this._googleLogin.bind(this) })
+            //         )} */}
+            // </View>
         );
     }
 
