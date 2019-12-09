@@ -9,20 +9,20 @@ export default class Welcome extends Component {
         title: 'Welcome'
     };
 
-    state = {
-        signedUp: false,
-        loggedIn: false
-        // name: ''
-    };
+    // state = {
+    //     signedUp: false,
+    //     loggedIn: false
+    //     // name: ''
+    // };
 
     _toSignUpPage() {
-        this.props.navigation.navigate('Authenticate', { signedUp: this.state.signedUp, loggedIn: this.state.loggedIn })
+        this.props.navigation.navigate('Authenticate', { signedUp: false, loggedIn: false })
     }
 
     _toLoginPage() {
         // Need a more formal way of checking if user has an account
-        this.setState({ signedUp: true });
-        this.props.navigation.navigate('Authenticate', { signedUp: this.state.signedUp, loggedIn: this.state.loggedIn })
+        // this.setState({ signedUp: true });
+        this.props.navigation.navigate('Authenticate', { signedUp: true, loggedIn: false })
     }
 
     render() {

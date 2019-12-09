@@ -12,7 +12,9 @@ export default class ForgotPassword extends Component {
         if (this.state.code == '') {
             alert('Please Enter Code');
         }
-        alert('Verification Code: ' + this.state.code)
+        else {
+            alert('Verification Code: ' + this.state.code)
+        }
     }
 
     render() {

@@ -36,7 +36,7 @@ export default class Authenticate extends Component {
         }
     }
 
-    _googleLogin = async signedUp => {
+    _googleLogin = async () => {
         try {
             const result = await Google.logInAsync({
                 androidClientId: "751957114156-lvkj70nh3oaihov2dl82nufuq0ra7a1m.apps.googleusercontent.com",
@@ -45,7 +45,7 @@ export default class Authenticate extends Component {
             });
 
             if (result.type === "success") {
-                if (signedUp) {
+                if (this.state.signedUp) {
                     this.setState({
                         loggedIn: true,
                         name: result.user.name,

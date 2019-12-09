@@ -3,12 +3,11 @@ import { StyleSheet, View } from 'react-native';
 
 import { Button, Text, Input } from 'galio-framework';
 
-export default class Profile extends Component {
+export default class PrivatePolicy extends Component {
     render() {
-        const { params } = this.props.navigation.state;
         return (
             <View style={styles.container}>
-                <Text>Welcome {params.name}!</Text>
+                <Text>Put Privacy Policy information here</Text>
             </View>
         );
     }
