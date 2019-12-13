@@ -24,7 +24,8 @@ class SignUp extends Component {
             alert('Please Enter Email');
         }
         else {
-            alert("Email: " + this.state.email);
+            // alert("Email: " + this.state.email);
+            this.props.navigation.navigate('SignUpForm', { email: this.state.email });
         }
     }
 

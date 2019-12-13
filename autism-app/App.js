@@ -6,6 +6,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 import Welcome from './components/Welcome';
 import SignUp from './components/SignUp';
+import SignUpForm from './components/SignUpForm';
 import TermsOfService from './components/TermsOfService';
 import PrivatePolicy from './components/PrivatePolicy';
 import Authenticate from './components/Authenticate';
@@ -18,6 +19,7 @@ import Profile from './components/Profile';
 const MainNavigator = createStackNavigator({
     Welcome: { screen: Welcome },
     SignUp: { screen: SignUp },
+    SignUpForm: { screen: SignUpForm },
     TermsOfService: { screen: TermsOfService },
     PrivatePolicy: { screen: PrivatePolicy },
     Authenticate: { screen: Authenticate },
