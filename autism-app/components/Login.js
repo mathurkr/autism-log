@@ -27,8 +27,8 @@ class Login extends Component {
     // }
 
     _userLogin() {
-        if (this.state.email == '') {
-            alert('Please Enter Email');
+        if (this.state.email == '' || !(this.props._validateEmail(this.state.email))) {
+            alert('Please Enter a Valid Email Address');
         }
         else if (this.state.password == '') {
             alert('Please Enter Password');

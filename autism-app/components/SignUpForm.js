@@ -53,13 +53,15 @@ export default class SignUpForm extends Component {
                 <Text h5 style={{ marginBottom: 10 }}>Tell us about yourself</Text>
                 <Input placeholder="First Name" style={styles.input} onChangeText={(text) => this.setState({ firstName: text })} />
                 <Input placeholder="Last Name" style={styles.input} onChangeText={(text) => this.setState({ lastName: text })} />
-                {/* <Text style={{ marginTop: 5, marginBottom: 5 }}>Gender</Text> */}
-                <View style={{ flexDirection: "row", marginLeft: '8%', marginRight: '12%' }}>
+                <View style={{ flexDirection: "row", marginLeft: '15.5%', marginRight: '15.5%' }}>
                     <ModalDropdown
-                        style={styles.dropdown}
+                        style={styles.dropdownLabel}
+                        textStyle={{ fontSize: 13, color: '#898989' }}
                         defaultValue={"Please select a gender..."}
-                        options={['Male', 'Female', 'Other']}
+                        options={['Male', 'Female', 'Other', 'Prefer not to answer']}
                         onSelect={(index, text) => this.setState({ gender: text })}
+                        dropdownStyle={styles.dropdown}
+                        dropdownTextStyle={{ paddingLeft: 16, fontSize: 14 }}
                     >
                     </ModalDropdown>
                     <Input placeholder="Age" styles={{ width: '44%' }} keyboardType={'numeric'} onChangeText={(text) => this.setState({ age: text })} />
@@ -79,16 +81,25 @@ const styles = StyleSheet.create({
     input: {
         width: '89%'
     },
-    dropdown: {
+    dropdownLabel: {
         width: 200,
+        height: 44,
         backgroundColor: '#FFFFFF',
         paddingHorizontal: 16,
         paddingTop: 10,
-        paddingBottom: 9.5,
-        borderRadius: 3,
-        // shadowColor: "rgba(0, 0, 0, 0.1)",
-        // shadowOffset: {width: 0, height: 2 },
-        // shadowRadius: 4,
-        // shadowOpacity: 1,
+        // paddingBottom: 8,
+        borderRadius: 8,
+        borderColor: '#898989',
+        borderWidth: 1,
+        marginTop: 8,
+        marginRight: 8
+    },
+    dropdown: {
+        width: 200,
+        marginTop: -12,
+        marginLeft: -16,
+        borderRadius: 8,
+        borderColor: '#898989',
+        borderWidth: 1,
     }
 });

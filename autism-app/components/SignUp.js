@@ -20,8 +20,8 @@ class SignUp extends Component {
     };
 
     _userSignUp() {
-        if (this.state.email == '') {
-            alert('Please Enter Email');
+        if (this.state.email == '' || !(this.props._validateEmail(this.state.email))) {
+            alert('Please Enter a Valid Email Address');
         }
         else {
             // alert("Email: " + this.state.email);

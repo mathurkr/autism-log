@@ -71,24 +71,21 @@ export default class Authenticate extends Component {
         }
     }
 
+    _validateEmail = email => {
+        const expression = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+        return expression.test(String(email).toLowerCase())
+    }
+
     render() {
         // const { params } = this.props.navigation.state;
-        let destinationPage = (this.state.signedUp) ? <Login _googleLogin={this._googleLogin.bind(this)} /> : <SignUp _googleLogin={this._googleLogin.bind(this)} />;
+        let destinationPage = (this.state.signedUp) ?
+            <Login _googleLogin={this._googleLogin.bind(this)} _validateEmail={this._validateEmail.bind(this)} /> :
+            <SignUp _googleLogin={this._googleLogin.bind(this)} _validateEmail={this._validateEmail.bind(this)} />;
 
         return (
             <View style={styles.container}>
                 {destinationPage}
             </View>
-            // navigate('Login', { onGoogleLogin: this._googleLogin.bind(this) })
-            // <View style={styles.container}>
-            //     {/* {this.state.loggedIn ? (
-            //         // <Profile name={this.state.name} />
-            //         this.props.navigation.navigate('Profile', { name: this.state.name })
-            //     ) : (
-            //             // <Login _googleLogin={this._googleLogin.bind(this)} />
-            //             this.props.navigation.navigate('Login', { onGoogleLogin: this._googleLogin.bind(this) })
-            //         )} */}
-            // </View>
         );
     }
 
@@ -99,11 +96,5 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-    },
-    // loginButton: {
-    //     marginTop: 20,
-    //     borderWidth: 1,
-    //     borderColor: '#000000',
-    //     color: '#ffffff'
-    // }
+    }
 });
