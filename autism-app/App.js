@@ -7,6 +7,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import Welcome from './components/Welcome';
 import SignUp from './components/SignUp';
 import SignUpForm from './components/SignUpForm';
+import PaymentInfo from './components/PaymentInfo';
 import TermsOfService from './components/TermsOfService';
 import PrivatePolicy from './components/PrivatePolicy';
 import Authenticate from './components/Authenticate';
@@ -15,11 +16,13 @@ import ForgotPassword from './components/ForgotPassword';
 import VerifyCode from './components/VerifyCode';
 import Profile from './components/Profile';
 
+
 // Will likely divide up StackNavigator to several components in the future 
 const MainNavigator = createStackNavigator({
     Welcome: { screen: Welcome },
     SignUp: { screen: SignUp },
     SignUpForm: { screen: SignUpForm },
+    PaymentInfo: { screen: PaymentInfo },
     TermsOfService: { screen: TermsOfService },
     PrivatePolicy: { screen: PrivatePolicy },
     Authenticate: { screen: Authenticate },

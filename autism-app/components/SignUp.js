@@ -14,7 +14,7 @@ class SignUp extends Component {
 
     state = {
         email: '',
-        // password: '',
+        password: '',
         // loggedIn: false,
         // name: ''
     };
@@ -25,7 +25,7 @@ class SignUp extends Component {
         }
         else {
             // alert("Email: " + this.state.email);
-            this.props.navigation.navigate('SignUpForm', { email: this.state.email });
+            this.props.navigation.navigate('SignUpForm', { email: this.state.email, password: this.state.password });
         }
     }
 
@@ -57,8 +57,9 @@ class SignUp extends Component {
                     </View>
                 </TouchableOpacity>
                 <Text style={{ marginTop: 5, marginBottom: 20 }}>OR SIGN UP WITH EMAIL</Text>
-                <Input placeholder="Email Address" style={styles.input} onChangeText={(text) => this.setState({ email: text })} />
-                <Button shadowless round color="#29d2e4" onPress={() => this._userSignUp()}>Get Started</Button>
+                <Input placeholder="New Email Address" style={styles.input} keyboardType={'email-address'} onChangeText={(text) => this.setState({ email: text })} />
+                <Input placeholder="New Password" value={this.state.password} style={styles.input} password viewPass onChangeText={(text) => this.setState({ password: text })} />
+                <Button shadowless round color="#29d2e4" style={{ marginTop: 20 }} onPress={() => this._userSignUp()}>Get Started</Button>
                 <Text style={{ fontSize: 13, marginTop: 20 }}>By signing up, you agree to Chronaly's</Text>
                 <View style={{ flexDirection: "row" }}>
                     <Text style={{ fontSize: 13, textDecorationLine: 'underline' }} onPress={() => this._showTermsOfService()}>Terms of Service</Text>
@@ -103,7 +104,6 @@ const styles = StyleSheet.create({
     },
     input: {
         width: '89%',
-        marginBottom: 20
     },
     termsPolicyText: {
         fontSize: 14
