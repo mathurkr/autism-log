@@ -13,11 +13,13 @@ export default class PaymentInfo extends Component {
     }
 
     _toProfileSetUp() {
-        // Placeholder for now
-        const { params } = this.props.navigation.state;
-        alert("Information added so far: \nEmail: " + params.email + " \nPassword: " + params.password +
-            "\nName: " + params.firstName + ' ' + params.lastName + '\nGender: ' + params.gender + '\nAge: ' +
-            params.age + '\nPhone: ' + params.phone);
+        // Placeholder for now -- connect to database to store information here
+        this.props.navigation.navigate('LoggerSelection');
+        // const { params } = this.props.navigation.state;
+        // alert("Information added so far: \nEmail: " + params.email + " \nPassword: " + params.password +
+        //     "\nName: " + params.firstName + ' ' + params.lastName + '\nGender: ' + params.gender + '\nAge: ' +
+        //     params.age + '\nPhone: ' + params.phone);
+
     }
 
     _displayPaymentForm() {
@@ -36,7 +38,7 @@ export default class PaymentInfo extends Component {
                 <View style={styles.container}>
                     <Button shadowless round color="#29d2e4" onPress={() => this._displayPaymentForm()}>Add Payment Information</Button>
                     <Button shadowless round color="#ffffff" onPress={() => this._toProfileSetUp()} style={styles.skipButton}>
-                        <Text>Skip this Step</Text>
+                        <Text>Skip this step</Text>
                     </Button>
                 </View>
         );

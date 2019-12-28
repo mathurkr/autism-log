@@ -14,6 +14,7 @@ import Authenticate from './components/Authenticate';
 import Login from './components/Login';
 import ForgotPassword from './components/ForgotPassword';
 import VerifyCode from './components/VerifyCode';
+import LoggerSelection from './components/LoggerSelection';
 import Profile from './components/Profile';
 
 
@@ -29,6 +30,7 @@ const MainNavigator = createStackNavigator({
     Login: { screen: Login },
     ForgotPassword: { screen: ForgotPassword },
     VerifyCode: { screen: VerifyCode },
+    LoggerSelection: { screen: LoggerSelection },
     Profile: { screen: Profile }
 });
 

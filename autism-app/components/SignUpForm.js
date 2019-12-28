@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableOpacity, KeyboardAvoidingView, Picker } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
 
 import { Button, Text, Input, theme } from 'galio-framework';
