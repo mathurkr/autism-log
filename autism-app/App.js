@@ -15,7 +15,9 @@ import Login from './components/Login';
 import ForgotPassword from './components/ForgotPassword';
 import VerifyCode from './components/VerifyCode';
 import LoggerSelection from './components/LoggerSelection';
-import Profile from './components/Profile';
+
+// Include MainTabNavigator as part of Stack Navigator for -- maybe find a better place to integrate it?
+import MainTabNavigator from './components/navigation/MainTabNavigator'
 
 
 // Will likely divide up StackNavigator to several components in the future 
@@ -31,7 +33,8 @@ const MainNavigator = createStackNavigator({
     ForgotPassword: { screen: ForgotPassword },
     VerifyCode: { screen: VerifyCode },
     LoggerSelection: { screen: LoggerSelection },
-    Profile: { screen: Profile }
+    // Include MainTabNavigator as part of Stack Navigator for -- maybe find a better place to integrate it?
+    Main: { screen: MainTabNavigator }
 });
 
 const App = createAppContainer(MainNavigator);

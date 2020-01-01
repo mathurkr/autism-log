@@ -4,7 +4,8 @@ import * as Google from 'expo-google-app-auth';
 
 import { Button } from 'galio-framework';
 
-import Profile from './Profile';
+import MainAppNavigator from './navigation/MainAppNavigator'
+// import Profile from './navigation/Profile';
 import Login from './Login';
 import SignUp from './SignUp';
 
@@ -28,11 +29,12 @@ export default class Authenticate extends Component {
     componentDidUpdate() {
         const { navigate } = this.props.navigation;
         if (this.state.authType == 'Login') {
-            navigate('Profile', { name: this.state.name });
+            // Placeholder for now (with params possibly changing)
+            navigate('Main', { name: this.state.name });
         }
         else if (this.state.authType == 'Sign Up') {
-            // Profile is a placeholder for now; should navigate to another page to complete registration process
-            navigate('Profile', { name: this.state.name });
+            // Placeholder for now (with params possibly changing); should navigate to another page to complete registration process
+            navigate('Main', { name: this.state.name });
         }
     }
 
