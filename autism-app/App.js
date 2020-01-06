@@ -1,9 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import { createAppContainer } from 'react-navigation';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
+// Components for the SignUp process
 import Welcome from './components/Welcome';
 import SignUp from './components/SignUp';
 import SignUpForm from './components/SignUpForm';
@@ -16,12 +17,12 @@ import ForgotPassword from './components/ForgotPassword';
 import VerifyCode from './components/VerifyCode';
 import LoggerSelection from './components/LoggerSelection';
 
-// Include MainTabNavigator as part of Stack Navigator for -- maybe find a better place to integrate it?
+// Include MainTabNavigator for main application navigation
 import MainTabNavigator from './components/navigation/MainTabNavigator'
 
 
-// Will likely divide up StackNavigator to several components in the future 
-const MainNavigator = createStackNavigator({
+// SignUpNavigator holds all components associated with SignUp process -- may divide them up in the future
+const SignUpNavigator = createStackNavigator({
     Welcome: { screen: Welcome },
     SignUp: { screen: SignUp },
     SignUpForm: { screen: SignUpForm },
@@ -33,11 +34,15 @@ const MainNavigator = createStackNavigator({
     ForgotPassword: { screen: ForgotPassword },
     VerifyCode: { screen: VerifyCode },
     LoggerSelection: { screen: LoggerSelection },
-    // Include MainTabNavigator as part of Stack Navigator for -- maybe find a better place to integrate it?
-    Main: { screen: MainTabNavigator }
 });
 
-const App = createAppContainer(MainNavigator);
+// Universal App Navigator
+const AppNavigator = createSwitchNavigator({
+    SignUp: SignUpNavigator,
+    Main: MainTabNavigator
+});
+
+const App = createAppContainer(AppNavigator);
 
 export default App;
 
