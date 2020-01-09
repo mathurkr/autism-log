@@ -8,12 +8,12 @@ import Header from './Header';
 import Switch from './Switch';
 
 export {
-  Button,
-  Select,
-  Icon,
-  Tabs,
-  Product,
-  Drawer,
-  Header,
-  Switch,
+    Button,
+    Select,
+    Icon,
+    Tabs,
+    Product,
+    Drawer,
+    Header,
+    Switch,
 };

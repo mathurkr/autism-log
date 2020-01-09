@@ -1,27 +1,47 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
+// import * as Google from 'expo-google-app-auth';
 // import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-
 
 import { Button, Block, Text, Input, theme } from 'galio-framework';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
 import { materialTheme, products, Images } from '../constants/';
 
+import { withNavigation } from 'react-navigation';
 
-export default class Login extends Component {
+
+class Login extends Component {
+    static navigationOptions = {
+        title: 'Login'
+    };
+
     state = {
         email: '',
         password: '',
-        loggedIn: false
+        // loggedIn: false,
+        // name: ''
     };
 
+    // constructor(props) {
+    //     super(props);
+    // }
+
     _userLogin() {
-        alert("Email: " + this.state.email + ", Password: " + this.state.password);
+        if (this.state.email == '' || !(this.props._validateEmail(this.state.email))) {
+            alert('Please Enter a Valid Email Address');
+        }
+        else if (this.state.password == '') {
+            alert('Please Enter Password');
+        }
+        else {
+            alert("Email: " + this.state.email + ", Password: " + this.state.password);
+        }
     }
 
     _forgotPassword() {
-        alert("Forgot Password Clicked");
+        //const { navigate } = this.props.navigation;
+        this.props.navigation.navigate('ForgotPassword');
+        // alert("Forgot Password Clicked");
     }
 
     render() {
@@ -34,17 +54,17 @@ export default class Login extends Component {
                         <Text style={styles.iconText}>     Login with Facebook</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity activeOpacity={0.9} style={styles.google}>
+                <TouchableOpacity activeOpacity={0.9} style={styles.google} onPress={() => this.props._googleLogin()}>
                     <View style={{ flexDirection: "row" }}>
                         <Icon name="google" color="#ffffff" size={30} />
                         <Text style={styles.iconText}>     Login with Google</Text>
                     </View>
                 </TouchableOpacity>
                 <Text style={{ marginTop: 5, marginBottom: 20 }}>OR LOGIN WITH EMAIL</Text>
-                <Input placeholder="Email Address" style={styles.input} onChangeText={(text) => this.setState({ email: text })} />
+                <Input placeholder="Email Address" style={styles.input} keyboardType={'email-address'} onChangeText={(text) => this.setState({ email: text })} />
                 <Input placeholder="Password" value={this.state.password} style={styles.input} password viewPass onChangeText={(text) => this.setState({ password: text })} />
                 <Text color="#0275d8" p style={styles.forgotPwd} onPress={() => this._forgotPassword()}>Forgot Password?</Text>
-                <Button shadowless round color="#50C7C7" onPress={() => this._userLogin()}>Login</Button>
+                <Button shadowless round color="#29d2e4" onPress={() => this._userLogin()}>Login</Button>
             </KeyboardAvoidingView>
         );
     }
@@ -72,8 +92,8 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         paddingTop: 15,
         paddingBottom: 15,
-        paddingLeft: 37,
-        paddingRight: 37,
+        paddingLeft: 25,
+        paddingRight: 48,
         backgroundColor: "#bf4334",
         borderRadius: 15,
     },
@@ -93,3 +113,6 @@ const styles = StyleSheet.create({
         marginBottom: 20
     }
 });
+
+export default withNavigation(Login);
+
