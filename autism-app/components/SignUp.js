@@ -6,6 +6,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { withNavigation } from 'react-navigation';
 
+import DB from './config/DatabaseConfig';
+
 
 class SignUp extends Component {
     static navigationOptions = {
@@ -19,12 +21,24 @@ class SignUp extends Component {
         // name: ''
     };
 
+    constructor() {
+        super();
+        this.ref = DB.firestore().collection('users');
+    }
+
     _userSignUp() {
         if (this.state.email == '' || !(this.props._validateEmail(this.state.email))) {
             alert('Please Enter a Valid Email Address');
         }
         else {
-            // alert("Email: " + this.state.email);
+            // For testing purposes right now, add the email and password to cloud firestore on Firebase -- this step will be done at the very end in the final app
+            this.ref.add({
+                email: this.state.email,
+                password: this.state.password
+            }).catch((error) => {
+                alert('There was an error adding the user to the DB');
+            });
+
             this.props.navigation.navigate('SignUpForm', { email: this.state.email, password: this.state.password });
         }
     }
@@ -39,9 +53,6 @@ class SignUp extends Component {
 
     render() {
         return (
-            // <View style={styles.container}>
-            //     <Text>Currently a blank Sign Up Page</Text>
-            // </View>
             <KeyboardAvoidingView style={styles.signUp} behavior="padding">
                 <Text h5>Welcome!</Text>
                 <TouchableOpacity activeOpacity={0.9} style={styles.facebook}>
