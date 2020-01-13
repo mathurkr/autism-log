@@ -3,12 +3,12 @@ import { StyleSheet, View } from 'react-native';
 
 import { Button, Text, Input } from 'galio-framework';
 
-export default class Profile extends Component {
+export default class Settings extends Component {
     render() {
-        const { params } = this.props.navigation.state;
+        // const { params } = this.props.navigation.state;
         return (
             <View style={styles.container}>
-                <Text>Welcome {params.name}!</Text>
+                <Text>This is the Settings Screen</Text>
             </View>
         );
     }

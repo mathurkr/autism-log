@@ -1,35 +1,48 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import { createAppContainer } from 'react-navigation';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
+// Components for the SignUp process
 import Welcome from './components/Welcome';
 import SignUp from './components/SignUp';
 import SignUpForm from './components/SignUpForm';
+import PaymentInfo from './components/PaymentInfo';
 import TermsOfService from './components/TermsOfService';
 import PrivatePolicy from './components/PrivatePolicy';
 import Authenticate from './components/Authenticate';
 import Login from './components/Login';
 import ForgotPassword from './components/ForgotPassword';
 import VerifyCode from './components/VerifyCode';
-import Profile from './components/Profile';
+import LoggerSelection from './components/LoggerSelection';
 
-// Will likely divide up StackNavigator to several components in the future 
-const MainNavigator = createStackNavigator({
+// Include MainTabNavigator for main application navigation
+import MainAppNavigator from './components/navigation/MainAppNavigator';
+
+
+// SignUpNavigator holds all components associated with SignUp process -- may divide them up in the future
+const SignUpNavigator = createStackNavigator({
     Welcome: { screen: Welcome },
     SignUp: { screen: SignUp },
     SignUpForm: { screen: SignUpForm },
+    PaymentInfo: { screen: PaymentInfo },
     TermsOfService: { screen: TermsOfService },
     PrivatePolicy: { screen: PrivatePolicy },
     Authenticate: { screen: Authenticate },
     Login: { screen: Login },
     ForgotPassword: { screen: ForgotPassword },
     VerifyCode: { screen: VerifyCode },
-    Profile: { screen: Profile }
+    LoggerSelection: { screen: LoggerSelection },
 });
 
-const App = createAppContainer(MainNavigator);
+// Universal App Navigator
+const UniversalNavigator = createSwitchNavigator({
+    SignUp: SignUpNavigator,
+    Main: MainAppNavigator
+});
+
+const App = createAppContainer(UniversalNavigator);
 
 export default App;
 

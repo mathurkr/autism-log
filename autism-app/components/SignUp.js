@@ -6,6 +6,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { withNavigation } from 'react-navigation';
 
+import DB from './config/DatabaseConfig';
+
 
 class SignUp extends Component {
     static navigationOptions = {
@@ -14,18 +16,30 @@ class SignUp extends Component {
 
     state = {
         email: '',
-        // password: '',
+        password: '',
         // loggedIn: false,
         // name: ''
     };
+
+    constructor() {
+        super();
+        this.ref = DB.firestore().collection('users');
+    }
 
     _userSignUp() {
         if (this.state.email == '' || !(this.props._validateEmail(this.state.email))) {
             alert('Please Enter a Valid Email Address');
         }
         else {
-            // alert("Email: " + this.state.email);
-            this.props.navigation.navigate('SignUpForm', { email: this.state.email });
+            // For testing purposes right now, add the email and password to cloud firestore on Firebase -- this step will be done at the very end in the final app
+            this.ref.add({
+                email: this.state.email,
+                password: this.state.password
+            }).catch((error) => {
+                alert('There was an error adding the user to the DB');
+            });
+
+            this.props.navigation.navigate('SignUpForm', { email: this.state.email, password: this.state.password });
         }
     }
 
@@ -39,9 +53,6 @@ class SignUp extends Component {
 
     render() {
         return (
-            // <View style={styles.container}>
-            //     <Text>Currently a blank Sign Up Page</Text>
-            // </View>
             <KeyboardAvoidingView style={styles.signUp} behavior="padding">
                 <Text h5>Welcome!</Text>
                 <TouchableOpacity activeOpacity={0.9} style={styles.facebook}>
@@ -57,8 +68,9 @@ class SignUp extends Component {
                     </View>
                 </TouchableOpacity>
                 <Text style={{ marginTop: 5, marginBottom: 20 }}>OR SIGN UP WITH EMAIL</Text>
-                <Input placeholder="Email Address" style={styles.input} onChangeText={(text) => this.setState({ email: text })} />
-                <Button shadowless round color="#29d2e4" onPress={() => this._userSignUp()}>Get Started</Button>
+                <Input placeholder="New Email Address" style={styles.input} keyboardType={'email-address'} onChangeText={(text) => this.setState({ email: text })} />
+                <Input placeholder="New Password" value={this.state.password} style={styles.input} password viewPass onChangeText={(text) => this.setState({ password: text })} />
+                <Button shadowless round color="#29d2e4" style={{ marginTop: 20 }} onPress={() => this._userSignUp()}>Get Started</Button>
                 <Text style={{ fontSize: 13, marginTop: 20 }}>By signing up, you agree to Chronaly's</Text>
                 <View style={{ flexDirection: "row" }}>
                     <Text style={{ fontSize: 13, textDecorationLine: 'underline' }} onPress={() => this._showTermsOfService()}>Terms of Service</Text>
@@ -103,7 +115,6 @@ const styles = StyleSheet.create({
     },
     input: {
         width: '89%',
-        marginBottom: 20
     },
     termsPolicyText: {
         fontSize: 14
