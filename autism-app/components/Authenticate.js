@@ -75,14 +75,26 @@ export default class Authenticate extends Component {
 
     _validateEmail = email => {
         const expression = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-        return expression.test(String(email).toLowerCase())
+        return expression.test(String(email).toLowerCase());
+    }
+
+    _validatePassword = password => {
+        const expression = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+        return expression.test(String(password));
     }
 
     render() {
         // const { params } = this.props.navigation.state;
         let destinationPage = (this.state.signedUp) ?
-            <Login _googleLogin={this._googleLogin.bind(this)} _validateEmail={this._validateEmail.bind(this)} /> :
-            <SignUp _googleLogin={this._googleLogin.bind(this)} _validateEmail={this._validateEmail.bind(this)} />;
+            <Login
+                _googleLogin={this._googleLogin.bind(this)}
+                _validateEmail={this._validateEmail.bind(this)}
+            /> :
+            <SignUp
+                _googleLogin={this._googleLogin.bind(this)}
+                _validateEmail={this._validateEmail.bind(this)}
+                _validatePassword={this._validatePassword.bind(this)}
+            />;
 
         return (
             <View style={styles.container}>
