@@ -27,26 +27,54 @@ export default class Welcome extends Component {
 
     render() {
         return (
+            <View style={styles.wrapper}>
             <View style={styles.container}>
-                <Button shadowless round color="#29d2e4" onPress={() => this._toSignUpPage()}>Sign Up</Button>
+                <Text style={styles.header}> Welcome to Luminous </Text>
+                <Text> Offering a better way to manage developmental disabilities and help children and adults with autism </Text>
+                <Button shadowless round color="#29d2e4" onPress={() => this._toSignUpPage()} style={styles.signup}> SIGN UP</Button>
                 <Button shadowless round color="#ffffff" onPress={() => this._toLoginPage()} style={styles.loginButton}>
-                    <Text>Login</Text>
+                    <Text>LOG IN</Text>
                 </Button>
+            </View>
             </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
+    wrapper: {
+        flex: 1
+    },
     container: {
-        flex: 1,
+        flex:1,
         alignItems: 'center',
         justifyContent: 'center',
+        paddingLeft: 40,
+        paddingRight: 40
     },
+    header: {
+        fontSize: 20,
+        marginBottom: 27,
+        fontWeight: 'bold',
+        marginTop: 36,
+        },
+    
+    subTitle: {
+        fontSize: 16,
+        fontWeight: 'normal',
+        lineHeight: 20
+    },
+
+    signup: {
+       marginBottom: 11, 
+       marginTop: 103
+    },
+
     loginButton: {
-        marginTop: 20,
         borderWidth: 1,
         borderColor: '#000000',
-        color: '#ffffff'
-    }
+        color: '#ffffff',
+    },
+
 });
+
