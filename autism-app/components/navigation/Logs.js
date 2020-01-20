@@ -7,7 +7,7 @@ export default class Logs extends Component {
 
     _openCamera() {
         // Navigate to open Camera page for now
-        this.props.navigation.navigate('CameraLog');
+        this.props.navigation.navigate('Camera');
     }
 
     render() {
