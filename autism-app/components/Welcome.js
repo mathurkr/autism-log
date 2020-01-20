@@ -1,13 +1,56 @@
-import React, { Component } from 'react';
-import { StyleSheet, View, Text, ScrollView, Dimensions, Image} from 'react-native';
+import * as React from 'react';
+import { StyleSheet, View, Text, ScrollView, Dimensions, Image, Animated} from 'react-native';
 
 import { Button } from 'galio-framework';
+const {width} = Dimensions.get('window');
 
 
-export default class Welcome extends Component {
+const photos = [
+    {photo: require('../assets/images/father_image.png'),
+     title: "Welcome to Luminous",
+    description: "Offering a better way to manage developmental disabilities and help children and adults with autism"}, 
+
+    {photo:  require('../assets/images/back_to_school.png'),
+    title: "Capture events while they happen",
+    description: "Observe and monitor behaviors, actions, and day to day interactions, to better manage metldown or burnouts" },
+
+   {photo: require('../assets/images/undraw_data.png'),
+    title: "Gather and use data for knowledge & insight",
+    description: "Aggregate and use customized visualizations to improve care and well being of those with autism"
+   },
+   { photo: require( '../assets/images/undraw_community.png'),
+    title: "Aggregate and share with your community",
+    description: "Use as a digital companion to help lead on the road to better health, productivity and happier lives."
+    }
+
+]
+
+
+
+export default class Welcome extends React.Component {
     static navigationOptions = {
         header: null
     };
+    scrollRef = React.createRef();
+
+    constructor(props) {
+        super(props);
+        this.state={
+            selectedIndex:0
+        };
+    }
+
+
+    setSelectedIndex = event => {
+        // width of the viewSize
+        const viewSize = event.nativeEvent.layoutMeasurement.width;
+        // get current position of the scrollView
+        const contentOffset = event.nativeEvent.contentOffset.x;
+
+        const selectedIndex = Math.floor(contentOffset / viewSize)
+        this.setState({selectedIndex})
+    }
+    
 
     // state = {
     //     signedUp: false,
@@ -26,48 +69,42 @@ export default class Welcome extends Component {
     }
 
     render() {
+        const {selectedIndex} = this.state;
         return (
-
-
             <View style={styles.container}>
-                <ScrollView horizontal={true} pagingEnabled={true} 
-                showsHorizontalScrollIndicator = {false} > 
 
-                    <View style={styles.imageContainer}>
-                        <Image style={styles.image}
-                        source={require('../assets/images/father_image.png')}/>
-                        <Text style={styles.title} > Welcome to Lumious </Text>
-                        <Text style={styles.description} > Offering a better way to manage developmental disabilities and help children and adults with autism </Text>
+                    <ScrollView horizontal={true} pagingEnabled={true} 
+                    showsHorizontalScrollIndicator = {false} onMomentumScrollEnd = {this.setSelectedIndex}> 
+
+                        {photos.map((source, i) => { // for every object in the photos array...
+                        return ( // ... we will return a square Image with the corresponding object as the source
+                        <View style = {styles.imageContainer}> 
+                                <Image style={styles.images}
+                                key={i} // we will use i for the key because no two (or more) elements in an array will have the same index
+                                style={{        width: 300,
+                                    height:300}}
+                                source={source.photo}
+                            />
+                            <View style = {styles.container}> 
+                            <Text style={styles.title}> {source.title} </Text>
+                            <Text style={styles.description}> {source.description} </Text>
+                            </View>
+                        </View>
+                        );
+                        })}
+                    
+                    </ScrollView>
+
+                    <View style={styles.circleDiv}>
+                        {photos.map((source,i)=> (
+                            <View 
+                            key={source.photo}
+                            style={[styles.whiteCircle, {opacity: i === selectedIndex ? 0.5 : 1}]}
+                            /> 
+                        ))}
                     </View>
-
-                    <View style={styles.imageContainer}>
-                        <Image style={styles.image}
-                        source={require('../assets/images/back_to_school.png')}/>
-                        <Text style={styles.title} > Capture events while they happen </Text>
-                        <Text style={styles.description} > Observe and monitor behaviors, actions, and day to day interactions, to better manage metldown or burnouts </Text>
-                    </View>
-
-
-                    <View style={styles.imageContainer}>
-                        <Image style={styles.image}
-                        source={require('../assets/images/undraw_data.png')}/>
-                        <Text style={styles.title} > Gather and use data for knowledge & insight</Text>
-                        <Text style={styles.description} > Aggregate and use customized visualizations to improve care and well being of those with autism </Text>
-                    </View>
-
-
-                    <View style={styles.imageContainer}>
-                        <Image style={styles.image}
-                        source={require('../assets/images/undraw_community.png')}/>
-                        <Text style={styles.title} > Aggregate and share with your community </Text>
-                        <Text style={styles.description} > Use as a digital companion to help lead on the road to better health, productivity and happier lives. </Text>
-                    </View>
-
-
-
-
-                </ScrollView>
-
+                
+           
                 
 
                 <View style={styles.buttonContainer}>
@@ -86,8 +123,8 @@ export default class Welcome extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        //backgroundColor: '#3498db'
     },
+
     imageContainer : {
         alignItems:'center',
         flexGrow: 1,
@@ -97,8 +134,7 @@ const styles = StyleSheet.create({
     }, 
 
     image: {
-        width: 300,
-        height:300
+ 
     },
 
     title: {
@@ -135,6 +171,27 @@ const styles = StyleSheet.create({
         height: 40,
         marginBottom: 40,
         paddingHorizontal: 10
+    },
+
+    circleDiv:
+    {
+        height: 10,
+        display: "flex",
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        display: 'flex',
+        marginBottom: 75
+    },
+
+    whiteCircle:
+    {
+        width: 6,
+        height: 6,
+        borderRadius: 3,
+        margin: 5,
+        backgroundColor: 'grey'
     }
 
 
