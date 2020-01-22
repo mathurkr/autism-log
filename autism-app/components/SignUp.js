@@ -115,6 +115,8 @@ const styles = StyleSheet.create({
     },
     input: {
         width: '89%',
+        backgroundColor: '#E9EDEF',
+
     },
     termsPolicyText: {
         fontSize: 14

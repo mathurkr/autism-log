@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
         alignItems:'center',
         flexGrow: 1,
         justifyContent: 'center',
-        marginTop:20,
+        marginTop: 50,
         width: Dimensions.get('window').width
     }, 
 
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: '100%',
         display: 'flex',
-        marginBottom: 75
+        marginBottom: 105
     },
 
     whiteCircle:

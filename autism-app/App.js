@@ -19,10 +19,11 @@ import LoggerSelection from './components/LoggerSelection';
 
 // Include MainTabNavigator for main application navigation
 import MainAppNavigator from './components/navigation/MainAppNavigator';
-
+import Profile from './components/navigation/Profile';
 
 // SignUpNavigator holds all components associated with SignUp process -- may divide them up in the future
 const SignUpNavigator = createStackNavigator({
+    //Profile: { screen: Profile},
     Welcome: { screen: Welcome },
     SignUp: { screen: SignUp },
     SignUpForm: { screen: SignUpForm },

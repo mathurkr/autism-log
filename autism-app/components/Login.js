@@ -64,7 +64,7 @@ class Login extends Component {
                 <Input placeholder="Email Address" style={styles.input} keyboardType={'email-address'} onChangeText={(text) => this.setState({ email: text })} />
                 <Input placeholder="Password" value={this.state.password} style={styles.input} password viewPass onChangeText={(text) => this.setState({ password: text })} />
                 <Text color="#0275d8" p style={styles.forgotPwd} onPress={() => this._forgotPassword()}>Forgot Password?</Text>
-                <Button shadowless round color="#29d2e4" onPress={() => this._userLogin()}>Login</Button>
+                <Button shadowless round color="#29d2e4" onPress={() => this._userLogin()}> LOGIN </Button>
             </KeyboardAvoidingView>
         );
     }
@@ -103,7 +103,9 @@ const styles = StyleSheet.create({
         marginTop: 3
     },
     input: {
-        width: '89%'
+        width: '89%',
+        backgroundColor: '#E9EDEF',
+        height: 50,
     },
     forgotPwd: {
         fontSize: 12,
