@@ -12,7 +12,7 @@ import Settings from './Settings';
 import Logs from './Logs';
 
 // Import device components
-import CameraLog from './CameraLog';
+import CameraLog from './camera/CameraLog';
 
 
 const config = Platform.select({
@@ -78,7 +78,7 @@ SettingsStack.path = '';
 const LogsStack = createSwitchNavigator(
     {
         Logs: Logs,
-        CameraLog: CameraLog
+        // CameraLog: CameraLog
     },
     config
 );
@@ -92,13 +92,21 @@ LogsStack.navigationOptions = {
 
 LogsStack.path = '';
 
-const tabNavigator = createBottomTabNavigator({
+const TabNavigator = createBottomTabNavigator({
     HomeStack,
     ProfileStack,
     SettingsStack,
     LogsStack
 });
 
-tabNavigator.path = '';
+TabNavigator.path = '';
 
-export default tabNavigator;
+const AppNavigator = createSwitchNavigator(
+    {
+        Tabs: TabNavigator,
+        Camera: CameraLog
+    },
+    config
+);
+
+export default AppNavigator;

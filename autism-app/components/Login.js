@@ -9,6 +9,8 @@ import { materialTheme, products, Images } from '../constants/';
 
 import { withNavigation } from 'react-navigation';
 
+import DB from './config/DatabaseConfig';
+
 
 class Login extends Component {
     static navigationOptions = {
@@ -28,13 +30,19 @@ class Login extends Component {
 
     _userLogin() {
         if (this.state.email == '' || !(this.props._validateEmail(this.state.email))) {
-            alert('Please Enter a Valid Email Address');
+            alert('Please Enter a valid email address');
         }
         else if (this.state.password == '') {
             alert('Please Enter Password');
         }
         else {
-            alert("Email: " + this.state.email + ", Password: " + this.state.password);
+            // alert("Email: " + this.state.email + ", Password: " + this.state.password);
+
+            // Sign in user to database (if they exist) with provided email and password (use sample user name for now)
+            DB.auth()
+                .signInWithEmailAndPassword(this.state.email, this.state.password)
+                .then(() => this.props.navigation.navigate('Main', { name: "Test" }))
+                .catch(error => "User does not exist");
         }
     }
 

@@ -28,18 +28,27 @@ class SignUp extends Component {
 
     _userSignUp() {
         if (this.state.email == '' || !(this.props._validateEmail(this.state.email))) {
-            alert('Please Enter a Valid Email Address');
+            alert('Please enter a valid email address');
+        }
+        else if (this.state.password == '' || !(this.props._validatePassword(this.state.password))) {
+            alert('Please enter a password containing at least 8 characters, with at least 1 lowercase, 1 uppercase, 1 numeric, and 1 special character');
         }
         else {
             // For testing purposes right now, add the email and password to cloud firestore on Firebase -- this step will be done at the very end in the final app
-            this.ref.add({
-                email: this.state.email,
-                password: this.state.password
-            }).catch((error) => {
-                alert('There was an error adding the user to the DB');
-            });
+            // this.ref.add({
+            //     email: this.state.email,
+            //     password: this.state.password
+            // }).catch((error) => {
+            //     alert('There was an error adding the user to the DB');
+            // });
 
-            this.props.navigation.navigate('SignUpForm', { email: this.state.email, password: this.state.password });
+            // Authenticate user email and password with database
+            DB.auth()
+                .createUserWithEmailAndPassword(this.state.email, this.state.password)
+                .then(() => this.props.navigation.navigate('SignUpForm', { email: this.state.email, password: this.state.password }))
+                .catch(error => "There was an error authenticating the user with the database");
+
+            // this.props.navigation.navigate('SignUpForm', { email: this.state.email, password: this.state.password });
         }
     }
 
