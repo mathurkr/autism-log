@@ -4,7 +4,7 @@ import * as Google from 'expo-google-app-auth';
 
 import { Button } from 'galio-framework';
 
-import MainAppNavigator from './navigation/MainAppNavigator'
+// import MainAppNavigator from './navigation/MainAppNavigator'
 // import Profile from './navigation/Profile';
 import Login from './Login';
 import SignUp from './SignUp';

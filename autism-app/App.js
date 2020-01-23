@@ -6,16 +6,16 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 // Components for the SignUp process
 import Welcome from './components/Welcome';
-import SignUp from './components/SignUp';
-import SignUpForm from './components/SignUpForm';
-import PaymentInfo from './components/PaymentInfo';
-import TermsOfService from './components/TermsOfService';
-import PrivatePolicy from './components/PrivatePolicy';
-import Authenticate from './components/Authenticate';
-import Login from './components/Login';
-import ForgotPassword from './components/ForgotPassword';
-import VerifyCode from './components/VerifyCode';
-import LoggerSelection from './components/LoggerSelection';
+import SignUp from './components/login/SignUp';
+import SignUpForm from './components/login/SignUpForm';
+import PaymentInfo from './components/login/PaymentInfo';
+import TermsOfService from './components/login/TermsOfService';
+import PrivatePolicy from './components/login/PrivatePolicy';
+import Authenticate from './components/login/Authenticate';
+import Login from './components/login/Login';
+import ForgotPassword from './components/login/ForgotPassword';
+import VerifyCode from './components/login/VerifyCode';
+import LoggerSelection from './components/login/LoggerSelection';
 
 // Include MainTabNavigator for main application navigation
 import MainAppNavigator from './components/navigation/MainAppNavigator';

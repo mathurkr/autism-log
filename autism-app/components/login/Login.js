@@ -5,11 +5,11 @@ import { StyleSheet, View, TouchableOpacity, KeyboardAvoidingView } from 'react-
 
 import { Button, Block, Text, Input, theme } from 'galio-framework';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { materialTheme, products, Images } from '../constants/';
+// import { materialTheme, products, Images } from '../constants/';
 
 import { withNavigation } from 'react-navigation';
 
-import DB from './config/DatabaseConfig';
+import DB from '../config/DatabaseConfig';
 
 
 class Login extends Component {
