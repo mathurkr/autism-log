@@ -46,7 +46,6 @@ export default class Welcome extends React.Component {
         const viewSize = event.nativeEvent.layoutMeasurement.width;
         // get current position of the scrollView
         const contentOffset = event.nativeEvent.contentOffset.x;
-
         const selectedIndex = Math.floor(contentOffset / viewSize)
         this.setState({selectedIndex})
     }
@@ -77,7 +76,7 @@ export default class Welcome extends React.Component {
                     showsHorizontalScrollIndicator = {false} onMomentumScrollEnd = {this.setSelectedIndex}> 
 
                         {photos.map((source, i) => { // for every object in the photos array...
-                        return ( // ... we will return a square Image with the corresponding object as the source
+                        return ( // ... we will return an Image with the corresponding object as the source
                         <View style = {styles.imageContainer}> 
                                 <Image style={styles.images}
                                 key={i} // we will use i for the key because no two (or more) elements in an array will have the same index
@@ -85,14 +84,14 @@ export default class Welcome extends React.Component {
                                     height:300}}
                                 source={source.photo}
                             />
-                            <View style = {styles.container}> 
+                            <View> 
                             <Text style={styles.title}> {source.title} </Text>
                             <Text style={styles.description}> {source.description} </Text>
                             </View>
                         </View>
                         );
-                        })}
-                    
+                    })}
+
                     </ScrollView>
 
                     <View style={styles.circleDiv}>
@@ -123,19 +122,16 @@ export default class Welcome extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+
     },
 
     imageContainer : {
         alignItems:'center',
         flexGrow: 1,
         justifyContent: 'center',
-        marginTop: 50,
-        width: Dimensions.get('window').width
+        width: Dimensions.get('window').width,
     }, 
 
-    image: {
- 
-    },
 
     title: {
         marginTop: 10,
@@ -179,10 +175,8 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: 'row',
         justifyContent: 'center',
-        alignItems: 'center',
         width: '100%',
         display: 'flex',
-        marginBottom: 105
     },
 
     whiteCircle:

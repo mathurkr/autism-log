@@ -39,22 +39,24 @@ export default class Profile extends Component {
         // const { params } = this.props.navigation.state;
         return (
             <ScrollView style={styles.container}>
-                <LinearGradient
+  
+
+        <View style={styles.header}>
+        <LinearGradient
                 colors={['#4AD4D4', '#C395FF']}
                 style={{flex: 1}}
                 start={{x:0, y:0}}
                 end={{x: 1, y:1}}> 
-
-<View style={styles.header}>
             <View style={styles.headerContent}>
                 <Image style={styles.avatar} source={{uri: 'https://bootdey.com/img/Content/avatar/avatar1.png'}}/>
                 <Text style={styles.profileName}> Charles Darwin </Text>
                 <Text style={styles.profileInfo}> 12, Male </Text>      
 
             </View>
+            </LinearGradient>
+
           </View>
 
-                </LinearGradient>
 
 
                 <View style={styles.container}>
@@ -109,7 +111,7 @@ const styles = StyleSheet.create({
     profileInfo: {
         fontSize: 14,
         alignItems: 'center',
-        color: '#9d9d9d'
+        color: 'black'
     },
 
     sectionTitle: {
@@ -226,11 +228,11 @@ const styles = StyleSheet.create({
       header:{
       },
 
-
       headerContent:{
-        padding:30,
+        paddingTop:40,
         alignItems: 'center',
       },
+      
       avatar: {
         width: 130,
         height: 130,
