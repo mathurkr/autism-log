@@ -33,6 +33,7 @@ export default class QuickLog extends Component {
     render() {
         return (
             <View style={styles.container}>
+                <Text>Media (Optional)</Text>
                 <Text>Location</Text>
                 {/* Start with single-line text field, transition to location search if a library exists for react native. */}
                 <TextInput
