@@ -13,6 +13,7 @@ import Logs from './Logs';
 
 // Import device components
 import CameraLog from './camera/CameraLog';
+import MainCamera from './camera/MainCamera';
 
 
 const config = Platform.select({
@@ -78,6 +79,7 @@ SettingsStack.path = '';
 const LogsStack = createSwitchNavigator(
     {
         Logs: Logs,
+        Camera: MainCamera
         // CameraLog: CameraLog
     },
     config
