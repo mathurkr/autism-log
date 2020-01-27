@@ -1,6 +1,6 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { createBottomTabNavigator, createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import { createSwitchNavigator } from 'react-navigation';
 
 import TabBarIcon from './TabBarIcon';
@@ -12,7 +12,8 @@ import Settings from './Settings';
 import Logs from './Logs';
 
 // Import device components
-import CameraLog from './camera/CameraLog';
+// import CameraLog from './camera/CameraLog';
+import QuickCamera from './camera/QuickCamera';
 import MainCamera from './camera/MainCamera';
 
 
@@ -23,7 +24,7 @@ const config = Platform.select({
 
 const HomeStack = createSwitchNavigator(
     {
-        Home: Home,
+        Home: Home
     },
     config
 );
@@ -79,8 +80,8 @@ SettingsStack.path = '';
 const LogsStack = createSwitchNavigator(
     {
         Logs: Logs,
-        Camera: MainCamera
-        // CameraLog: CameraLog
+        Camera: MainCamera,
+        QuickCamera: QuickCamera
     },
     config
 );
@@ -103,12 +104,28 @@ const TabNavigator = createBottomTabNavigator({
 
 TabNavigator.path = '';
 
-const AppNavigator = createSwitchNavigator(
+const AppNavigator = createMaterialTopTabNavigator(
     {
-        Tabs: TabNavigator,
-        Camera: CameraLog
+        QuickCamera: QuickCamera,
+        TabsNavigator: TabNavigator
     },
-    config
+    {
+        initialRouteName: "TabsNavigator",
+        animationEnabled: true,
+        tabBarOptions: {
+            showLabel: false,
+            showIcon: false,
+            style: { height: 0 }
+        }
+    }
 );
+
+// const AppNavigator = createSwitchNavigator(
+//     {
+//         Tabs: TabNavigator,
+//         // CameraLog: CameraLog
+//     },
+//     config
+// );
 
 export default AppNavigator;

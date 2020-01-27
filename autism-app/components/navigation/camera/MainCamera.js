@@ -101,7 +101,7 @@ export default class MainCamera extends Component {
             <View style={styles.container}>
                 <Image style={styles.image} source={{ uri: this.state.media }} />
                 <View>
-                    <Button shadowless round color="#29d2e4" onPress={this._selectMedia} style={styles.button}>Gallery</Button>
+                    <Button shadowless round color="#29d2e4" onPress={this._selectMedia} style={styles.button}>Add from Gallery</Button>
                     <Button shadowless round color="#29d2e4" onPress={this._takePicture} style={styles.button}>Take Picture</Button>
                     <Button shadowless round color="#29d2e4" onPress={this._takeVideo} style={styles.button}>Take Video</Button>
                 </View>
