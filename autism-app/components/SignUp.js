@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, Dimensions, View, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 
 import { Button, Block, Text, Input, theme } from 'galio-framework';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -53,23 +53,23 @@ class SignUp extends Component {
 
     render() {
         return (
-            <KeyboardAvoidingView style={styles.signUp} behavior="padding">
-                <Text h5>Welcome!</Text>
+            <KeyboardAvoidingView style={styles.container} behavior="padding">
+                <Text style ={styles.welcomeMessage}>  Sign Up </Text>
+
                 <TouchableOpacity activeOpacity={0.9} style={styles.facebook}>
                     <View style={{ flexDirection: "row" }}>
                         <Icon name="facebook-square" color="#ffffff" size={30} />
-                        <Text style={styles.iconText}>     Continue with Facebook</Text>
+                        <Text style={styles.iconText}>Continue with Facebook</Text>
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity activeOpacity={0.9} style={styles.google} onPress={() => this.props._googleLogin()}>
                     <View style={{ flexDirection: "row" }}>
                         <Icon name="google" color="#ffffff" size={30} />
-                        <Text style={styles.iconText}>     Continue with Google</Text>
+                        <Text style={styles.iconText}>Continue with Google</Text>
                     </View>
                 </TouchableOpacity>
-                <Text style={{ marginTop: 5, marginBottom: 20 }}>OR SIGN UP WITH EMAIL</Text>
-                <Input placeholder="New Email Address" style={styles.input} keyboardType={'email-address'} onChangeText={(text) => this.setState({ email: text })} />
-                <Input placeholder="New Password" value={this.state.password} style={styles.input} password viewPass onChangeText={(text) => this.setState({ password: text })} />
+                <Text style={{ marginTop: 5, marginBottom: 20, fontSize: 13 }}>OR SIGN UP WITH EMAIL</Text>
+                <Input placeholder="Email Address" style={styles.input} keyboardType={'email-address'} onChangeText={(text) => this.setState({ email: text })} />
                 <Button shadowless round color="#29d2e4" style={{ marginTop: 20 }} onPress={() => this._userSignUp()}>Get Started</Button>
                 <Text style={{ fontSize: 13, marginTop: 20 }}>By signing up, you agree to Chronaly's</Text>
                 <View style={{ flexDirection: "row" }}>
@@ -84,35 +84,44 @@ class SignUp extends Component {
 }
 
 const styles = StyleSheet.create({
-    signUp: {
+    container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
+        paddingTop: 30,
+        width: Dimensions.get('window').width, 
     },
+
     facebook: {
         marginTop: 20,
-        paddingTop: 15,
-        paddingBottom: 15,
-        paddingLeft: 25,
-        paddingRight: 25,
+        paddingTop:10, paddingLeft:20, paddingRight:20, paddingBottom:10,
         backgroundColor: "#3b5998",
-        borderRadius: 15,
+        borderRadius: 27,
+        width: '82%',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
+
+
     google: {
         marginTop: 20,
         marginBottom: 20,
-        paddingTop: 15,
-        paddingBottom: 15,
-        paddingLeft: 24,
-        paddingRight: 46,
+        paddingTop:10, paddingLeft:20, paddingRight:20, paddingBottom:10,
         backgroundColor: "#bf4334",
-        borderRadius: 15,
+        borderRadius: 27,
+        width: '82%',
+        justifyContent: 'center',
+        alignItems: 'center',
+
     },
+
     iconText: {
         fontSize: 16,
         color: "#ffffff",
-        marginTop: 3
+        alignSelf: 'center',
+        paddingLeft: 24,
     },
+    
+
     input: {
         width: '89%',
         backgroundColor: '#E9EDEF',
@@ -120,7 +129,13 @@ const styles = StyleSheet.create({
     },
     termsPolicyText: {
         fontSize: 14
+    },
+
+    welcomeMessage:{
+        fontSize: 20,
+        paddingBottom: 40
     }
+
 });
 
 export default withNavigation(SignUp);

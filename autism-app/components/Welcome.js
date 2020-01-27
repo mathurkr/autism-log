@@ -151,22 +151,26 @@ const styles = StyleSheet.create({
     },
 
     buttonContainer: {
-        padding: 20
+        padding: 20,
+        justifyContent: 'center', alignItems: 'center'
     },
 
     signupBtn: {
-        height: 40,
+        height: 50,
         marginBottom: 20,
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
+        width: '82%',
+
     },
 
     loginBtn: {
         borderWidth: 1,
         borderColor: '#000000',
         color: '#ffffff',
-        height: 40,
+        height: 50,
         marginBottom: 40,
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
+        width: '82%',
     },
 
     circleDiv:
@@ -177,6 +181,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: '100%',
         display: 'flex',
+        
     },
 
     whiteCircle:
