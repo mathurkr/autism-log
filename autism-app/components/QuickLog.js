@@ -3,7 +3,7 @@ import { StyleSheet, View, Text } from 'react-native';
 import { TextInput } from 'react-native';
 
 import { Button } from 'galio-framework';
-// import Slider from '@react-native-community/slider';
+import Slider from '@react-native-community/slider';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 export default class QuickLog extends Component {
@@ -16,6 +16,7 @@ export default class QuickLog extends Component {
         this.state = {
             text: '',
             date: new Date(),
+            show: false
             
         };
 
@@ -29,24 +30,40 @@ export default class QuickLog extends Component {
             date,
         });
     }
+
+    toggleDatePicker = ()=>{
+        if(!this.show){
+            this.setState({show:true});
+        }
+        else{
+            this.setState({show:false});
+        }
+        
+    }
     
     render() {
         return (
             <View style={styles.container}>
-                <Text>Media (Optional)</Text>
                 <Text>Location</Text>
                 {/* Start with single-line text field, transition to location search if a library exists for react native. */}
                 <TextInput
+                    style={styles.TextInput}
                     onChangeText={text => this.setState({text})}
                     value={this.state.text}
                 />
-                <Text>Date</Text>
+                <Text>{this.state.text}</Text>
+                <Button shadowless round color="#ffffff" onPress={this.toggleDatePicker}>
+                    <Text>Date:</Text>
+                    <Text>{this.state.date.toLocaleString('en-US')}</Text>
+                </Button>
                 {/* Find date picker */}
-                <DateTimePicker value={date}
+                {this.state.show && <DateTimePicker value={this.state.date}
                     mode='date'
                     is24Hour={true}
                     display="default"
-                    onChange={this.setDate} />
+                    onChange={this.setDate} />}
+                
+                <Text>Picker: {this.state.show.toString()}</Text>
                 <Text>Meltdown Triggers</Text>
                 {/* Need 5 custom buttons with images inside of them. Maybe create a component? */}
                 <Text>Severity</Text>
@@ -77,5 +94,12 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#000000',
         color: '#ffffff'
+    },
+
+    TextInput: {
+        width: '90%',
+        height: 40, 
+        borderColor: 'gray',
+        borderWidth: 1 
     }
 });
