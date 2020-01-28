@@ -4,19 +4,33 @@ import { StyleSheet, View } from 'react-native';
 import { Button, Text } from 'galio-framework';
 // import Icon from 'react-native-vector-icons/FontAwesome';
 
+import DB from '../config/DatabaseConfig';
+
+
 export default class LoggerSelection extends Component {
     state = {
         loggerType: ''
     }
 
-    _setSelfLogger() {
-        this.setState({ loggerType: 'Self-Logger' })
-        // Link to medical diagnostic page after setting user type
-    }
+    componentDidUpdate() {
+        const { params } = this.props.navigation.state;
+        const collection = DB.firestore().collection('users');
+        // Store all user account information so far -- new added information for self-logger will be in another collection
+        collection.add({
+            email: params.email,
+            // password: this.state.password  // Don't store password directly in database for security reasons
+            firstName: params.firstName,
+            lastName: params.lastName,
+            phone: params.phone,
+            age: params.age,
+            gender: params.gender,
+            loggerType: this.state.loggerType
+        }).catch((error) => {
+            alert('There was an error adding the user to the DB');
+        });
 
-    _setCaregiver() {
-        this.setState({ loggerType: 'Caregiver' })
-        // Link to medical diagnostic page after setting user type
+        // Go to Profile Set Up
+        this.props.navigation.navigate('ProfileSetUp');
     }
 
     render() {
@@ -34,7 +48,7 @@ export default class LoggerSelection extends Component {
                             color="#83A3FA"
                             iconColor="#fff"
                             style={{ width: 75, height: 75 }}
-                            onPress={() => this._setSelfLogger()}
+                            onPress={() => this.setState({ loggerType: 'Self-Logger' })}
                         >
                         </Button>
                         <Text style={{ fontWeight: 'bold' }} p>Self-Logger</Text>
@@ -48,7 +62,7 @@ export default class LoggerSelection extends Component {
                             color="#A970CF"
                             iconColor="#fff"
                             style={{ width: 75, height: 75 }}
-                            onPress={() => this._setCaregiver()}
+                            onPress={() => this.setState({ loggerType: 'Caregiver' })}
                         >
                         </Button>
                         <Text style={{ fontWeight: 'bold' }} p>Caregiver</Text>

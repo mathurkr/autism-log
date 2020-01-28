@@ -16,6 +16,7 @@ import Login from './components/login/Login';
 import ForgotPassword from './components/login/ForgotPassword';
 import VerifyCode from './components/login/VerifyCode';
 import LoggerSelection from './components/login/LoggerSelection';
+import ProfileSetUp from './components/login/ProfileSetUp';
 
 // Include MainTabNavigator for main application navigation
 import MainAppNavigator from './components/navigation/MainAppNavigator';
@@ -34,6 +35,7 @@ const SignUpNavigator = createStackNavigator({
     ForgotPassword: { screen: ForgotPassword },
     VerifyCode: { screen: VerifyCode },
     LoggerSelection: { screen: LoggerSelection },
+    ProfileSetUp: { screen: ProfileSetUp }
 });
 
 // Universal App Navigator
@@ -45,7 +47,6 @@ const UniversalNavigator = createSwitchNavigator({
 const App = createAppContainer(UniversalNavigator);
 
 export default App;
-
 
 
 // export default function App() {

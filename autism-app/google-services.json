@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "778168364367",
+    "firebase_url": "https://luminous-autism-app.firebaseio.com",
+    "project_id": "luminous-autism-app",
+    "storage_bucket": "luminous-autism-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:778168364367:android:1bb67f17e095f929f4e93a",
+        "android_client_info": {
+          "package_name": "com.luminous.expo.googlesignin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "778168364367-3ha66f584kkjuu5tpi1ll9cvglbr91sr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWmJLMNBFZBZLaYEYVa6L9ZX8TcdjEjqE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "778168364367-3ha66f584kkjuu5tpi1ll9cvglbr91sr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "778168364367-0gpki6l1kr01ebgurh9ea8m4cdmuv78d.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.luminous.expo.googlesignin"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
