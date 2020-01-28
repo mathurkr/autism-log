@@ -21,8 +21,10 @@ import LoggerSelection from './components/LoggerSelection';
 import MainAppNavigator from './components/navigation/MainAppNavigator';
 import Profile from './components/navigation/Profile';
 import Settings from './components/navigation/Settings'
+import Home from './components/navigation/Home'
 // SignUpNavigator holds all components associated with SignUp process -- may divide them up in the future
 const SignUpNavigator = createStackNavigator({
+    Home: { screen: Home},
     //Settings: { screen: Settings},
     Profile: { screen: Profile},
     Welcome: { screen: Welcome },
