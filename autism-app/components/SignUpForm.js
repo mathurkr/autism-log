@@ -4,6 +4,8 @@ import ModalDropdown from 'react-native-modal-dropdown';
 
 import { Button, Text, Input, theme } from 'galio-framework';
 
+import firebase from './config/DatabaseConfig'
+
 
 export default class SignUpForm extends Component {
     state = {
@@ -58,6 +60,28 @@ export default class SignUpForm extends Component {
         }
         else {
             // alert('Name: ' + this.state.firstName + ' ' + this.state.lastName + ', Gender: ' + this.state.gender + ', Age: ' + this.state.age + ', Phone: ' + this.state.phone);
+
+            //MUST CHANGE FIRESTORE RULES TO: "allow read, write: if true;""
+
+            //Get user id
+            var uid = firebase.auth().currentUser.uid
+
+            //Create entry in db
+            firebase.firestore().collection('users').doc(`${uid}`).set({
+                email: this.state.email,
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
+                phone: this.state.phone,
+                age: this.state.age,
+                gender: this.state.gender
+            })
+            .then(function() {
+                console.log('Success')
+            })
+            .catch(function(error) {
+                console.log(error)
+            })
+
             this.props.navigation.navigate('PaymentInfo',
                 {
                     email: this.state.email,
@@ -68,9 +92,10 @@ export default class SignUpForm extends Component {
                     age: this.state.age,
                     gender: this.state.gender
                 });
-
+    
         }
     }
+
 
     render() {
         return (
