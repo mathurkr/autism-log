@@ -24,9 +24,9 @@ import Settings from './components/navigation/Settings'
 import Home from './components/navigation/Home'
 // SignUpNavigator holds all components associated with SignUp process -- may divide them up in the future
 const SignUpNavigator = createStackNavigator({
-    Home: { screen: Home},
+   // Home: { screen: Home},
     //Settings: { screen: Settings},
-    Profile: { screen: Profile},
+    //Profile: { screen: Profile},
     Welcome: { screen: Welcome },
     SignUp: { screen: SignUp },
     SignUpForm: { screen: SignUpForm },
