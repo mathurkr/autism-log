@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, View, Dimensions, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 // import * as Google from 'expo-google-app-auth';
 // import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
@@ -14,7 +14,8 @@ import DB from '../config/DatabaseConfig';
 
 class Login extends Component {
     static navigationOptions = {
-        title: 'Login'
+        header: null
+      //  title: 'Login'
     };
 
     state = {
@@ -54,25 +55,25 @@ class Login extends Component {
 
     render() {
         return (
-            <KeyboardAvoidingView style={styles.login} behavior="padding">
-                <Text h5>Welcome Back!</Text>
+            <KeyboardAvoidingView style={styles.container} behavior="padding">
+                <Text style={styles.SignUpMsg}> Welcome Back! </Text>
                 <TouchableOpacity activeOpacity={0.9} style={styles.facebook}>
                     <View style={{ flexDirection: "row" }}>
                         <Icon name="facebook-square" color="#ffffff" size={30} />
-                        <Text style={styles.iconText}>     Login with Facebook</Text>
+                        <Text style={styles.iconText}>Login with Facebook</Text>
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity activeOpacity={0.9} style={styles.google} onPress={() => this.props._googleLogin()}>
                     <View style={{ flexDirection: "row" }}>
                         <Icon name="google" color="#ffffff" size={30} />
-                        <Text style={styles.iconText}>     Login with Google</Text>
+                        <Text style={styles.iconText}>Login with Google</Text>
                     </View>
                 </TouchableOpacity>
-                <Text style={{ marginTop: 5, marginBottom: 20 }}>OR LOGIN WITH EMAIL</Text>
+                <Text style={{ marginTop: 5, marginBottom: 20, fontSize: 13 }}>OR LOGIN WITH EMAIL</Text>
                 <Input placeholder="Email Address" style={styles.input} keyboardType={'email-address'} onChangeText={(text) => this.setState({ email: text })} />
                 <Input placeholder="Password" value={this.state.password} style={styles.input} password viewPass onChangeText={(text) => this.setState({ password: text })} />
                 <Text color="#0275d8" p style={styles.forgotPwd} onPress={() => this._forgotPassword()}>Forgot Password?</Text>
-                <Button shadowless round color="#29d2e4" onPress={() => this._userLogin()}>Login</Button>
+                <Button shadowless round color="#29d2e4" onPress={() => this._userLogin()} style={styles.loginBtn}> LOGIN </Button>
             </KeyboardAvoidingView>
         );
     }
@@ -81,45 +82,73 @@ class Login extends Component {
 
 
 const styles = StyleSheet.create({
-    login: {
+    container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
+        paddingTop: 30,
+        height: Dimensions.get('window').height,
+        width: Dimensions.get('window').width, 
     },
+
     facebook: {
         marginTop: 20,
-        paddingTop: 15,
-        paddingBottom: 15,
-        paddingLeft: 25,
-        paddingRight: 25,
+        paddingTop:10, paddingLeft:20, paddingRight:20, paddingBottom:10,
         backgroundColor: "#3b5998",
-        borderRadius: 15,
+        borderRadius: 27,
+        width: '82%',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
+
     google: {
         marginTop: 20,
         marginBottom: 20,
-        paddingTop: 15,
-        paddingBottom: 15,
-        paddingLeft: 25,
-        paddingRight: 48,
+        paddingTop:10, paddingLeft:20, paddingRight:20, paddingBottom:10,
         backgroundColor: "#bf4334",
-        borderRadius: 15,
+        borderRadius: 27,
+        width: '82%',
+        justifyContent: 'center',
+        alignItems: 'center',
+
     },
+
+
     iconText: {
         fontSize: 16,
         color: "#ffffff",
-        marginTop: 3
+        alignSelf: 'center',
+        paddingLeft: 24,
     },
+    
     input: {
-        width: '89%'
+        width: '89%',
+        backgroundColor: '#E9EDEF',
+        height: 50
     },
     forgotPwd: {
         fontSize: 12,
         textAlign: 'left',
         alignSelf: 'stretch',
-        marginLeft: 20,
-        marginBottom: 20
-    }
+        marginLeft: 5,
+        marginBottom: 12,
+        marginTop: 13,
+        paddingLeft: 20,
+        paddingBottom: 13,
+        paddingTop: 8
+    },
+    SignUpMsg: {
+        fontSize: 20,
+        paddingBottom: 40
+    },
+
+    loginBtn: {
+        height: 50,
+        paddingHorizontal: 10,
+        width: 310,
+        width: '82%',
+
+    },
+
 });
 
 export default withNavigation(Login);
