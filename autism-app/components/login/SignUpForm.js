@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableOpacity, KeyboardAvoidingView, Image} from 'react-native';
+import { StyleSheet, View, TouchableOpacity, KeyboardAvoidingView, Image } from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
 
-import { Button, Text, Input, theme} from 'galio-framework';
+import { Button, Text, Input, theme } from 'galio-framework';
 
 
 export default class SignUpForm extends Component {
@@ -75,15 +75,30 @@ export default class SignUpForm extends Component {
     render() {
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding">
-                <Image style={{width: 50, height: 50, marginTop: 15, marginBottom: 24,  alignItems:'center' }} source={{uri: 'https://facebook.github.io/react-native/img/tiny_logo.png'}}/>
-                
-                <Text h5 style={{ marginBottom: 10, paddingHorizontal: 39, textAlign:'center', marginBottom: 28}}>Welcome to Luminous! We're here to make your life simpler </Text>
-                <Text style={{ marginBottom: 10, paddingHorizontal: 39, marginBottom: 28}}>Set a password</Text>
-
-                <Input placeholder="Enter Password" style={styles.input} onChangeText={(text) => this.setState({ firstName: text })} />
-
-                <Text style={{ marginBottom: 10, paddingHorizontal: 65, textAlign:'center', marginBottom: 28}}>Your password should be atleast 8 characters </Text>
-
+                <Text h5 style={{ marginBottom: 10 }}>Tell us about yourself</Text>
+                <Input placeholder="First Name" style={styles.input} onChangeText={(text) => this.setState({ firstName: text })} />
+                <Input placeholder="Last Name" style={styles.input} onChangeText={(text) => this.setState({ lastName: text })} />
+                <View style={{ flexDirection: "row", marginLeft: '15.5%', marginRight: '15.5%' }}>
+                    <ModalDropdown
+                        style={styles.dropdownLabel}
+                        textStyle={{ fontSize: 13, color: '#898989' }}
+                        defaultValue={"Please select a gender..."}
+                        options={['Male', 'Female', 'Other', 'Prefer not to answer']}
+                        onSelect={(index, text) => this.setState({ gender: text })}
+                        dropdownStyle={styles.dropdown}
+                        dropdownTextStyle={{ paddingLeft: 16, fontSize: 14 }}
+                    >
+                    </ModalDropdown>
+                    <Input placeholder="Age" styles={{ width: '44%' }} keyboardType={'numeric'} onChangeText={(text) => this.setState({ age: text })} />
+                </View>
+                <Input
+                    placeholder="Phone Number"
+                    style={styles.input}
+                    textContentType='telephoneNumber'
+                    dataDetectorTypes='phoneNumber'
+                    keyboardType={'phone-pad'}
+                    maxLength={14}
+                    onChangeText={(text) => this._formatPhoneNum(text)} />
                 <Button shadowless round color="#29d2e4" style={{ marginTop: 10 }} onPress={() => this._validateForm()}>Continue</Button>
             </KeyboardAvoidingView>
         );

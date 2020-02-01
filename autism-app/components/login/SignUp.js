@@ -6,8 +6,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { withNavigation } from 'react-navigation';
 
-import DB from '../config/DatabaseConfig';
-
 
 class SignUp extends Component {
     static navigationOptions = {
@@ -16,22 +14,19 @@ class SignUp extends Component {
 
     state = {
         email: '',
-        password: '',
+        // password: '',
         // loggedIn: false,
         // name: ''
     };
 
-    constructor() {
-        super();
-        this.ref = DB.firestore().collection('users');
-    }
+    // constructor() {
+    //     super();
+    //     this.ref = DB.firestore().collection('users');
+    // }
 
     _userSignUp() {
         if (this.state.email == '' || !(this.props._validateEmail(this.state.email))) {
             alert('Please enter a valid email address');
-        }
-        else if (this.state.password == '' || !(this.props._validatePassword(this.state.password))) {
-            alert('Please enter a password containing at least 8 characters, with at least 1 lowercase, 1 uppercase, 1 numeric, and 1 special character');
         }
         else {
             // For testing purposes right now, add the email and password to cloud firestore on Firebase -- this step will be done at the very end in the final app
@@ -41,14 +36,8 @@ class SignUp extends Component {
             // }).catch((error) => {
             //     alert('There was an error adding the user to the DB');
             // });
+            this.props.navigation.navigate('SignUpPassword', { email: this.state.email, validatePassword: this.props._validatePassword });
 
-            // Authenticate user email and password with database
-            DB.auth()
-                .createUserWithEmailAndPassword(this.state.email, this.state.password)
-                .then(() => this.props.navigation.navigate('SignUpForm', { email: this.state.email, password: this.state.password }))
-                .catch(error => "There was an error authenticating the user with the database");
-
-            // this.props.navigation.navigate('SignUpForm', { email: this.state.email, password: this.state.password });
         }
     }
 
@@ -63,7 +52,7 @@ class SignUp extends Component {
     render() {
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding">
-                <Text style ={styles.welcomeMessage}>  Sign Up </Text>
+                <Text style={styles.welcomeMessage}>  Sign Up </Text>
 
                 <TouchableOpacity activeOpacity={0.9} style={styles.facebook}>
                     <View style={{ flexDirection: "row" }}>
@@ -97,12 +86,12 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         paddingTop: 30,
-        width: Dimensions.get('window').width, 
+        width: Dimensions.get('window').width,
     },
 
     facebook: {
         marginTop: 20,
-        paddingTop:10, paddingLeft:20, paddingRight:20, paddingBottom:10,
+        paddingTop: 10, paddingLeft: 20, paddingRight: 20, paddingBottom: 10,
         backgroundColor: "#3b5998",
         borderRadius: 27,
         width: '82%',
@@ -114,7 +103,7 @@ const styles = StyleSheet.create({
     google: {
         marginTop: 20,
         marginBottom: 20,
-        paddingTop:10, paddingLeft:20, paddingRight:20, paddingBottom:10,
+        paddingTop: 10, paddingLeft: 20, paddingRight: 20, paddingBottom: 10,
         backgroundColor: "#bf4334",
         borderRadius: 27,
         width: '82%',
@@ -129,7 +118,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         paddingLeft: 24,
     },
-    
+
 
     input: {
         width: '89%',
@@ -140,7 +129,7 @@ const styles = StyleSheet.create({
         fontSize: 14
     },
 
-    welcomeMessage:{
+    welcomeMessage: {
         fontSize: 20,
         paddingBottom: 40
     }

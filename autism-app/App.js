@@ -7,6 +7,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 // Components for the SignUp process
 import Welcome from './components/Welcome';
 import SignUp from './components/login/SignUp';
+import SignUpPassword from './components/login/SignUpPassword';
 import SignUpForm from './components/login/SignUpForm';
 import PaymentInfo from './components/login/PaymentInfo';
 import TermsOfService from './components/login/TermsOfService';
@@ -25,11 +26,12 @@ import Settings from './components/navigation/Settings'
 import Home from './components/navigation/Home'
 // SignUpNavigator holds all components associated with SignUp process -- may divide them up in the future
 const SignUpNavigator = createStackNavigator({
-   // Home: { screen: Home},
+    // Home: { screen: Home},
     //Settings: { screen: Settings},
     //Profile: { screen: Profile},
     Welcome: { screen: Welcome },
     SignUp: { screen: SignUp },
+    SignUpPassword: { screen: SignUpPassword },
     SignUpForm: { screen: SignUpForm },
     PaymentInfo: { screen: PaymentInfo },
     TermsOfService: { screen: TermsOfService },
