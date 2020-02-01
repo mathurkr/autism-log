@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { TextInput } from 'react-native';
 
-import { Button } from 'galio-framework';
-import Slider from '@react-native-community/slider';
+import { Button, Slider, Block } from 'galio-framework';
+//import Slider from '@react-native-community/slider';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 export default class QuickLog extends Component {
@@ -16,21 +16,15 @@ export default class QuickLog extends Component {
         this.state = {
             text: '',
             date: new Date(),
-            show: false
+            show: false,
+            triggers: [],
+            severity: 0
             
         };
 
       }
-    
-    setDate = (event, date) => {
-        date = date || this.state.date;
 
-        this.setState({
-            show: Platform.OS === 'ios' ? true : false,
-            date,
-        });
-    }
-
+    //View-related
     toggleDatePicker = ()=>{
         if(!this.show){
             this.setState({show:true});
@@ -40,7 +34,28 @@ export default class QuickLog extends Component {
         }
         
     }
-    
+    //Client-side data handlers
+    setDate = (event,date) => {
+        date = date || this.state.date;
+
+        this.setState({
+            show: Platform.OS === 'ios' ? true : false,
+            date,
+        });
+    }
+
+    setSeverity = (severity) =>{
+        severity = severity || this.state.severity;
+
+        this.setState({
+            severity
+        });
+    }
+    //Data submission
+    _submitLog = ()=>{
+        //Do data validation
+        //Trigger another component to do something with data
+    }
     render() {
         return (
             <View style={styles.container}>
@@ -54,7 +69,7 @@ export default class QuickLog extends Component {
                 <Text>{this.state.text}</Text>
                 <Button shadowless round color="#ffffff" onPress={this.toggleDatePicker}>
                     <Text>Date:</Text>
-                    <Text>{this.state.date.toLocaleString('en-US')}</Text>
+                    <Text>{this.state.date.toLocaleString('en-US')}</Text> 
                 </Button>
                 {/* Find date picker */}
                 {this.state.show && <DateTimePicker value={this.state.date}
@@ -63,9 +78,26 @@ export default class QuickLog extends Component {
                     display="default"
                     onChange={this.setDate} />}
                 
-                <Text>Picker: {this.state.show.toString()}</Text>
+                {/* <Text>Picker: {this.state.show.toString()}</Text> */}
                 <Text>Meltdown Triggers</Text>
                 {/* Need 5 custom buttons with images inside of them. Maybe create a component? */}
+                <View style={styles.triggerContainer}>
+                    <Button style={styles.triggerButton}>
+                        <Text>Sensory</Text>
+                    </Button>
+                    <Button style={styles.triggerButton}>
+                        <Text>Social</Text>
+                    </Button>
+                    <Button style={styles.triggerButton}>
+                        <Text>Routine</Text>
+                    </Button>
+                    <Button style={styles.triggerButton}>
+                        <Text>Food</Text>
+                    </Button>
+                    <Button style={styles.triggerButton}>
+                        <Text>Item Taken Away</Text>
+                    </Button>
+                </View>
                 <Text>Severity</Text>
                 {/* <Slider
                     style={{width: 200, height: 40}}
@@ -74,7 +106,14 @@ export default class QuickLog extends Component {
                     minimumTrackTintColor="#FFFFFF"
                     maximumTrackTintColor="#000000"
                 /> */}
-                <Button shadowless round color="#ffffff" /* onPress={() => this._toLoginPage()} */ style={styles.submitButton}>
+                <Block flex>
+                    <Slider
+                        maximumValue={30}
+                        value={this.state.severity}
+                        onSlidingcomplete={() => this.setSeverity()}
+                    />
+                </Block>
+                <Button shadowless round color="#ffffff" /* onPress={() => this._submitLog()} */ style={styles.submitButton}>
                     <Text>Submit </Text>
                 </Button>
             </View>
@@ -101,5 +140,18 @@ const styles = StyleSheet.create({
         height: 40, 
         borderColor: 'gray',
         borderWidth: 1 
+    },
+
+    triggerContainer: {
+        flexDirection:'row',
+        flexWrap: 'wrap',
+        alignContent: 'center'
+    },
+
+    triggerButton: {
+        width: 100,
+        height: 100,
+        color: '#ffffff',
+        shadowColor: 'blue' 
     }
 });
