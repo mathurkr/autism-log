@@ -7,7 +7,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 // Components for the SignUp process
 import Welcome from './components/Welcome';
 import SignUp from './components/SignUp';
-import SignUpForm from './components/SignUpForm';
+import PasswordForm from './components/SignUp/PasswordForm';
 import PaymentInfo from './components/PaymentInfo';
 import TermsOfService from './components/TermsOfService';
 import PrivatePolicy from './components/PrivatePolicy';
@@ -16,12 +16,14 @@ import Login from './components/Login';
 import ForgotPassword from './components/ForgotPassword';
 import VerifyCode from './components/VerifyCode';
 import LoggerSelection from './components/LoggerSelection';
+import SignUpForm from './components/SignUp/SignUpForm'
 
 // Include MainTabNavigator for main application navigation
 import MainAppNavigator from './components/navigation/MainAppNavigator';
 import Profile from './components/navigation/Profile';
 import Settings from './components/navigation/Settings'
 import Home from './components/navigation/Home'
+
 // SignUpNavigator holds all components associated with SignUp process -- may divide them up in the future
 const SignUpNavigator = createStackNavigator({
    // Home: { screen: Home},
@@ -30,6 +32,7 @@ const SignUpNavigator = createStackNavigator({
     Welcome: { screen: Welcome },
     SignUp: { screen: SignUp },
     SignUpForm: { screen: SignUpForm },
+    PasswordForm: { screen: PasswordForm },
     PaymentInfo: { screen: PaymentInfo },
     TermsOfService: { screen: TermsOfService },
     PrivatePolicy: { screen: PrivatePolicy },
@@ -43,8 +46,11 @@ const SignUpNavigator = createStackNavigator({
 // Universal App Navigator
 const UniversalNavigator = createSwitchNavigator({
     SignUp: SignUpNavigator,
-    Main: MainAppNavigator
+    Main: MainAppNavigator,
 });
+
+
+
 
 const App = createAppContainer(UniversalNavigator);
 

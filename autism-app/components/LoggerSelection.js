@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 
+import firebase from './config/DatabaseConfig'
+
 import { Button, Text } from 'galio-framework';
 // import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -10,13 +12,31 @@ export default class LoggerSelection extends Component {
     }
 
     _setSelfLogger() {
-        this.setState({ loggerType: 'Self-Logger' })
+        this._addToFirebase()
+        this.props.navigation.navigate('Main', { loggerType: this.state.loggerType })
         // Link to medical diagnostic page after setting user type
     }
 
     _setCaregiver() {
-        this.setState({ loggerType: 'Caregiver' })
+        this._addToFirebase()
+        this.props.navigation.navigate('Main', { loggerType: this.state.loggerType })
         // Link to medical diagnostic page after setting user type
+    }
+
+    _addToFirebase() {
+        //Get user id
+        var uid = firebase.auth().currentUser.uid
+
+        //Create entry in db
+        firebase.firestore().collection('users').doc(`${uid}`).update({
+            loggerType: this.state.loggerType
+        })
+        .then(function() {
+            console.log('Success')
+        })
+        .catch(function(error) {
+            console.log(error)
+        })
     }
 
     render() {
@@ -34,7 +54,7 @@ export default class LoggerSelection extends Component {
                             color="#83A3FA"
                             iconColor="#fff"
                             style={{ width: 75, height: 75 }}
-                            onPress={() => this._setSelfLogger()}
+                            onPress={() => this.setState({loggerType: 'Self-Logger'}, () => this._setSelfLogger())}
                         >
                         </Button>
                         <Text style={{ fontWeight: 'bold' }} p>Self-Logger</Text>
@@ -48,7 +68,7 @@ export default class LoggerSelection extends Component {
                             color="#A970CF"
                             iconColor="#fff"
                             style={{ width: 75, height: 75 }}
-                            onPress={() => this._setCaregiver()}
+                            onPress={() => this.setState({loggerType: 'Caregiver'}, () => this._setCaregiver())}
                         >
                         </Button>
                         <Text style={{ fontWeight: 'bold' }} p>Caregiver</Text>

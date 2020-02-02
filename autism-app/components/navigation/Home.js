@@ -29,7 +29,8 @@ export default class Home extends Component {
                     </View>
                     
                     <Text style={styles.post}> {post.text} </Text>
-                    <Image source={post.image} style={styles.postImage} resizeMethod="cover" />
+                    //Changed resizeMethod to auto from cover b/c compile error
+                    <Image source={post.image} style={styles.postImage} resizeMethod="auto" />
 
                     <View style={{flexDirection: "row"}}>
                         <Ionicons name="ios-pin" size={20} color="#73788B" style={{marginRight: 10}} />

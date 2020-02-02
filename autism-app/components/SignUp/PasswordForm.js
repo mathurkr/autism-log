@@ -4,10 +4,10 @@ import ModalDropdown from 'react-native-modal-dropdown';
 
 import { Button, Text, Input, theme} from 'galio-framework';
 
-import firebase from './config/DatabaseConfig'
+import firebase from '../config/DatabaseConfig'
 
-
-export default class SignUpForm extends Component {
+//THIS IS USED FOR WHEN THEY REGISTER WITH EMAIL.
+export default class PasswordForm extends Component {
     state = {
         email: '',
         password: '',
