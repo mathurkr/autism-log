@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import * as Google from 'expo-google-app-auth';
-import firebase from './config/DatabaseConfig'
+import firebase from '../config/DatabaseConfig'
 
 import { Button } from 'galio-framework';
 
-import MainAppNavigator from './navigation/MainAppNavigator'
+import MainAppNavigator from '../navigation/MainAppNavigator'
 // import Profile from './navigation/Profile';
 import Login from './Login';
 import SignUp from './SignUp';

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import firebase from './config/DatabaseConfig'
+import firebase from '../config/DatabaseConfig'
 
 import { Button, Text } from 'galio-framework';
 // import Icon from 'react-native-vector-icons/FontAwesome';

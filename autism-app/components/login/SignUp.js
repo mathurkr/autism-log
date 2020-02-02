@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { withNavigation } from 'react-navigation';
 
-import DB from './config/DatabaseConfig';
+import DB from '../config/DatabaseConfig';
 
 
 class SignUp extends Component {
