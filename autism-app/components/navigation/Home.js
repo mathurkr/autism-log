@@ -29,7 +29,6 @@ export default class Home extends Component {
                     </View>
                     
                     <Text style={styles.post}> {post.text} </Text>
-                    //Changed resizeMethod to auto from cover b/c compile error
                     <Image source={post.image} style={styles.postImage} resizeMethod="auto" />
 
                     <View style={{flexDirection: "row"}}>
