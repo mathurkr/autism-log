@@ -102,7 +102,7 @@ export default class ChildSetup extends Component {
                     </View>
                 </View>
 
-                <TouchableOpacity style={styles.button} on Press={this.handleSignUp}>
+                <TouchableOpacity style={styles.button} onPress={this.props.navigation.navigate('Home')}>
                     <Text style={{color: "#FFF", fontWeight: "500"}}> Sign up </Text>
                 </TouchableOpacity>
 
