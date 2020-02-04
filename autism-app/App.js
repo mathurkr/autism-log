@@ -30,27 +30,30 @@ import Profile from './components/navigation/Profile';
 import Settings from './components/navigation/Settings'
 import Home from './components/navigation/Home'
 import NameSetup from './components/login/NameSetup';
+
 // SignUpNavigator holds all components associated with SignUp process -- may divide them up in the future
 const SignUpNavigator = createStackNavigator({
     // Home: { screen: Home},
     //Settings: { screen: Settings},
     //Profile: { screen: Profile},
-    Welcome: { screen: Welcome },
-    SignUp: { screen: SignUp },
-    SignUpPassword: { screen: SignUpPassword },
-    SignUpForm: { screen: SignUpForm },
-    PaymentInfo: { screen: PaymentInfo },
-    TermsOfService: { screen: TermsOfService },
-    PrivatePolicy: { screen: PrivatePolicy },
-    Authenticate: { screen: Authenticate },
-    Login: { screen: Login },
-    ForgotPassword: { screen: ForgotPassword },
-    VerifyCode: { screen: VerifyCode },
-    LoggerSelection: { screen: LoggerSelection },
-    ProfileSetUp: { screen: ProfileSetUp },
+    //Welcome: { screen: Welcome },
+    //SignUp: { screen: SignUp },
+    //SignUpPassword: { screen: SignUpPassword },
+    //SignUpForm: { screen: SignUpForm },
+    //NameSetup: { screen: NameSetup},
+    //AgeSetup: { screen: AgeSetup },
+    //PaymentInfo: { screen: PaymentInfo },
+    //TermsOfService: { screen: TermsOfService },
+    //PrivatePolicy: { screen: PrivatePolicy },
+    //Authenticate: { screen: Authenticate },
+    //Login: { screen: Login },
+    //ForgotPassword: { screen: ForgotPassword },
+    //VerifyCode: { screen: VerifyCode },
+    //LoggerSelection: { screen: LoggerSelection },
+    //ProfileSetUp: { screen: ProfileSetUp },
     ChildSetup: {screen: ChildSetup},
-    AgeSetup: { screen: AgeSetup },
-    Name : { screen: NameSetup}
+
+
 
 
 });

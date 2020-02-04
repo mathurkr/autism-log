@@ -1,41 +1,62 @@
-import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
 
-import { Button, Text } from 'galio-framework';
+import React, { Component } from 'react';
+import { StyleSheet, View, TouchableOpacity, Image, PropTypes, Text, TouchableHighlight} from 'react-native';
+import { Button, Input, theme} from 'galio-framework';
+
 // import Icon from 'react-native-vector-icons/FontAwesome';
 
 import DB from '../config/DatabaseConfig';
 
-
 export default class LoggerSelection extends Component {
+    constructor(props) {
+        super(props);
+        this.state={
+          button_1 : false,
+          button_2 : false,
+         }
+    }
+    _onHideUnderlay() {
+        this.setState({ pressStatus: false });
+    }
+    _onShowUnderlay() {
+        this.setState({ pressStatus: true });
+    }
+
+    _validateForm() {
+        this.props.navigation.navigate('ChildSetup',
+        {
+            password: this.state.password,
+        });
+    }
+
+
     state = {
         loggerType: ''
     }
 
     componentDidUpdate() {
-        const { params } = this.props.navigation.state;
-        const collection = DB.firestore().collection('users');
-        // Store all user account information so far -- new added information for self-logger will be in another collection
-        collection.add({
-            email: params.email,
-            // password: this.state.password  // Don't store password directly in database for security reasons
-            firstName: params.firstName,
-            lastName: params.lastName,
-            phone: params.phone,
-            age: params.age,
-            gender: params.gender,
-            loggerType: this.state.loggerType
-        }).catch((error) => {
-            alert('There was an error adding the user to the DB');
-        });
+        // const { params } = this.props.navigation.state;
+        // const collection = DB.firestore().collection('users');
+        // // Store all user account information so far -- new added information for self-logger will be in another collection
+        // collection.add({
+        //     email: params.email,
+        //     // password: this.state.password  // Don't store password directly in database for security reasons
+        //     firstName: params.firstName,
+        //     lastName: params.lastName,
+        //     phone: params.phone,
+        //     age: params.age,
+        //     gender: params.gender,
+        //     loggerType: this.state.loggerType
+        // }).catch((error) => {
+        //     alert('There was an error adding the user to the DB');
+        // });
 
         // Go to Profile Set Up
-        this.props.navigation.navigate('ProfileSetUp');
+        //this.props.navigation.navigate('ProfileSetUp');
     }
 
     render() {
         const { params } = this.props.navigation.state;
-
         return (
             <View style={styles.container}>
                 <Text h5>What kind of user are you?</Text>
@@ -57,13 +78,10 @@ export default class LoggerSelection extends Component {
                         this.setState({
                             button_1: !this.state.button_1,
                             button_2: false,
-                                });
-                        this.setState({loggerType: "Self-Logger"})
-                    }
-                    }
-                        
-                        
-                        >
+                                })
+                        this.setState({ loggerType: 'Self-Logger' });
+                        }
+                        }>
                         <Image style={{width: 50, marginTop: 25, alignItems:'center', justifyContent: 'center', height: 50, alignItems: 'center', justifyContent: 'center'}} source={require('../../assets/images/dependent.png')}/>
                         <Text style={{ textAlign: 'center', marginTop: 10, marginBottom: 20, color: 'black',}}> Dependent </Text>
                         </TouchableOpacity>
@@ -87,8 +105,9 @@ export default class LoggerSelection extends Component {
                         this.setState({
                             button_1: false,
                             button_2: !this.state.button_2,
-                                });
-                        this.setState({loggerType: "Self-Logger"})        
+                                })
+                        this.setState({ loggerType: 'Caregiver' });
+
                         }}>
                             <Image style={{width: 50, marginTop: 25, alignItems:'center', justifyContent: 'center', height: 50, alignItems: 'center', justifyContent: 'center'}} source={require('../../assets/images/caregiver.png')}/>
                         <Text style={{ textAlign: 'center', marginTop: 10, marginBottom: 20, color: 'black',}}> Caregiver </Text>
@@ -102,14 +121,27 @@ export default class LoggerSelection extends Component {
 
             </View>
         );
-
+    
     }
-}
+    
 
-const styles = StyleSheet.create({
+    };
+    
+    const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-    },
-});
+        alignItems: 'center',
+        marginBottom: '37%',
+    
+     },
+
+
+    buttonPress: {
+        borderColor: "#000066",
+        backgroundColor: "#000066",
+        borderWidth: 1,
+        borderRadius: 10
+    }
+    });

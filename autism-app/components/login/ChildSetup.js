@@ -53,7 +53,7 @@ export default class ChildSetup extends Component {
 
                 <View style={{position: "absolute", top: 64, alignItems: "center", width: "100%"}}>
 
-                    <Text style={styles.greeting}> {'Hello!\nSign up to get started.'}</Text>
+                    <Text style={styles.greeting}> {'Create Profile'}</Text>
                     <TouchableOpacity style={styles.avatarPlaceholder} onPress={this.handlePickAvatar}>
                         <Image source={{uri:this.state.user.avatar}} style={styles.avatar} />
                         <Ionicons
@@ -154,6 +154,7 @@ const styles = StyleSheet.create({
 
     input: {
         borderBottomColor: "#8A8F9E",
+        borderBottomWidth: .5,
         height: 48,
         fontSize: 15,
         color: "#161F3D"
