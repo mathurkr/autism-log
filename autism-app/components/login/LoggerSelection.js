@@ -35,41 +35,74 @@ export default class LoggerSelection extends Component {
 
     render() {
         const { params } = this.props.navigation.state;
+
         return (
             <View style={styles.container}>
                 <Text h5>What kind of user are you?</Text>
-                <View style={{ flexDirection: "row", marginTop: 20 }}>
+                <View style={{ flexDirection: "row", marginTop: 20, }}>
                     <View style={styles.container}>
-                        <Button
-                            onlyIcon
-                            icon="adduser"
-                            iconFamily="antdesign"
-                            iconSize={35}
-                            color="#83A3FA"
-                            iconColor="#fff"
-                            style={{ width: 75, height: 75 }}
-                            onPress={() => this.setState({ loggerType: 'Self-Logger' })}
+                        <TouchableOpacity
+                        title="Dependent"
+                        style={{ width: 105, height: 88,  
+                        borderRadius: 15, borderWidth: 1, borderColor:"#333333", borderColor: '#d6d7da', 
+                        alignItems: 'center',
+                        justifyContent:'center',
+                        backgroundColor: '#485a96',
+                        height: 88,
+                        width: 105,
+                        borderRadius: 5,
+                        margin: 15,
+                        backgroundColor: this.state.button_1 ? "#29d2e4" : "white" }}
+                        onPress={() => {
+                        this.setState({
+                            button_1: !this.state.button_1,
+                            button_2: false,
+                                });
+                        this.setState({loggerType: "Self-Logger"})
+                    }
+                    }
+                        
+                        
                         >
-                        </Button>
-                        <Text style={{ fontWeight: 'bold' }} p>Self-Logger</Text>
+                        <Image style={{width: 50, marginTop: 25, alignItems:'center', justifyContent: 'center', height: 50, alignItems: 'center', justifyContent: 'center'}} source={require('../../assets/images/dependent.png')}/>
+                        <Text style={{ textAlign: 'center', marginTop: 10, marginBottom: 20, color: 'black',}}> Dependent </Text>
+                        </TouchableOpacity>
                     </View>
+
                     <View style={styles.container}>
-                        <Button
-                            onlyIcon
-                            icon="addusergroup"
-                            iconFamily="antdesign"
-                            iconSize={35}
-                            color="#A970CF"
-                            iconColor="#fff"
-                            style={{ width: 75, height: 75 }}
-                            onPress={() => this.setState({ loggerType: 'Caregiver' })}
-                        >
-                        </Button>
-                        <Text style={{ fontWeight: 'bold' }} p>Caregiver</Text>
-                    </View>
-                </View>
+
+                        <TouchableOpacity
+                        title="Caregiver"
+                        style={{ width: 105, height: 88,  
+                            borderRadius: 15, borderWidth: 1, borderColor:"#333333", borderColor: '#d6d7da', 
+                            alignItems: 'center',
+                            justifyContent:'center',
+                            backgroundColor: '#485a96',
+                            height: 88,
+                            width: 105,
+                            borderRadius: 5,
+                            margin: 15,
+                            backgroundColor: this.state.button_2 ? "#29d2e4" : "white" }}
+                        onPress={() => {
+                        this.setState({
+                            button_1: false,
+                            button_2: !this.state.button_2,
+                                });
+                        this.setState({loggerType: "Self-Logger"})        
+                        }}>
+                            <Image style={{width: 50, marginTop: 25, alignItems:'center', justifyContent: 'center', height: 50, alignItems: 'center', justifyContent: 'center'}} source={require('../../assets/images/caregiver.png')}/>
+                        <Text style={{ textAlign: 'center', marginTop: 10, marginBottom: 20, color: 'black',}}> Caregiver </Text>
+  
+                          </TouchableOpacity>
+
+
+                        </View>
+
+                        </View><Button shadowless round color="#29d2e4" style={{ marginTop: 10 }} onPress={() => this._validateForm()}>Continue</Button>
+
             </View>
         );
+
     }
 }
 

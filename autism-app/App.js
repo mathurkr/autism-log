@@ -19,11 +19,17 @@ import VerifyCode from './components/login/VerifyCode';
 import LoggerSelection from './components/login/LoggerSelection';
 import ProfileSetUp from './components/login/ProfileSetUp';
 
+
+import ChildSetup from './components/login/ChildSetup';
+import AgeSetup from './components/login/AgeSetup';
+
+
 // Include MainTabNavigator for main application navigation
 import MainAppNavigator from './components/navigation/MainAppNavigator';
 import Profile from './components/navigation/Profile';
 import Settings from './components/navigation/Settings'
 import Home from './components/navigation/Home'
+import NameSetup from './components/login/NameSetup';
 // SignUpNavigator holds all components associated with SignUp process -- may divide them up in the future
 const SignUpNavigator = createStackNavigator({
     // Home: { screen: Home},
@@ -41,7 +47,12 @@ const SignUpNavigator = createStackNavigator({
     ForgotPassword: { screen: ForgotPassword },
     VerifyCode: { screen: VerifyCode },
     LoggerSelection: { screen: LoggerSelection },
-    ProfileSetUp: { screen: ProfileSetUp }
+    ProfileSetUp: { screen: ProfileSetUp },
+    ChildSetup: {screen: ChildSetup},
+    AgeSetup: { screen: AgeSetup },
+    Name : { screen: NameSetup}
+
+
 });
 
 // Universal App Navigator
