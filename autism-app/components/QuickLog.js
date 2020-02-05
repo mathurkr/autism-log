@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, Image } from 'react-native';
 import { TextInput } from 'react-native';
 
 import { Button, Slider, Block } from 'galio-framework';
@@ -14,10 +14,11 @@ export default class QuickLog extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            text: '',
+            //media:
+            location: '',
             date: new Date(),
             show: false,
-            triggers: [],
+            triggers: [],//tags
             severity: 0
             
         };
@@ -63,10 +64,10 @@ export default class QuickLog extends Component {
                 {/* Start with single-line text field, transition to location search if a library exists for react native. */}
                 <TextInput
                     style={styles.TextInput}
-                    onChangeText={text => this.setState({text})}
-                    value={this.state.text}
+                    onChangeText={location => this.setState({location})}
+                    value={this.state.location}
                 />
-                <Text>{this.state.text}</Text>
+                <Text>{this.state.location}</Text>
                 <Button shadowless round color="#ffffff" onPress={this.toggleDatePicker}>
                     <Text>Date:</Text>
                     <Text>{this.state.date.toLocaleString('en-US')}</Text> 
@@ -82,19 +83,21 @@ export default class QuickLog extends Component {
                 <Text>Meltdown Triggers</Text>
                 {/* Need 5 custom buttons with images inside of them. Maybe create a component? */}
                 <View style={styles.triggerContainer}>
-                    <Button style={styles.triggerButton}>
+                    <Button color= '#ffffff' style={styles.triggerButton}>
+                        <Image source= {require('../assets/hand.png')}/>
                         <Text>Sensory</Text>
                     </Button>
-                    <Button style={styles.triggerButton}>
+                    <Button color= '#ffffff' style={styles.triggerButton}>
                         <Text>Social</Text>
                     </Button>
-                    <Button style={styles.triggerButton}>
+                    <Button color= '#ffffff' style={styles.triggerButton}>
+                        
                         <Text>Routine</Text>
                     </Button>
-                    <Button style={styles.triggerButton}>
+                    <Button color= '#ffffff'style={styles.triggerButton}>
                         <Text>Food</Text>
                     </Button>
-                    <Button style={styles.triggerButton}>
+                    <Button color='#ffffff' style={styles.triggerButton}>
                         <Text>Item Taken Away</Text>
                     </Button>
                 </View>
@@ -106,13 +109,13 @@ export default class QuickLog extends Component {
                     minimumTrackTintColor="#FFFFFF"
                     maximumTrackTintColor="#000000"
                 /> */}
-                <Block flex>
-                    <Slider
-                        maximumValue={30}
-                        value={this.state.severity}
-                        onSlidingcomplete={() => this.setSeverity()}
-                    />
-                </Block>
+                
+                <Slider
+                    maximumValue={30}
+                    value={this.state.severity}
+                    onSlidingcomplete={() => this.setSeverity()}
+                />
+                
                 <Button shadowless round color="#ffffff" /* onPress={() => this._submitLog()} */ style={styles.submitButton}>
                     <Text>Submit </Text>
                 </Button>
@@ -143,9 +146,11 @@ const styles = StyleSheet.create({
     },
 
     triggerContainer: {
+        width: '80%',
         flexDirection:'row',
         flexWrap: 'wrap',
-        alignContent: 'center'
+        alignContent: 'center',
+        justifyContent: 'space-between'
     },
 
     triggerButton: {
