@@ -35,8 +35,8 @@ import NameSetup from './components/login/NameSetup';
 const SignUpNavigator = createStackNavigator({
     //Welcome: { screen: Welcome },
     //SignUp: { screen: SignUp },
-    SignUpPassword: { screen: SignUpPassword },
-    SignUpForm: { screen: SignUpForm },
+    //SignUpPassword: { screen: SignUpPassword },
+    //SignUpForm: { screen: SignUpForm },
     NameSetup: { screen: NameSetup},
     AgeSetup: { screen: AgeSetup },
     PaymentInfo: { screen: PaymentInfo },
@@ -49,7 +49,7 @@ const SignUpNavigator = createStackNavigator({
     LoggerSelection: { screen: LoggerSelection },
     ChildSetup: {screen: ChildSetup},
     ProfileSetUp: { screen: ProfileSetUp },
-    // Home: { screen: Home},
+     //Home: { screen: Home},
     // Settings: { screen: Settings},
     // Profile: { screen: Profile},
 
