@@ -5,13 +5,14 @@ import { Button, Block, Text, Input, theme } from 'galio-framework';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { withNavigation } from 'react-navigation';
+import {Ionicons} from "@expo/vector-icons";
+import { TextInput } from 'react-native-gesture-handler';
 
 
 class SignUp extends Component {
     static navigationOptions = {
         title: 'Sign Up',
         headerMode: 'none'
-
     };
 
     state = {
@@ -55,7 +56,6 @@ class SignUp extends Component {
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding">
                 <Text style={styles.welcomeMessage}>  Sign Up </Text>
-
                 <TouchableOpacity activeOpacity={0.9} style={styles.facebook}>
                     <View style={{ flexDirection: "row" }}>
                         <Icon name="facebook-square" color="#ffffff" size={30} />
@@ -69,7 +69,14 @@ class SignUp extends Component {
                     </View>
                 </TouchableOpacity>
                 <Text style={{ marginTop: 5, marginBottom: 20, fontSize: 13 }}>OR SIGN UP WITH EMAIL</Text>
-                <Input placeholder="Email Address" style={styles.input} keyboardType={'email-address'} onChangeText={(text) => this.setState({ email: text })} />
+                
+                {/* <Input placeholder="Email Address" style={styles.input} keyboardType={'email-address'} onChangeText={(text) => this.setState({ email: text })} /> */}
+                
+                <View style={styles.inputContainer}> 
+                    <Ionicons name="ios-mail" size={30} color="#73788B" style={[styles.inputIcon, styles.icon] }  />
+                    <TextInput placeholder="Email Address"  keyboardType={'email-address'} style={styles.inputs} onChangeText={(text) => this.setState({ email: text })} />
+                </View>
+
                 <Button shadowless round color="#29d2e4" style={{ marginTop: 20 }} onPress={() => this._userSignUp()}>Get Started</Button>
                 <Text style={{ fontSize: 13, marginTop: 20 }}>By signing up, you agree to Luminous's</Text>
                 <View style={{ flexDirection: "row" }}>
@@ -125,6 +132,7 @@ const styles = StyleSheet.create({
     input: {
         width: '89%',
         backgroundColor: '#E9EDEF',
+        
 
     },
     termsPolicyText: {
@@ -134,7 +142,53 @@ const styles = StyleSheet.create({
     welcomeMessage: {
         fontSize: 20,
         paddingBottom: 40
+    },
+
+    inputSection: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#fff',
+    },
+
+
+    //
+
+    inputSection: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#fff',
+    },
+
+    inputContainer:{
+        width: '89%',
+        height: 50,
+        marginBottom: 9,
+        backgroundColor: '#E9EDEF',
+        marginBottom: 20, 
+        flexDirection: "row",
+        alignItems: 'center'
+    },
+
+    inputs: {
+        height: 45,
+        marginLeft: 16,
+        flex:1
+    },
+
+    inputIcon: {
+        marginLeft:10,
+    },
+
+    icon:{
+        width: 30,
+        height: 30,
     }
+
+
 
 });
 

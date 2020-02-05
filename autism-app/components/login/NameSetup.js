@@ -33,7 +33,6 @@ export default class NameSetup extends Component {
                 <View style={styles.inputContainer}> 
                     <Ionicons name="ios-person" size={30} color="#73788B" style={[styles.inputIcon, styles.icon] }  />
                     <TextInput placeholder="Enter name" style={styles.inputs} onChangeText={(text) => this.setState({ name: text })} />
-
                 </View>
 
 

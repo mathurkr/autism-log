@@ -6,10 +6,12 @@ import { StyleSheet, View, Dimensions, TouchableOpacity, KeyboardAvoidingView } 
 import { Button, Block, Text, Input, theme } from 'galio-framework';
 import Icon from 'react-native-vector-icons/FontAwesome';
 // import { materialTheme, products, Images } from '../constants/';
+import {Ionicons} from "@expo/vector-icons";
 
 import { withNavigation } from 'react-navigation';
 
 import DB from '../config/DatabaseConfig';
+import { TextInput } from 'react-native-gesture-handler';
 
 
 class Login extends Component {
@@ -56,7 +58,7 @@ class Login extends Component {
     render() {
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding">
-                <Text style={styles.SignUpMsg}> Welcome back to Luminous! </Text>
+                <Text style={styles.SignUpMsg}> Welcome back to Lumionus! </Text>
                 <TouchableOpacity activeOpacity={0.9} style={styles.facebook}>
                     <View style={{ flexDirection: "row" }}>
                         <Icon name="facebook-square" color="#ffffff" size={30} />
@@ -70,8 +72,19 @@ class Login extends Component {
                     </View>
                 </TouchableOpacity>
                 <Text style={{ marginTop: 5, marginBottom: 20, fontSize: 13 }}>OR LOGIN WITH EMAIL</Text>
-                <Input placeholder="Email Address" style={styles.input} keyboardType={'email-address'} onChangeText={(text) => this.setState({ email: text })} />
-                <Input placeholder="Password" value={this.state.password} style={styles.input} password viewPass onChangeText={(text) => this.setState({ password: text })} />
+                {/* <Input placeholder="Email Address" style={styles.input} keyboardType={'email-address'} onChangeText={(text) => this.setState({ email: text })} /> */}
+                
+                <View style={styles.inputContainer}> 
+                    <Ionicons name="ios-mail" size={30} color="#73788B" style={[styles.inputIcon, styles.icon] }  />
+                    <TextInput placeholder="Email Address"  keyboardType={'email-address'} style={styles.inputs} onChangeText={(text) => this.setState({ email: text })} />
+                </View>
+
+                <View style={styles.inputContainer}> 
+                    <Ionicons name="ios-lock" size={30} color="#73788B" style={[styles.inputIcon, styles.icon] }  />
+                    <TextInput placeholder="Password" value={this.state.password} style={styles.inputs} password viewPass onChangeText={(text) => this.setState({ password: text })} />
+                </View>
+
+                
                 <Text color="#0275d8" p style={styles.forgotPwd} onPress={() => this._forgotPassword()}>Forgot Password?</Text>
                 <Button shadowless round color="#29d2e4" onPress={() => this._userLogin()} style={styles.loginBtn}> LOGIN </Button>
             </KeyboardAvoidingView>
@@ -148,6 +161,43 @@ const styles = StyleSheet.create({
         width: '82%',
 
     },
+//
+
+inputSection: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+},
+
+inputContainer:{
+    width: '89%',
+    height: 50,
+    marginBottom: 9,
+    backgroundColor: '#E9EDEF',
+    marginBottom: 20, 
+    flexDirection: "row",
+    alignItems: 'center'
+},
+
+inputs: {
+    height: 45,
+    marginLeft: 16,
+    flex:1
+},
+
+inputIcon: {
+    marginLeft:10,
+},
+
+icon:{
+    width: 30,
+    height: 30,
+}
+
+
+
 
 });
 
