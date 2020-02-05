@@ -23,10 +23,10 @@ export default class LoggerSelection extends Component {
     }
 
     _validateForm() {
-        this.props.navigation.navigate('ChildSetup',
-        {
-            password: this.state.password,
-        });
+        this.props.navigation.navigate('ChildSetup')
+        // {
+        //     password: this.state.password,
+        // });
     }
 
 

@@ -77,9 +77,9 @@ export default class Welcome extends React.Component {
 
                         {photos.map((source, i) => { // for every object in the photos array...
                         return ( // ... we will return an Image with the corresponding object as the source
-                        <View style = {styles.imageContainer}> 
+                        <View style = {styles.imageContainer} key={i}> 
                                 <Image style={styles.images}
-                                key={i} // we will use i for the key because no two (or more) elements in an array will have the same index
+                                // we will use i for the key because no two (or more) elements in an array will have the same index
                                 style={{        width: 300,
                                     height:300}}
                                 source={source.photo}
