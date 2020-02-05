@@ -9,7 +9,9 @@ import { withNavigation } from 'react-navigation';
 
 class SignUp extends Component {
     static navigationOptions = {
-        title: 'Sign Up'
+        title: 'Sign Up',
+        headerMode: 'none'
+
     };
 
     state = {
@@ -69,7 +71,7 @@ class SignUp extends Component {
                 <Text style={{ marginTop: 5, marginBottom: 20, fontSize: 13 }}>OR SIGN UP WITH EMAIL</Text>
                 <Input placeholder="Email Address" style={styles.input} keyboardType={'email-address'} onChangeText={(text) => this.setState({ email: text })} />
                 <Button shadowless round color="#29d2e4" style={{ marginTop: 20 }} onPress={() => this._userSignUp()}>Get Started</Button>
-                <Text style={{ fontSize: 13, marginTop: 20 }}>By signing up, you agree to Chronaly's</Text>
+                <Text style={{ fontSize: 13, marginTop: 20 }}>By signing up, you agree to Luminous's</Text>
                 <View style={{ flexDirection: "row" }}>
                     <Text style={{ fontSize: 13, textDecorationLine: 'underline' }} onPress={() => this._showTermsOfService()}>Terms of Service</Text>
                     <Text style={{ fontSize: 13 }}> and </Text>

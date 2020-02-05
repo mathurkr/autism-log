@@ -8,19 +8,19 @@ const {width} = Dimensions.get('window');
 const photos = [
     {photo: require('..//assets/images/father_image.png'),
      title: "Welcome to Luminous",
-    description: "Offering a better way to manage developmental disabilities and help children and adults with autism"}, 
+    description: "Realtime, convenient recording & management of autism"}, 
 
     {photo:  require('../assets/images/back_to_school.png'),
-    title: "Capture events while they happen",
-    description: "Observe and monitor behaviors, actions, and day to day interactions, to better manage metldown or burnouts" },
+    title: "Conveniently capture events as they happen",
+    description: "Observe, save, & monitor behaviors, actions, & interactions to better manage meltdowns or burnouts" },
 
    {photo: require('../assets/images/undraw_data.png'),
-    title: "Gather and use data for knowledge & insight",
-    description: "Aggregate and use customized visualizations to improve care and well being of those with autism"
+    title: "Gather data for actionable use & insight",
+    description: "Access our data visualization feature to better manage the care & wellbeing of your loved ones"
    },
    { photo: require( '../assets/images/undraw_community.png'),
-    title: "Aggregate and share with your community",
-    description: "Use as a digital companion to help lead on the road to better health, productivity and happier lives."
+    title: "Aggregate & share personalized data with your community",
+    description: "Share your personalized data as you wish (when, where, & how"
     }
 
 ]

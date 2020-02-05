@@ -59,7 +59,7 @@ export default class LoggerSelection extends Component {
         const { params } = this.props.navigation.state;
         return (
             <View style={styles.container}>
-                <Text h5>What kind of user are you?</Text>
+                <Text h5>I am using Luminous as a</Text>
                 <View style={{ flexDirection: "row", marginTop: 20, }}>
                     <View style={styles.container}>
                         <TouchableOpacity

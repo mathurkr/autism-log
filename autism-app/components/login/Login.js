@@ -56,7 +56,7 @@ class Login extends Component {
     render() {
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding">
-                <Text style={styles.SignUpMsg}> Welcome Back! </Text>
+                <Text style={styles.SignUpMsg}> Welcome back to Luminous! </Text>
                 <TouchableOpacity activeOpacity={0.9} style={styles.facebook}>
                     <View style={{ flexDirection: "row" }}>
                         <Icon name="facebook-square" color="#ffffff" size={30} />
