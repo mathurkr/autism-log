@@ -18,7 +18,7 @@ export default class LoggerSelection extends Component {
         // Store all user account information so far -- new added information for self-logger will be in another collection
         collection.add({
             email: params.email,
-            // password: this.state.password  // Don't store password directly in database for security reasons
+            password: params.password,  // Should use a hash function to encrypt password for security reasons
             firstName: params.firstName,
             lastName: params.lastName,
             phone: params.phone,

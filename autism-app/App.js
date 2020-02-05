@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
@@ -24,6 +24,7 @@ import MainAppNavigator from './components/navigation/MainAppNavigator';
 import Profile from './components/navigation/Profile';
 import Settings from './components/navigation/Settings'
 import Home from './components/navigation/Home'
+
 // SignUpNavigator holds all components associated with SignUp process -- may divide them up in the future
 const SignUpNavigator = createStackNavigator({
     // Home: { screen: Home},
@@ -43,6 +44,17 @@ const SignUpNavigator = createStackNavigator({
     LoggerSelection: { screen: LoggerSelection },
     ProfileSetUp: { screen: ProfileSetUp }
 });
+
+// class MainAppNav extends Component {
+//     render() {
+//         const { navigation } = this.props;
+//         return <MainAppNavigator
+//             screenProps={{
+//                 params: navigation.state.params,
+//                 rootNavigation: navigation
+//             }} />
+//     }
+// }
 
 // Universal App Navigator
 const UniversalNavigator = createSwitchNavigator({
