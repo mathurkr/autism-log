@@ -20,6 +20,7 @@ import LoggerSelection from './components/login/LoggerSelection';
 import ProfileSetUp from './components/login/ProfileSetUp';
 
 
+
 import ChildSetup from './components/login/ChildSetup';
 import AgeSetup from './components/login/AgeSetup';
 
@@ -31,8 +32,12 @@ import Settings from './components/navigation/Settings'
 import Home from './components/navigation/Home'
 import NameSetup from './components/login/NameSetup';
 
+// Include Logging-related components
+import QuickLog from './components/QuickLog';
+
 // SignUpNavigator holds all components associated with SignUp process -- may divide them up in the future
 const SignUpNavigator = createStackNavigator({
+    QuickLog: {screen:QuickLog},
     Welcome: { screen: Welcome },
     SignUp: { screen: SignUp },
     SignUpPassword: { screen: SignUpPassword },
