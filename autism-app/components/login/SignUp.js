@@ -74,7 +74,7 @@ class SignUp extends Component {
                 
                 <View style={styles.inputContainer}> 
                     <Ionicons name="ios-mail" size={30} color="#73788B" style={[styles.inputIcon, styles.icon] }  />
-                    <TextInput placeholder="Email Address"  keyboardType={'email-address'} style={styles.inputs} onChangeText={(text) => this.setState({ email: text })} />
+                    <TextInput placeholder="Email Address"  keyboardType={'email-address'} style={styles.input} onChangeText={(text) => this.setState({ email: text })} />
                 </View>
 
                 <Button shadowless round color="#29d2e4" style={{ marginTop: 20 }} onPress={() => this._userSignUp()}>Get Started</Button>

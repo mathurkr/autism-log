@@ -97,6 +97,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#fff',
+        borderColor: "black",
+        borderWidth: 1,
     },
 
     inputContainer:{
