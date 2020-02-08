@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { StyleSheet, Dimensions, View, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableWithoutFeedback, StatusBar, SafeAreaView, Keyboard,  KeyboardAvoidingView, TextInput, Dimensions, TouchableOpacity, } from 'react-native';
 
-import { Button, Block, Text, Input, theme } from 'galio-framework';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { withNavigation } from 'react-navigation';
 import {Ionicons} from "@expo/vector-icons";
-import { TextInput } from 'react-native-gesture-handler';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
 
 
 class SignUp extends Component {
@@ -52,72 +51,161 @@ class SignUp extends Component {
         this.props.navigation.navigate('PrivatePolicy');
     }
 
+
     render() {
+        
         return (
-            <KeyboardAvoidingView style={styles.container} behavior="padding">
-                <Text style={styles.welcomeMessage}>  Sign Up </Text>
-                <TouchableOpacity activeOpacity={0.9} style={styles.facebook}>
-                    <View style={{ flexDirection: "row" }}>
-                        <Icon name="facebook-square" color="#ffffff" size={30} />
-                        <Text style={styles.iconText}>Continue with Facebook</Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity activeOpacity={0.9} style={styles.google} onPress={() => this.props._googleLogin()}>
-                    <View style={{ flexDirection: "row" }}>
-                        <Icon name="google" color="#ffffff" size={30} />
-                        <Text style={styles.iconText}>Continue with Google</Text>
-                    </View>
-                </TouchableOpacity>
-                <Text style={{ marginTop: 5, marginBottom: 20, fontSize: 13 }}>OR SIGN UP WITH EMAIL</Text>
-                
-                {/* <Input placeholder="Email Address" style={styles.input} keyboardType={'email-address'} onChangeText={(text) => this.setState({ email: text })} /> */}
-                
-                <View style={styles.inputContainer}> 
-                    <Ionicons name="ios-mail" size={30} color="#73788B" style={[styles.inputIcon, styles.icon] }  />
-                    <TextInput placeholder="Email Address"  keyboardType={'email-address'} style={styles.input} onChangeText={(text) => this.setState({ email: text })} />
-                </View>
 
-                <Button shadowless round color="#29d2e4" style={{ marginTop: 20 }} onPress={() => this._userSignUp()}>Get Started</Button>
-                <Text style={{ fontSize: 13, marginTop: 20 }}>By signing up, you agree to Luminous's</Text>
-                <View style={{ flexDirection: "row" }}>
-                    <Text style={{ fontSize: 13, textDecorationLine: 'underline' }} onPress={() => this._showTermsOfService()}>Terms of Service</Text>
-                    <Text style={{ fontSize: 13 }}> and </Text>
-                    <Text style={{ fontSize: 13, textDecorationLine: 'underline' }} onPress={() => this._showPrivatePolicy()}>Private Policy</Text>
-                </View>
+            <SafeAreaView stye={styles.container}>
+                
+                <StatusBar/>
+                <KeyboardAwareScrollView> 
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                        <View style={styles.block}>
+                            
+                            <View style={styles.logoContainer}>
+                                <Text style={styles.title}> Sign up to Lumionus </Text>
+                            
+                                <TouchableOpacity activeOpacity={0.9} style={styles.facebook}>
+                                    <View style={{ flexDirection: "row" }}>
+                                        <Icon name="facebook-square" color="#ffffff" size={30}  />
+                                        <Text style={styles.iconText}>Login with Facebook</Text>
+                                    </View>
+                                </TouchableOpacity>
 
-            </KeyboardAvoidingView>
+                                <TouchableOpacity activeOpacity={0.9} style={styles.google} onPress={() => this.props._googleLogin()}>
+                                    <View style={{ flexDirection: "row" }}>
+                                        <Icon name="google" color="#ffffff" size={30} sst />
+                                        <Text style={styles.iconTextG}>Login with Google</Text>
+                                    </View>
+                                </TouchableOpacity>
+
+                                <Text style={{ marginTop: 5, marginBottom: 20, fontSize: 13 }}>OR LOGIN WITH EMAIL</Text>
+
+
+                                
+                            </View>
+
+
+                                <View style={styles.inputContainer}> 
+                                    <Ionicons name="ios-mail" size={30} color="#77909c" style={[styles.inputIcon, styles.icon] }  />
+                                    <TextInput                            
+                                    placeholder="Enter username/email"
+                                    placeholderTextColor='#999999'
+                                    returnKeyType= { "next" }
+                                    autoCapitalize = {false}
+                                    autoCorrect = {false}
+                                    onSubmitEditing={() => { this.secondTextInputRef.current.focus(); }}
+                                    placeholder="Email Address"  
+                                    keyboardType={'email-address'} style={styles.inputs} onChangeText={(text) => this.setState({ email: text })} />
+                                </View>
+
+                                <Text color="#0275d8" p style={styles.forgotPwd} onPress={() => this._forgotPassword()}>Forgot Password?</Text>
+
+                            <TouchableOpacity style={styles.buttonContainer} ref={this.signIn} onPress={() => this._userSignUp()}>
+                                <Text style={styles.buttonText} > GET STARTED </Text>
+                            </TouchableOpacity>
+
+
+                            <View style={{alignItems: "center"}}> 
+                            <Text style={{ fontSize: 13, marginTop: 20 }}>By signing up, you agree to Luminous's</Text>
+                            <View style={{ flexDirection: "row" }}>
+                                <Text style={{ fontSize: 13, textDecorationLine: 'underline' }} onPress={() => this._showTermsOfService()}>Terms of Service</Text>
+                                <Text style={{ fontSize: 13 }}> and </Text>
+                                <Text style={{ fontSize: 13, textDecorationLine: 'underline' }} onPress={() => this._showPrivatePolicy()}>Private Policy</Text>
+                            </View>
+                            </View>
+
+
+                            
+                        </View>
+                    </TouchableWithoutFeedback>
+                </KeyboardAwareScrollView>
+            </SafeAreaView>
+
+            
         );
     }
-}
+
+};
+
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        
+    },
+
+    logo: {
+        width: 128,
+        height:55,
+    },
+    logoContainer: {
+        alignItems: "center",
+        justifyContent: "center",
+        flex: 1,   
+    },
+
+    block :{
+        marginTop: 10
+    },
+
+    title: {
+        fontSize: 20,
+        textAlign: 'center',
+        marginTop: 5,
+        opacity: 0.9, 
+        marginBottom:42 ,
+    },
+
+
+    input: {
+        height: 40, 
+        backgroundColor: 'rgba(255,255,255,0.2)',
+        color: '#FFF',
+        paddingHorizontal: 10,
+        marginBottom:20,
+    },
+
+    buttonContainer: {
+        backgroundColor: '#29d2e4',
+        paddingVertical: 15,
+        borderRadius: 27,
+        height: 50,
+        paddingHorizontal: 10,
+     
         alignItems: 'center',
-        paddingTop: 30,
-        width: Dimensions.get('window').width,
+        alignItems: 'center',
+
+    },
+
+    buttonText: {
+        textAlign: 'center',
+        fontWeight: 'bold',
+        fontSize: 18,
+        color: 'white',
+        
     },
 
     facebook: {
-        marginTop: 20,
-        paddingTop: 10, paddingLeft: 20, paddingRight: 20, paddingBottom: 10,
+        paddingTop:10, paddingLeft:'18%', paddingRight:'18%', paddingBottom:10,
         backgroundColor: "#3b5998",
         borderRadius: 27,
-        width: '82%',
         justifyContent: 'center',
-        alignItems: 'center'
-    },
+        alignItems: 'center',
+        height: 50,
 
+    },
 
     google: {
         marginTop: 20,
         marginBottom: 20,
-        paddingTop: 10, paddingLeft: 20, paddingRight: 20, paddingBottom: 10,
+        paddingTop:10, paddingLeft:'23%', paddingRight:'20%', paddingBottom:10,
         backgroundColor: "#bf4334",
         borderRadius: 27,
-        width: '82%',
         justifyContent: 'center',
         alignItems: 'center',
+        height: 50,
 
     },
 
@@ -128,49 +216,24 @@ const styles = StyleSheet.create({
         paddingLeft: 24,
     },
 
-
-    input: {
-        width: '89%',
-        backgroundColor: '#E9EDEF',
+    iconTextG: {
+        fontSize: 16,
+        color: "#ffffff",
+        alignSelf: 'center',
+        paddingLeft: 15,
         
-
-    },
-    termsPolicyText: {
-        fontSize: 14
-    },
-
-    welcomeMessage: {
-        fontSize: 20,
-        paddingBottom: 40
-    },
-
-    inputSection: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#fff',
-    },
-
-
-    //
-
-    inputSection: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#fff',
     },
 
     inputContainer:{
-        width: '89%',
         height: 50,
         marginBottom: 9,
         backgroundColor: '#E9EDEF',
-        marginBottom: 20, 
+        marginBottom: 10, 
         flexDirection: "row",
-        alignItems: 'center'
+        alignItems: 'center',
+        borderRadius: 5
+
+
     },
 
     inputs: {
@@ -178,15 +241,65 @@ const styles = StyleSheet.create({
         marginLeft: 16,
         flex:1
     },
-
-    inputIcon: {
-        marginLeft:10,
+    
+    inputSection: {
+        flex: 1,
+        backgroundColor: 'red',
     },
 
+    inputIcon: {
+        marginLeft:15,
+    },
+    
     icon:{
         width: 30,
         height: 30,
-    }
+    },
+
+    forgotPwd: {
+        fontSize: 12,
+        textAlign: 'left',
+        margin: 10,
+        paddingBottom: 20,
+        paddingTop: 10,
+        marginBottom: 20,
+        color: "#006AFF"
+    },
+//
+
+// inputSection: {
+//     flex: 1,
+//     flexDirection: 'row',
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//     backgroundColor: '#fff',
+// },
+
+// inputContainer:{
+//     width: '89%',
+//     height: 50,
+//     marginBottom: 9,
+//     backgroundColor: '#E9EDEF',
+//     marginBottom: 20, 
+//     flexDirection: "row",
+//     alignItems: 'center'
+// },
+
+// inputs: {
+//     height: 45,
+//     marginLeft: 16,
+//     flex:1
+// },
+
+// inputIcon: {
+//     marginLeft:10,
+// },
+
+// icon:{
+//     width: 30,
+//     height: 30,
+// }
+
 
 
 

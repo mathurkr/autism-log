@@ -84,7 +84,7 @@ class Login extends Component {
 
                                 <TouchableOpacity activeOpacity={0.9} style={styles.google} onPress={() => this.props._googleLogin()}>
                                     <View style={{ flexDirection: "row" }}>
-                                        <Icon name="google" color="#ffffff" size={30} />
+                                        <Icon name="google" color="#ffffff" size={30} sst />
                                         <Text style={styles.iconTextG}>Login with Google</Text>
                                     </View>
                                 </TouchableOpacity>
