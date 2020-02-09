@@ -1,21 +1,24 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableOpacity, KeyboardAvoidingView, Image} from 'react-native';
+import { StyleSheet, View, TouchableOpacity, KeyboardAvoidingView, Image } from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
 
-import { Button, Text, Input, theme} from 'galio-framework';
+import { Button, Text, Input, theme } from 'galio-framework';
 
 
 export default class NameSetup extends Component {
 
     // Maybe put in a more seamless validation process here
-    _validateForm() {
+    _validateName() {
+        const { params } = this.props.navigation.state;
         if (this.state.name == '') {
-            alert('Please enter your first name');
+            alert('Please enter your name');
         }
         else {
             // alert('Name: ' + this.state.firstName + ' ' + this.state.lastName + ', Gender: ' + this.state.gender + ', Age: ' + this.state.age + ', Phone: ' + this.state.phone);
             this.props.navigation.navigate('AgeSetup',
                 {
+                    email: params.email,
+                    password: params.password,
                     name: this.state.name,
                 });
 
@@ -25,12 +28,12 @@ export default class NameSetup extends Component {
     render() {
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding">
-                
-                <Text h5 style={{ paddingHorizontal: 39, textAlign:'center',  marginBottom: 28, marginTop:91  }}> What's your name </Text>
+
+                <Text h5 style={{ paddingHorizontal: 39, textAlign: 'center', marginBottom: 28, marginTop: 91 }}> What's your name? </Text>
 
                 <Input placeholder="Enter name" style={styles.input} onChangeText={(text) => this.setState({ name: text })} />
 
-                <Button shadowless round color="#29d2e4" style={{ marginTop: 10 }} onPress={() => this._validateForm()}>Continue</Button>
+                <Button shadowless round color="#29d2e4" style={{ marginTop: 10 }} onPress={() => this._validateName()}>Continue</Button>
             </KeyboardAvoidingView>
         );
     }
@@ -40,7 +43,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        
+
     },
 
     input: {
@@ -48,7 +51,7 @@ const styles = StyleSheet.create({
         marginBottom: 9,
         backgroundColor: '#E9EDEF',
         height: 50,
-        marginBottom: 65
+        marginBottom: 30
     },
 
     dropdownLabel: {

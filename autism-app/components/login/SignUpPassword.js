@@ -21,22 +21,23 @@ export default class SignUpPassword extends Component {
 
     // Store Email and Password into DB
     _storeEmailPassword() {
-        this.props.navigation.navigate('NameSetup',
-        {
-            password: this.state.password,
-        });
-        console.log("Here2")
-        // const { params } = this.props.navigation.state;
-        // if (this.state.password == '' || !(params.validatePassword(this.state.password))) {
-        //     alert('Please enter a password containing at least 8 characters, with at least 1 lowercase, 1 uppercase, 1 numeric, and 1 special character');
-        // }
-        // else {
-        //     // Authenticate user email and password with database
-        //     DB.auth()
-        //         .createUserWithEmailAndPassword(this.state.email, this.state.password)
-        //         .then(() => this.props.navigation.navigate('SignUpForm', { email: this.state.email, password: this.state.password }))
-        //         .catch(error => "There was an error authenticating the user with the database");
-        // }
+        const { params } = this.props.navigation.state;
+        // Validate password
+        if (this.state.password == '' || !(params.validatePassword(this.state.password))) {
+            alert('Please enter a password containing at least 8 characters, with at least 1 lowercase, 1 uppercase, 1 numeric, and 1 special character');
+        }
+        else {
+            // Authenticate user email and password with database
+            DB.auth()
+                .createUserWithEmailAndPassword(this.state.email, this.state.password)
+                .then(() => this.props.navigation.navigate('NameSetup', { email: this.state.email, password: this.state.password }))
+                .catch(error => "There was an error authenticating the user with the database");
+        }
+        // this.props.navigation.navigate('NameSetup',
+        // {
+        //     password: this.state.password,
+        // });
+        // console.log("Here2");
     }
 
     render() {

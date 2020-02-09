@@ -8,31 +8,46 @@ import { Button, Input, theme } from 'galio-framework';
 import DB from '../config/DatabaseConfig';
 
 export default class LoggerSelection extends Component {
+    state = {
+        dependent: false,
+        caregiver: false,
+    }
+
     constructor(props) {
         super(props);
-        this.state = {
-            button_1: false,
-            button_2: false,
-        }
     }
+
     _onHideUnderlay() {
         this.setState({ pressStatus: false });
     }
+
     _onShowUnderlay() {
         this.setState({ pressStatus: true });
     }
 
-    _validateForm() {
-        this.props.navigation.navigate('ChildSetup',
-            {
-                password: this.state.password,
+    _continueToProfileSetUp() {
+        if (!this.state.dependent && !this.state.caregiver) {
+            alert('Please select a Logger Status');
+        }
+        else {
+            const { params } = this.props.navigation.state;
+            // Store all user account information here -- profile information will be stored in a separate collection
+            const collection = DB.firestore().collection('users');
+            collection.add({
+                email: params.email,
+                password: params.password,  // Find way to not store password directly in database for security reasons?
+                name: params.name,
+                // phone: params.phone,
+                age: params.age,
+                // gender: params.gender,
+                loggerStatus: (this.state.dependent) ? 'Dependent' : 'Caregiver'
+            }).catch((error) => {
+                alert('There was an error adding the user to the DB');
             });
+            this.props.navigation.navigate('ChildSetup');
+        }
     }
 
-
-    state = {
-        loggerType: ''
-    }
 
     componentDidUpdate() {
         // const { params } = this.props.navigation.state;
@@ -74,14 +89,13 @@ export default class LoggerSelection extends Component {
                                 width: 105,
                                 borderRadius: 5,
                                 margin: 15,
-                                backgroundColor: this.state.button_1 ? "#29d2e4" : "white"
+                                backgroundColor: this.state.dependent ? "#29d2e4" : "white"
                             }}
                             onPress={() => {
                                 this.setState({
-                                    button_1: !this.state.button_1,
-                                    button_2: false,
+                                    dependent: !this.state.dependent,
+                                    caregiver: false,
                                 })
-                                this.setState({ loggerType: 'Self-Logger' });
                             }
                             }>
                             <Image style={{ width: 50, marginTop: 25, alignItems: 'center', justifyContent: 'center', height: 50, alignItems: 'center', justifyContent: 'center' }} source={require('../../assets/images/dependent.png')} />
@@ -103,14 +117,13 @@ export default class LoggerSelection extends Component {
                                 width: 105,
                                 borderRadius: 5,
                                 margin: 15,
-                                backgroundColor: this.state.button_2 ? "#29d2e4" : "white"
+                                backgroundColor: this.state.caregiver ? "#29d2e4" : "white"
                             }}
                             onPress={() => {
                                 this.setState({
-                                    button_1: false,
-                                    button_2: !this.state.button_2,
+                                    dependent: false,
+                                    caregiver: !this.state.caregiver,
                                 })
-                                this.setState({ loggerType: 'Caregiver' });
 
                             }}>
                             <Image style={{ width: 50, marginTop: 25, alignItems: 'center', justifyContent: 'center', height: 50, alignItems: 'center', justifyContent: 'center' }} source={require('../../assets/images/caregiver.png')} />
@@ -121,7 +134,7 @@ export default class LoggerSelection extends Component {
 
                     </View>
 
-                </View><Button shadowless round color="#29d2e4" style={{ marginTop: 10 }} onPress={() => this._validateForm()}>Continue</Button>
+                </View><Button shadowless round color="#29d2e4" style={{ marginTop: 10 }} onPress={() => this._continueToProfileSetUp()}>Continue</Button>
 
             </View>
         );

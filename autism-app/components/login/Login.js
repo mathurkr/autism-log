@@ -79,7 +79,7 @@ class Login extends Component {
 
     render() {
         return (
-            <KeyboardAvoidingView style={styles.container} behavior="padding">
+            <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
                 <Text style={styles.SignUpMsg}> Welcome Back! </Text>
                 <TouchableOpacity activeOpacity={0.9} style={styles.facebook}>
                     <View style={{ flexDirection: "row" }}>
@@ -98,7 +98,7 @@ class Login extends Component {
                 <Input placeholder="Password" value={this.state.password} style={styles.input} password viewPass onChangeText={(text) => this.setState({ password: text })} />
                 <Text color="#0275d8" p style={styles.forgotPwd} onPress={() => this._forgotPassword()}>Forgot Password?</Text>
                 <Button shadowless round color="#29d2e4" onPress={() => this._userLogin()} style={styles.loginBtn}> LOGIN </Button>
-            </KeyboardAvoidingView>
+            </KeyboardAvoidingView >
         );
     }
 

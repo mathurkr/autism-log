@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { StyleSheet, Dimensions, View, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, Dimensions, View, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
 
 import { Button, Block, Text, Input, theme } from 'galio-framework';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { withNavigation } from 'react-navigation';
+// import { ScrollView } from 'react-native-gesture-handler';
 
 
 class SignUp extends Component {
@@ -25,17 +26,12 @@ class SignUp extends Component {
     // }
 
     _userSignUp() {
+        // Validate email
         if (this.state.email == '' || !(this.props._validateEmail(this.state.email))) {
             alert('Please enter a valid email address');
         }
         else {
-            // For testing purposes right now, add the email and password to cloud firestore on Firebase -- this step will be done at the very end in the final app
-            // this.ref.add({
-            //     email: this.state.email,
-            //     password: this.state.password
-            // }).catch((error) => {
-            //     alert('There was an error adding the user to the DB');
-            // });
+
             this.props.navigation.navigate('SignUpPassword', { email: this.state.email, validatePassword: this.props._validatePassword });
 
         }
@@ -51,7 +47,7 @@ class SignUp extends Component {
 
     render() {
         return (
-            <KeyboardAvoidingView style={styles.container} behavior="padding">
+            <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
                 <Text style={styles.welcomeMessage}>  Sign Up </Text>
 
                 <TouchableOpacity activeOpacity={0.9} style={styles.facebook}>
@@ -75,15 +71,15 @@ class SignUp extends Component {
                     <Text style={{ fontSize: 13 }}> and </Text>
                     <Text style={{ fontSize: 13, textDecorationLine: 'underline' }} onPress={() => this._showPrivatePolicy()}>Private Policy</Text>
                 </View>
-
             </KeyboardAvoidingView>
+
         );
     }
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flexGrow: 1,
         alignItems: 'center',
         paddingTop: 30,
         width: Dimensions.get('window').width,

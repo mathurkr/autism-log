@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, KeyboardAvoidingView, StatusBar, Image} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, KeyboardAvoidingView, StatusBar, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import ModalDropdown from 'react-native-modal-dropdown';
 import { TextInput } from 'react-native-gesture-handler';
@@ -9,15 +9,15 @@ import * as ImagePicker from 'expo-image-picker';
 export default class ChildSetup extends Component {
 
     static navigationOptions = {
-        header:null
+        header: null
     };
 
     state = {
-        user:{
+        user: {
             first_name: "",
             age: "",
             gender: "",
-            avatar:null
+            avatar: null
         },
         errorMessage: null
 
@@ -29,11 +29,11 @@ export default class ChildSetup extends Component {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaType: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
-            aspect: [4,3]
+            aspect: [4, 3]
         });
 
-        if(!result.cancelled) {
-            this.setState({user: {...this.state.user, avatar: result.uri}})
+        if (!result.cancelled) {
+            this.setState({ user: { ...this.state.user, avatar: result.uri } })
         }
     }
 
@@ -42,25 +42,25 @@ export default class ChildSetup extends Component {
             <View style={styles.container}>
                 <StatusBar barStyle="light-content"> </StatusBar>
 
-                <Image 
+                <Image
                     source={require('../../assets/images/profile_banner.png')}
-                    style={{marginTop: -100, marginLeft: -294}}
-                    ></Image>
+                    style={{ marginTop: -100, marginLeft: -294 }}
+                ></Image>
 
                 <TouchableOpacity style={styles.back} onPress={() => this.props.naviation.goBack()}>
                     <Ionicons name="ios-arrow-round-back" size={32} color="#FFF"> </Ionicons>
                 </TouchableOpacity>
 
-                <View style={{position: "absolute", top: 64, alignItems: "center", width: "100%"}}>
+                <View style={{ position: "absolute", top: 64, alignItems: "center", width: "100%" }}>
 
                     <Text style={styles.greeting}> {'Create Profile'}</Text>
                     <TouchableOpacity style={styles.avatarPlaceholder} onPress={this.handlePickAvatar}>
-                        <Image source={{uri:this.state.user.avatar}} style={styles.avatar} />
+                        <Image source={{ uri: this.state.user.avatar }} style={styles.avatar} />
                         <Ionicons
                             name="ios-add"
                             size={40}
                             color="#FFF"
-                            style={{marginTop: 6, marginLeft: 2}}
+                            style={{ marginTop: 6, marginLeft: 2 }}
                         ></Ionicons>
                     </TouchableOpacity>
                 </View>
@@ -75,35 +75,35 @@ export default class ChildSetup extends Component {
                         <TextInput
                             style={styles.input}
                             autoCapitalize="none"
-                            onChangeText={name => this.setState({name})}
+                            onChangeText={name => this.setState({ name })}
                             value={this.state.name}
                         ></TextInput>
                     </View>
 
-                    <View style={{marginTop: 32}}>
+                    <View style={{ marginTop: 32 }}>
                         <Text style={styles.inputTitle}> Age </Text>
                         <TextInput
-                        style={styles.input}
-                        autoCapitalize="none"
-                        onChangeText={age => this.setState({age})}
-                        value = {this.state.age}
+                            style={styles.input}
+                            autoCapitalize="none"
+                            onChangeText={age => this.setState({ age })}
+                            value={this.state.age}
                         ></TextInput>
                     </View>
 
 
-                    <View style={{marginTop: 32}}>
+                    <View style={{ marginTop: 32 }}>
                         <Text style={styles.inputTitle}> Gender </Text>
                         <TextInput
-                        style={styles.input}
-                        autoCapitalize="none"
-                        onChangeText={gender => this.setState({gender})}
-                        value = {this.state.gender}
+                            style={styles.input}
+                            autoCapitalize="none"
+                            onChangeText={gender => this.setState({ gender })}
+                            value={this.state.gender}
                         ></TextInput>
                     </View>
                 </View>
 
-                <TouchableOpacity style={styles.button} onPress={this.props.navigation.navigate('Home')}>
-                    <Text style={{color: "#FFF", fontWeight: "500"}}> Sign up </Text>
+                <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Home')}>
+                    <Text style={{ color: "#FFF", fontWeight: "500" }}> Sign up </Text>
                 </TouchableOpacity>
 
 
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     },
 
     errorMessage: {
-        height:72,
+        height: 72,
         alignItems: "center",
         justifyContent: "center",
         marginHorizontal: 30
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 30
     },
 
-    inputTitle : {
+    inputTitle: {
         color: "#8A8F9E",
         fontSize: 18,
         textTransform: "uppercase"
@@ -181,17 +181,17 @@ const styles = StyleSheet.create({
         justifyContent: "center"
     },
 
-    avatarPlaceholder:{
+    avatarPlaceholder: {
         width: 100,
         height: 100,
         borderRadius: 50,
         backgroundColor: "#E1E2E6",
         marginTop: 48,
-        justifyContent:'center',
+        justifyContent: 'center',
         alignItems: "center"
     },
 
-    avatar:{
+    avatar: {
         position: "absolute",
         width: 100,
         height: 100,
