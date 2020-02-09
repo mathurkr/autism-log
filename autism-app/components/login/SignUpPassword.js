@@ -5,6 +5,7 @@ import {Ionicons} from "@expo/vector-icons";
 import { TextInput } from 'react-native-gesture-handler';
 
 import { Button, Text, Input, theme } from 'galio-framework';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview'
 
 import DB from '../config/DatabaseConfig';
 
@@ -19,6 +20,12 @@ export default class SignUpPassword extends Component {
         //email: '',
         //password: '',
     };
+
+    static navigationOptions = {
+        //To hide the NavigationBar from current Screen
+        header: null
+      };
+      
 
     componentDidMount() {
         // const { params } = this.props.navigation.state;
@@ -49,10 +56,9 @@ export default class SignUpPassword extends Component {
 
     render() {
         return (
-            <DismissKeyboard> 
-            <KeyboardAvoidingView style={styles.container} behavior="padding">
+                <KeyboardAwareScrollView> 
+                <View style={styles.pageContainer}>
                 <Image style={{ width: 50, height: 50, marginTop: "8%", marginBottom: 24,  }} source={{ uri: 'https://facebook.github.io/react-native/img/tiny_logo.png' }} />
-
                 <Text h5 style={{ marginBottom: 10, paddingHorizontal: '10%', textAlign: 'center', marginBottom: 15 }}>Welcome to Luminous! </Text>
                 <Text h5 style={{ fontSize: 16, marginBottom: 30, paddingHorizontal: 50, textAlign: 'center', }}> Realtime, convenient recording &amp; mangement of autism </Text>
                 <Text style={{  paddingHorizontal: 39, marginBottom: 10 }}>Set a password</Text>
@@ -69,19 +75,20 @@ export default class SignUpPassword extends Component {
                 <Text style={{ marginBottom: 10, paddingHorizontal: 65, textAlign: 'center', marginBottom: 20 }}>Your password should be at least 8 characters </Text>
 
                 <Button shadowless round color="#29d2e4" style={{ marginTop: 5 }} onPress={() => this._storeEmailPassword()}>Continue</Button>
-            </KeyboardAvoidingView>
-            </DismissKeyboard>
+                </View>
+            </KeyboardAwareScrollView>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
+    pageContainer: {
+        flex:1,
         alignItems: 'center',
         justifyContent: 'center',
         marginBottom: '33%',
-    },
+    }, 
+
     input: {
         width: '89%',
         marginBottom: 9,
@@ -97,8 +104,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#fff',
-        borderColor: "black",
-        borderWidth: 1,
     },
 
     inputContainer:{

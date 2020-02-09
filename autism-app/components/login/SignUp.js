@@ -86,7 +86,6 @@ class SignUp extends Component {
                                 
                             </View>
 
-
                                 <View style={styles.inputContainer}> 
                                     <Ionicons name="ios-mail" size={30} color="#77909c" style={[styles.inputIcon, styles.icon] }  />
                                     <TextInput                            
@@ -100,10 +99,9 @@ class SignUp extends Component {
                                     keyboardType={'email-address'} style={styles.inputs} onChangeText={(text) => this.setState({ email: text })} />
                                 </View>
 
-                                <Text color="#0275d8" p style={styles.forgotPwd} onPress={() => this._forgotPassword()}>Forgot Password?</Text>
 
                             <TouchableOpacity style={styles.buttonContainer} ref={this.signIn} onPress={() => this._userSignUp()}>
-                                <Text style={styles.buttonText} > GET STARTED </Text>
+                                <Text style={styles.buttonText}> GET STARTED </Text>
                             </TouchableOpacity>
 
 
@@ -181,7 +179,6 @@ const styles = StyleSheet.create({
 
     buttonText: {
         textAlign: 'center',
-        fontWeight: 'bold',
         fontSize: 18,
         color: 'white',
         
@@ -226,9 +223,8 @@ const styles = StyleSheet.create({
 
     inputContainer:{
         height: 50,
-        marginBottom: 9,
         backgroundColor: '#E9EDEF',
-        marginBottom: 10, 
+        marginBottom: 30, 
         flexDirection: "row",
         alignItems: 'center',
         borderRadius: 5

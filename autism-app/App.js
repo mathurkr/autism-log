@@ -33,13 +33,14 @@ import NameSetup from './components/login/NameSetup';
 
 // SignUpNavigator holds all components associated with SignUp process -- may divide them up in the future
 const SignUpNavigator = createStackNavigator({
-    Welcome: { screen: Welcome },
-    SignUp: { screen: SignUp },
-    SignUpPassword: { screen: SignUpPassword },
-    SignUpForm: { screen: SignUpForm },
-    NameSetup: { screen: NameSetup},
-    AgeSetup: { screen: AgeSetup },
-    PaymentInfo: { screen: PaymentInfo },
+    //Welcome: { screen: Welcome },
+    //SignUp: { screen: SignUp },
+    //SignUpPassword: { screen: SignUpPassword },
+    //SignUpForm: { screen: SignUpForm },
+    //NameSetup: { screen: NameSetup},
+    //AgeSetup: { screen: AgeSetup },
+    //PaymentInfo: { screen: PaymentInfo },
+    Home: { screen: Home},
     TermsOfService: { screen: TermsOfService },
     PrivatePolicy: { screen: PrivatePolicy },
     Authenticate: { screen: Authenticate },
@@ -49,7 +50,7 @@ const SignUpNavigator = createStackNavigator({
     LoggerSelection: { screen: LoggerSelection },
     ChildSetup: {screen: ChildSetup},
     ProfileSetUp: { screen: ProfileSetUp },
-     //Home: { screen: Home},
+    
     // Settings: { screen: Settings},
     // Profile: { screen: Profile},
 
