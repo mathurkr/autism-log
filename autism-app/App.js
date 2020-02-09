@@ -19,21 +19,26 @@ import VerifyCode from './components/login/VerifyCode';
 import LoggerSelection from './components/login/LoggerSelection';
 import ProfileSetUp from './components/login/ProfileSetUp';
 
+
+import ChildSetup from './components/login/ChildSetup';
+import AgeSetup from './components/login/AgeSetup';
+
+
 // Include MainTabNavigator for main application navigation
 import MainAppNavigator from './components/navigation/MainAppNavigator';
 import Profile from './components/navigation/Profile';
 import Settings from './components/navigation/Settings'
 import Home from './components/navigation/Home'
+import NameSetup from './components/login/NameSetup';
 
 // SignUpNavigator holds all components associated with SignUp process -- may divide them up in the future
 const SignUpNavigator = createStackNavigator({
-    // Home: { screen: Home},
-    //Settings: { screen: Settings},
-    //Profile: { screen: Profile},
     Welcome: { screen: Welcome },
     SignUp: { screen: SignUp },
     SignUpPassword: { screen: SignUpPassword },
     SignUpForm: { screen: SignUpForm },
+    NameSetup: { screen: NameSetup },
+    AgeSetup: { screen: AgeSetup },
     PaymentInfo: { screen: PaymentInfo },
     TermsOfService: { screen: TermsOfService },
     PrivatePolicy: { screen: PrivatePolicy },
@@ -42,7 +47,15 @@ const SignUpNavigator = createStackNavigator({
     ForgotPassword: { screen: ForgotPassword },
     VerifyCode: { screen: VerifyCode },
     LoggerSelection: { screen: LoggerSelection },
-    ProfileSetUp: { screen: ProfileSetUp }
+    ProfileSetUp: { screen: ProfileSetUp },
+    ChildSetup: { screen: ChildSetup },
+    // Home: { screen: Home},
+    // Settings: { screen: Settings},
+    // Profile: { screen: Profile},
+
+
+
+
 });
 
 // class MainAppNav extends Component {

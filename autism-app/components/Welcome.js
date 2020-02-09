@@ -6,7 +6,7 @@ const {width} = Dimensions.get('window');
 
 
 const photos = [
-    {photo: require('../assets/images/father_image.png'),
+    {photo: require('..//assets/images/father_image.png'),
      title: "Welcome to Luminous",
     description: "Offering a better way to manage developmental disabilities and help children and adults with autism"}, 
 
