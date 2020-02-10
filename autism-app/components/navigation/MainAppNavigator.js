@@ -95,12 +95,17 @@ LogsStack.navigationOptions = {
 
 LogsStack.path = '';
 
-const TabNavigator = createBottomTabNavigator({
-    HomeStack,
-    ProfileStack,
-    SettingsStack,
-    LogsStack
-});
+const TabNavigator = createBottomTabNavigator(
+    {
+        HomeStack,
+        ProfileStack,
+        SettingsStack,
+        LogsStack
+    },
+    {
+        initialRouteName: "HomeStack"
+    }
+);
 
 TabNavigator.path = '';
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
@@ -37,7 +37,7 @@ const SignUpNavigator = createStackNavigator({
     SignUp: { screen: SignUp },
     SignUpPassword: { screen: SignUpPassword },
     SignUpForm: { screen: SignUpForm },
-    NameSetup: { screen: NameSetup},
+    NameSetup: { screen: NameSetup },
     AgeSetup: { screen: AgeSetup },
     PaymentInfo: { screen: PaymentInfo },
     TermsOfService: { screen: TermsOfService },
@@ -48,7 +48,7 @@ const SignUpNavigator = createStackNavigator({
     VerifyCode: { screen: VerifyCode },
     LoggerSelection: { screen: LoggerSelection },
     ProfileSetUp: { screen: ProfileSetUp },
-    ChildSetup: {screen: ChildSetup},
+    ChildSetup: { screen: ChildSetup },
     // Home: { screen: Home},
     // Settings: { screen: Settings},
     // Profile: { screen: Profile},
@@ -57,6 +57,17 @@ const SignUpNavigator = createStackNavigator({
 
 
 });
+
+// class MainAppNav extends Component {
+//     render() {
+//         const { navigation } = this.props;
+//         return <MainAppNavigator
+//             screenProps={{
+//                 params: navigation.state.params,
+//                 rootNavigation: navigation
+//             }} />
+//     }
+// }
 
 // Universal App Navigator
 const UniversalNavigator = createSwitchNavigator({
