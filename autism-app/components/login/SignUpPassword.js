@@ -20,12 +20,7 @@ export default class SignUpPassword extends Component {
         //email: '',
         //password: '',
     };
-
-    static navigationOptions = {
-        //To hide the NavigationBar from current Screen
-        header: null
-      };
-      
+    
 
     componentDidMount() {
         // const { params } = this.props.navigation.state;

@@ -4,12 +4,13 @@ import { Button, Text, Input } from 'galio-framework';
 import CalendarStrip from 'react-native-calendar-strip';
 import {Ionicons} from "@expo/vector-icons";
 import moment from "moment";
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-posts = [{name: "Social Meltdown", severity: "Very Severe",  timestamp: 1569109273726, id: '1', avatar: require('../../assets/images/testicon.png'), image: require('../../assets/images/child_photo.png'), text:"Charles felt uncomfortable during science class." },
+posts = [{name: "Social Meltdown", severity: "Very Severe",  timestamp: 1569109273726, id: '1', avatar:"ios-body", image: require('../../assets/images/child_photo.png'), text:"Charles felt uncomfortable during science class." },
 
-{name: "cog", severity: "Moderate", timestamp: 1569109273726, id: '2', avatar: require('../../assets/images/sensory.png'), image: require('../../assets/images/test2.png'), text:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."},
-{name: "cog", severity: "Low", timestamp: 1569109273726, id: '3', avatar: require('../../assets/images/test2.png'), image: require('../../assets/images/test2.png')},
-{name: "cog", severity: "Severe", timestamp: 1569109273726, id: '4', avatar: require('../../assets/images/test2.png'), image: require('../../assets/images/test2.png')}
+{name: "Routinary Metldown", severity: "Moderate", timestamp: 1569109273726, id: '2', avatar: "ios-calendar", image: require('../../assets/images/test2.png'), text:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."},
+{name: "Social Meltdown", severity: "Low", timestamp: 1569109273726, id: '3', avatar: "ios-people", image: require('../../assets/images/child_photo.png')},
+{name: "Routinary Meltdown", severity: "Severe", timestamp: 1569109273726, id: '4', avatar: "ios-people", image: ""}
 ]
 
 export default class Home extends Component {
@@ -21,36 +22,34 @@ export default class Home extends Component {
 
     renderPost = post => {
         return (
+
+            <TouchableOpacity> 
             <View style={styles.feedItem}>
-                <Image source={post.avatar} style={styles.avatar} />
+                <Ionicons name={post.avatar}style={styles.avatar} size={30} />
+
                 <View style={{ flex: 1 }}> 
                     <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
                         <View>
-                            <Text> 
                                 <Text style={styles.name}> {post.name} </Text> 
-                                <Text style={styles.timestamp}> {moment(post.timestamp).fromNow()} </Text>
-                            </Text>
-                            <Text style={{marginTop: 5}}> 
-                                <Text style={styles.name}> Severity Level: </Text>
-                                <Text style={styles.severity}> {post.severity} </Text>
-                            </Text>
+                                <View style={{flexDirection: "row",  } }>
+
+                                    <Ionicons name="ios-pin" size={14} color="#C4C6CE"  style={{marginTop:3, marginRight: 3}} />
+                                    <Text style={styles.timestamp}> Irvine California  -</Text>
+
+                                    <Text style={styles.timestamp}> {moment(post.timestamp).fromNow()}  </Text>
+                               </View>
                         </View>
 
-                        <Ionicons name="ios-more" size={24} color="#73788B" />
+                        <Ionicons name="ios-sad" size={24} color="red" />
+
                     </View>
-                    
+                    <View>
                     <Text style={styles.post}> {post.text}  </Text>
                     <Image source={post.image} style={styles.postImage} resizeMethod="cover" />
-
-                    <View style={{flexDirection: "row"}}>
-                        <Ionicons name="ios-pin" size={20} color="#0047cc" style={{marginRight: 10}} />
-                        <Text style={styles.pinnedLocation}> Irvine California </Text>
-
-
-
                     </View>
             </View>
         </View>
+        </TouchableOpacity>
         )
     }
 
@@ -91,7 +90,9 @@ export default class Home extends Component {
                      keyExtractor = { item => item.id}
                      showsVerticalScrollIndicator={false}
                      />
-                                     </View>
+            
+            
+            </View>
 
         );
     }
@@ -137,8 +138,9 @@ const styles = StyleSheet.create({
     },
 
     feed: {
-        marginHorizontal: 12,
+        marginHorizontal: 0,
         marginTop: 120,
+
     },
 
     feedItem: {
@@ -146,7 +148,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         padding: 8,
         flexDirection: "row",
-        marginVertical: 12,
+        margin: 12,
         borderRadius: 5,
         borderWidth: 2,
         borderColor: "#DFDFDF",
@@ -158,26 +160,28 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.30,
         shadowRadius: 4.65,
         elevation: 8,
+        
+
     }
 ,
     avatar: {
-        width: 20,
-        height: 30,
-        marginRight: 16,
-        color: '#8c9daa'
+        color: '#8c9daa',     
+        marginRight: 15,   
     },
 
     post: {
-        marginTop: 10,
+        marginTop: 5,
         fontSize: 14,
-        color: "#838899"
+        color: "#838899",
+
     },
 
     postImage:{
         width: undefined,
         height: 150,
         borderRadius: 5,
-        marginVertical: 16
+        marginVertical: 16,
+
     }
 
 });
