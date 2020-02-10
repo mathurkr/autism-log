@@ -31,7 +31,7 @@ export default class Home extends Component {
     componentDidMount() {
         // Get email and password from parent
         const parent = this.props.navigation.dangerouslyGetParent().dangerouslyGetParent().dangerouslyGetParent();
-
+        alert(`Email: ${parent.getParam("email")}, Password: ${parent.getParam("password")}`)
         // Format current date
         const date = new Date();
         let day = date.getDate();
@@ -39,7 +39,7 @@ export default class Home extends Component {
             day = "0" + day;
         }
         let full_date = this.state.months[date.getMonth()] + " " + day + " " + date.getFullYear();
-
+        alert()
         // Retrieve Doc ID and posts corresponding to user email and password
         this._queryDocID(parent, full_date);
 
@@ -81,7 +81,7 @@ export default class Home extends Component {
                     }
                 }
                 else {
-                    alert('Document does not exist');
+                    alert('There are currently no logs associated with the user');
                 }
 
             })

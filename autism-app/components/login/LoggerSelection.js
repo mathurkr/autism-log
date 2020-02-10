@@ -11,6 +11,7 @@ export default class LoggerSelection extends Component {
     state = {
         dependent: false,
         caregiver: false,
+        doc_id: ''
     }
 
     constructor(props) {
@@ -44,7 +45,21 @@ export default class LoggerSelection extends Component {
             }).catch((error) => {
                 alert('There was an error adding the user to the DB');
             });
-            this.props.navigation.navigate('ChildSetup');
+
+            // Fetch newly created Doc ID for this user based on their email and password from users collection
+            collection.where("email", "==", params.email).where("password", "==", params.password)
+                .get()
+                .then((querySnapshot) => {
+                    querySnapshot.forEach((doc) => {
+                        this.setState({ doc_id: doc.id }, () => {
+                            this.props.navigation.navigate('ChildSetup', { email: params.email, password: params.password, doc_id: this.state.doc_id });
+                        });
+                    })
+                })
+                .catch(function (error) {
+                    alert("Error getting documents from users collection: ", error);
+                });
+
         }
     }
 
