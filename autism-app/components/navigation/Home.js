@@ -6,13 +6,15 @@ import {Ionicons} from "@expo/vector-icons";
 import moment from "moment";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-posts = [{name: "Social Meltdown", severity: "Very Severe",  timestamp: 1569109273726, id: '1', avatar:"ios-body", image: require('../../assets/images/child_photo.png'), text:"Charles felt uncomfortable during science class." },
+posts = [{name: "Social Meltdown", severity: "Very Severe",  timestamp: 1569109273726, id: '1', meltdownType:["ios-body", "ios-calendar", "ios-people"], image: require('../../assets/images/child_photo.png'), text:"Charles felt uncomfortable during science class." },
 
-{name: "Routinary Metldown", severity: "Moderate", timestamp: 1569109273726, id: '2', avatar: "ios-calendar", image: require('../../assets/images/test2.png'), text:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."},
-{name: "Social Meltdown", severity: "Low", timestamp: 1569109273726, id: '3', avatar: "ios-people", image: require('../../assets/images/child_photo.png')},
-{name: "Routinary Meltdown", severity: "Severe", timestamp: 1569109273726, id: '4', avatar: "ios-people", image: ""}
+{name: "Routinary Metldown", severity: "Moderate", timestamp: 1569109273726, id: '2', meltdownType: ["ios-calendar"], image: require('../../assets/images/test2.png'), text:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."},
+{name: "Social Meltdown", severity: "Low", timestamp: 1569109273726, id: '3', meltdownType: ["ios-people"], image: require('../../assets/images/child_photo.png')},
+{name: "Routinary Meltdown", severity: "Severe", timestamp: 1569109273726, id: '4', meltdownType: ["ios-people"], image: ""}
 ]
 
+
+                    
 export default class Home extends Component {
 
     static navigationOptions = {
@@ -20,34 +22,62 @@ export default class Home extends Component {
         header: null
       };
 
+
+
+    returnType() {
+        postList = posts.map((type,index) => {
+            //console.log('index = ', index, 'post = ', type.meltdownType)
+            
+                for(let i = 0; i < 3; i++)
+                {                        console.log(type.meltdownType)
+
+                    return (
+                        <Ionicons style={{marginRight: 15}} name={type.meltdownType[i]} size={20} color="#C4C6CE"/>
+                    )
+                }
+            
+        })
+
+        return postList
+    }
+
+
     renderPost = post => {
+
+
         return (
-
-            <TouchableOpacity> 
+        <TouchableOpacity> 
             <View style={styles.feedItem}>
-                <Ionicons name={post.avatar}style={styles.avatar} size={30} />
 
+                <View style={styles.avatarCircle}>
+                <Text style={{color:'purple', fontWeight:"bold", fontSize:22, marginRight: 10,}}> 7 </Text>
+                </View>
+
+                {/* <Ionicons name={post.meltdownType}style={styles.avatar} size={30} /> */}
                 <View style={{ flex: 1 }}> 
                     <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
                         <View>
-                                <Text style={styles.name}> {post.name} </Text> 
-                                <View style={{flexDirection: "row",  } }>
-
-                                    <Ionicons name="ios-pin" size={14} color="#C4C6CE"  style={{marginTop:3, marginRight: 3}} />
-                                    <Text style={styles.timestamp}> Irvine California  -</Text>
-
-                                    <Text style={styles.timestamp}> {moment(post.timestamp).fromNow()}  </Text>
-                               </View>
+                            {/* <Text style={styles.name}> {post.name} </Text>  */}
+                            <Text style={styles.severity}> {post.severity} </Text>
+                            <View style={{flexDirection: "row",  } }>
+                                <Ionicons name="ios-pin" size={14} color="#C4C6CE"  style={{marginTop:3, marginRight: 3}} />
+                                <Text style={styles.timestamp}> Irvine California  -</Text>
+                                <Text style={styles.timestamp}> {moment(post.timestamp).fromNow()}  </Text>
+                            </View>
                         </View>
-
-                        <Ionicons name="ios-sad" size={24} color="red" />
-
-                    </View>
-                    <View>
+                        </View>
+                <View>
                     <Text style={styles.post}> {post.text}  </Text>
                     <Image source={post.image} style={styles.postImage} resizeMethod="cover" />
-                    </View>
+                </View>
+
+                <View style={{flexDirection:"row",}}>
+                    {this.returnType()}
+                </View>
+            
             </View>
+
+            
         </View>
         </TouchableOpacity>
         )
@@ -59,7 +89,7 @@ export default class Home extends Component {
         return (
             
             <View> 
-                                <View style={styles.container}>
+                <View style={styles.container}>
                     {/* <Text>This is the Home Screen</Text> */}
                     <CalendarStrip
                         minDayComponentSize={60}
@@ -90,8 +120,6 @@ export default class Home extends Component {
                      keyExtractor = { item => item.id}
                      showsVerticalScrollIndicator={false}
                      />
-            
-            
             </View>
 
         );
@@ -120,9 +148,10 @@ const styles = StyleSheet.create({
     severity: {
         fontSize: 13,
         color: '#000000',
-        marginTop: 10,
         fontWeight: "500",
-        color: "#000000"
+        color: "#000000",
+
+        
     },
 
     timestamp: {
@@ -166,7 +195,8 @@ const styles = StyleSheet.create({
 ,
     avatar: {
         color: '#8c9daa',     
-        marginRight: 15,   
+        marginRight: 15,  
+         
     },
 
     post: {
@@ -182,6 +212,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginVertical: 16,
 
-    }
+    },
+    
 
 });

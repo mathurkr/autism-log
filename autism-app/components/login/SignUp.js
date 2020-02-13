@@ -55,11 +55,10 @@ class SignUp extends Component {
     render() {
         
         return (
+            <KeyboardAwareScrollView> 
 
-            <SafeAreaView stye={styles.container}>
+            <View stye={styles.container}>
                 
-                <StatusBar/>
-                <KeyboardAwareScrollView> 
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                         <View style={styles.block}>
                             
@@ -118,8 +117,8 @@ class SignUp extends Component {
                             
                         </View>
                     </TouchableWithoutFeedback>
-                </KeyboardAwareScrollView>
-            </SafeAreaView>
+            </View>
+            </KeyboardAwareScrollView>
 
             
         );
@@ -131,7 +130,6 @@ class SignUp extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        
     },
 
     logo: {
