@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Dimensions, FlatList, Image } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 import { Button, Text, Input } from 'galio-framework';
 import CalendarStrip from 'react-native-calendar-strip';
 import { Ionicons } from "@expo/vector-icons";
@@ -27,27 +28,49 @@ export default class Home extends Component {
         posts: []
     };
 
-
     componentDidMount() {
         // Get email and password from parent
-        const parent = this.props.navigation.dangerouslyGetParent().dangerouslyGetParent().dangerouslyGetParent();
-        alert(`Email: ${parent.getParam("email")}, Password: ${parent.getParam("password")}`)
+        const { params } = this.props.navigation.state;
+        // alert(`Email: ${params.email}, Password: ${params.password}`);
+        // const parent = this.props.navigation.dangerouslyGetParent();
+        // alert(params.date);
         // Format current date
-        const date = new Date();
+        const date = params.date;
         let day = date.getDate();
         if (day < 10) {
             day = "0" + day;
         }
         let full_date = this.state.months[date.getMonth()] + " " + day + " " + date.getFullYear();
-        alert()
-        // Retrieve Doc ID and posts corresponding to user email and password
-        this._queryDocID(parent, full_date);
+        // alert()
+        // // Retrieve Doc ID and posts corresponding to user email and password
+        this._queryDocID(params, full_date);
 
     }
 
-    _queryDocID = (parent, date) => {
+    _fetchNewDate = selectedDate => {
+        // Reload Home page with new date
+        const { params } = this.props.navigation.state;
+        const new_date = new Date(selectedDate);
+
+        this.props.navigation.navigate('HomeHelper', { email: params.email, password: params.password, date: new_date });
+
+        // const new_params = { email: params.email, password: params.password, date: new_date };
+
+        // const resetAction = NavigationActions.reset({
+        //     index: 0,
+        //     actions: [
+        //         NavigationActions.navigate({ "Home", new_params })
+        //     ],
+        // });
+
+        // navigation.dispatch(resetAction);
+
+        // NavigationActions.push({ routeName: 'Home', params: { email: params.email, password: params.password, date: new_date } })
+    }
+
+    _queryDocID = (params, date) => {
         // Fetch ID for this user based on their email and password from users collection
-        DB.firestore().collection("users").where("email", "==", parent.getParam("email")).where("password", "==", parent.getParam("password"))
+        DB.firestore().collection("users").where("email", "==", params.email).where("password", "==", params.password)
             .get()
             .then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
@@ -67,11 +90,11 @@ export default class Home extends Component {
             .get()
             .then((doc) => {
                 if (doc.exists) {
-                    if (doc.get(ddate) != null) {
+                    if (doc.get(date) != null) {
                         const data = doc.data();
-                        for (let i = 0; i < data[ddate].length; i++) {
+                        for (let i = 0; i < data[date].length; i++) {
                             this.setState({
-                                posts: [...this.state.posts, data[ddate][i]]
+                                posts: [...this.state.posts, data[date][i]]
                             });
                         }
 
@@ -121,46 +144,48 @@ export default class Home extends Component {
 
     render() {
         // const posts = this._retrieveLogs();
-        // const { params } = this.props.navigation.state;
+        const { params } = this.props.navigation.state;
         return (
 
-            <View>
-                <View style={styles.container}>
-                    {/* <Text>This is the Home Screen</Text> */}
-                    <CalendarStrip
-                        minDayComponentSize={60}
-                        calendarAnimation={{ type: 'sequence', duration: 30 }}
-                        selection={'border'}
-                        selectionAnimation={{ duration: 300, borderWidth: 1 }}
-                        style={{ position: 'absolute', top: 0, paddingTop: 30, paddingBottom: 10 }}
-                        calendarHeaderStyle={{ color: 'black', width: deviceWidth, marginBottom: 10 }}
-                        // calendarColor={'#7743CE'}
-                        highlightColor={'#9265DC'}
-                        dateNumberStyle={{ color: 'black' }}
-                        dateNameStyle={{ color: 'black' }}
-                        highlightDateNumberStyle={{ color: '#A970CF' }}
-                        highlightDateNameStyle={{ color: '#A970CF' }}
-                        innerStyle={{}}
-                        // borderHighlightColor={'black'}
-                        // markedDatesStyle={{ color: 'blue', marginTop: -100 }}
-                        // iconLeft={require('./img/left-arrow.png')}
-                        // iconRight={require('./img/right-arrow.png')}
-                        iconContainer={{ flex: 0.1 }}
+            // <View>
+            <View style={styles.container}>
+                <CalendarStrip
+                    // ref={'CalendarStrip'}
+                    selectedDate={params.date}
+                    minDayComponentSize={60}
+                    // calendarAnimation={{ type: 'sequence', duration: 30 }}
+                    selection={'border'}
+                    selectionAnimation={{ duration: 300, borderWidth: 1 }}
+                    style={{ position: 'absolute', top: 0, paddingTop: 10, paddingBottom: 10 }}
+                    calendarHeaderStyle={{ color: 'black', width: deviceWidth, marginBottom: 10 }}
+                    onDateSelected={selectedDate => this._fetchNewDate(selectedDate)}
+                    // calendarColor={'#7743CE'}
+                    highlightColor={'#9265DC'}
+                    dateNumberStyle={{ color: 'black' }}
+                    dateNameStyle={{ color: 'black' }}
+                    highlightDateNumberStyle={{ color: '#A970CF' }}
+                    highlightDateNameStyle={{ color: '#A970CF' }}
+                    innerStyle={{}}
+                    // borderHighlightColor={'black'}
+                    // markedDatesStyle={{ color: 'blue', marginTop: -100 }}
+                    // iconLeft={require('./img/left-arrow.png')}
+                    // iconRight={require('./img/right-arrow.png')}
+                    iconContainer={{ flex: 0.1 }}
+                />
+                {/* </View> */}
+
+                {/* <View> */}
+                <View>
+                    <FlatList
+                        style={styles.feed}
+                        data={this.state.posts}
+                        renderItem={({ item }) => this.renderPost(item)}
+                        keyExtractor={item => item.id}
+                        showsVerticalScrollIndicator={false}
                     />
                 </View>
-
-                <View>
-                    <View>
-                        <FlatList
-                            style={styles.feed}
-                            data={this.state.posts}
-                            renderItem={({ item }) => this.renderPost(item)}
-                            keyExtractor={item => item.id}
-                            showsVerticalScrollIndicator={false}
-                        />
-                    </View>
-                </View>
             </View>
+            // </View>
         );
     }
 }

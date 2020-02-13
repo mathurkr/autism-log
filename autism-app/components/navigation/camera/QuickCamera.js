@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 // import ImagePicker from 'react-native-image-picker';
 
 import * as ImagePicker from 'expo-image-picker';
@@ -36,7 +37,10 @@ export default class QuickCamera extends Component {
                         allowsEditing: false,
                         quality: 1
                     });
+                    // let resetHome = NavigationActions.reset({ index: 1, actions: [NavigationActions.init({ routeName: 'Home' })] });
+                    // this.props.navigation.dispatch(resetHome);
                     this.props.navigation.navigate('Logs', { media: uri });
+
                     // this.setState({ media: uri });
                 }
             }

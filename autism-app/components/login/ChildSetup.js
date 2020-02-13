@@ -67,7 +67,7 @@ export default class ChildSetup extends Component {
             }).catch((error) => {
                 alert('There was an error adding profiles to the DB');
             });
-            this.props.navigation.navigate('Main', { email: params.email, password: params.password });
+            this.props.navigation.navigate('Home', { email: params.email, password: params.password, date: new Date() });
         }
 
     }

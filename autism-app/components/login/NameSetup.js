@@ -6,6 +6,9 @@ import { Button, Text, Input, theme } from 'galio-framework';
 
 
 export default class NameSetup extends Component {
+    state = {
+        name: ''
+    };
 
     // Maybe put in a more seamless validation process here
     _validateName() {

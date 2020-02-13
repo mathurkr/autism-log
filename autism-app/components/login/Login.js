@@ -53,7 +53,7 @@ class Login extends Component {
                 //         ],
                 //     }))
                 // )
-                .then(() => this.props.navigation.navigate('Main', { email: this.state.email, password: this.state.password, name: "Test" }))
+                .then(() => this.props.navigation.navigate('Home', { email: this.state.email, password: this.state.password, date: new Date() }))
                 // alert('something');
                 // const navigateAction = SwitchActions.navigate({
                 //     routeName: 'Main',

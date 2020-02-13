@@ -11,6 +11,8 @@ import Profile from './Profile';
 import Settings from './Settings';
 import Logs from './Logs';
 
+import HomeHelper from './HomeHelper';
+
 // Import device components
 // import CameraLog from './camera/CameraLog';
 import QuickCamera from './camera/QuickCamera';
@@ -22,11 +24,30 @@ const config = Platform.select({
     default: {},
 });
 
-const HomeStack = createSwitchNavigator(
+// const HomeStack = createMaterialTopTabNavigator(
+//     {
+//         QuickCamera: QuickCamera,
+//         Home: Home
+//     },
+//     {
+//         initialRouteName: "Home",
+//         animationEnabled: true,
+//         tabBarOptions: {
+//             showLabel: false,
+//             showIcon: false,
+//             style: { height: 0 }
+//         }
+//     }
+// );
+
+const HomeStack = createMaterialTopTabNavigator(
     {
-        Home: Home
+        Home: Home,
     },
-    config
+    // config
+    {
+        initialRouteName: "Home"
+    }
 );
 
 HomeStack.navigationOptions = {
@@ -109,9 +130,9 @@ const TabNavigator = createBottomTabNavigator(
 
 TabNavigator.path = '';
 
-const AppNavigator = createMaterialTopTabNavigator(
+const AppNavigator = createSwitchNavigator(
     {
-        QuickCamera: QuickCamera,
+        HomeHelper: HomeHelper,
         TabsNavigator: TabNavigator
     },
     {
