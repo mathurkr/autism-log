@@ -71,10 +71,10 @@ render = post => {
     return (
         <View style={styles.container}>
             <View style={styles.feedItem}>
-            <Text style={{color:'purple', fontWeight:"bold", fontSize:22, marginRight: 10,}}> 7 </Text>
+            <Text style={{color:'purple', fontWeight:"bold", fontSize:22, borderColor:"black", borderWidth:2, marginRight: 10,}}> 7 </Text>
 
             {/* <Ionicons name={post.meltdownType}style={styles.avatar} size={30} /> */}
-            <View style={{ justifyContent:'flex-start', borderColor:'black',}}> 
+            <View style={{ justifyContent:'', borderColor:'black',}}> 
                 <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
                     <View>
                         {/* <Text style={styles.name}> {post.name} </Text>  */}
@@ -85,14 +85,15 @@ render = post => {
                             <Text style={styles.timestamp}> 12 minutes ago  </Text>
                         </View>
                     </View>
-                    </View>
+                    </View>  
             <View>
                 <Text style={styles.post}> asdfasdfa </Text>
-                <Image  style={styles.postImage} source={require('../../assets/images/child_photo.png')} resizeMode="contain" />
-            
-            
+                <Image  style={styles.postImage} source={require('../../assets/images/child_photo.png')} resizeMethod="scale"/>
             </View>
-            <View style={{flexDirection:'start'}}>
+
+
+            
+            <View>
             <View style={{ borderBottomColor: '#C4C6CE', borderBottomWidth: 1, marginBottom: 25}}/>
 
                 <Text style={{marginBottom: 10, fontSize: 15}}> Meltdown Type </Text>
@@ -106,7 +107,6 @@ render = post => {
                     <Ionicons style={{marginRight: 8}} name={"ios-body"} size={20} color="#C4C6CE"/>
                     <Text style={{ fontSize: 14, color: "grey"}}>Sensory </Text> 
                 </View>
-            </View>
 
             
             <View style={{ borderBottomColor: '#C4C6CE', borderBottomWidth: 1, marginVertical: 25}}/>
@@ -121,16 +121,49 @@ render = post => {
                     <Text style={{ fontSize: 14, color: "grey"}}> Rolling on Floor </Text> 
                 </View>
             </View>
+            </View>
 
 
             
         </View>
+        
     </View>
-    
-    <View>
 
+
+    <View style={styles.container}>
+    <View style={styles.feedItem}>
+
+    <View style={{flexDirection:'start', marginLeft: 15}}>
+            <View style={{ borderBottomColor: '#C4C6CE', borderBottomWidth: 1, marginBottom: 25}}/>
+
+                <Text style={{marginBottom: 10, fontSize: 15}}> Meltdown Type </Text>
+                <View style={{flexDirection:"row"}} >
+                    <Ionicons style={{marginRight: 8}} name={"ios-people"} size={20} color="#C4C6CE"/>
+                    <Text style={{ fontSize: 14,marginRight: 15, color: "grey"}}>Social </Text> 
+
+                    <Ionicons style={{marginRight: 8}} name={"ios-calendar"} size={20} color="#C4C6CE"/>
+                    <Text style={{ fontSize: 14, marginRight: 15, color: "grey"}}>Routine </Text> 
+
+                    <Ionicons style={{marginRight: 8}} name={"ios-body"} size={20} color="#C4C6CE"/>
+                    <Text style={{ fontSize: 14, color: "grey"}}>Sensory </Text> 
+                </View>
+
+            
+            <View style={{ borderBottomColor: '#C4C6CE', borderBottomWidth: 1, marginVertical: 25}}/>
+                <Text style={{marginBottom: 10, fontSize: 15}}> Behaviors Shown </Text>
+                <View style={{flexDirection:"row"}} >
+                <Ionicons style={{marginRight: 8}} name={"ios-people"} size={20} color="#C4C6CE"/>
+                <Text style={{ fontSize: 14,marginRight: 15, color: "grey"}}>Verbal Aggression </Text> 
+                <Ionicons style={{marginRight: 8}} name={"ios-calendar"} size={20} color="#C4C6CE"/>
+                <Text style={{ fontSize: 14, marginRight: 15, color: "grey"}}>Hand over ears </Text> 
+                <View style={{flex:1}}> 
+                    <Ionicons style={{marginRight: 8}} name={"ios-body"} size={20} color="#C4C6CE"/>
+                    <Text style={{ fontSize: 14, color: "grey"}}> Rolling on Floor </Text> 
+                </View>
+            </View>
+            </View>
     </View>
-    
+    </View>
     </View>
     );
 }

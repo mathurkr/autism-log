@@ -1,103 +1,78 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Dimensions, FlatList, Image } from 'react-native';
-import { Button, Text, Input } from 'galio-framework';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Image,
+  Alert,
+  ScrollView,
+  TextInput,
+  FlatList,
+  Dimensions
+} from 'react-native';
 import CalendarStrip from 'react-native-calendar-strip';
 import {Ionicons} from "@expo/vector-icons";
 import moment from "moment";
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
-posts = [{name: "Social Meltdown", severity: "Very Severe",  timestamp: 1569109273726, id: '1', meltdownType:["ios-body", "ios-calendar", "ios-people"], image: require('../../assets/images/child_photo.png'), text:"Charles felt uncomfortable during science class." },
+let deviceWidth = Dimensions.get('window').width;
 
-{name: "Routinary Metldown", severity: "Moderate", timestamp: 1569109273726, id: '2', meltdownType: ["ios-calendar"], image: require('../../assets/images/test2.png'), text:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."},
-{name: "Social Meltdown", severity: "Low", timestamp: 1569109273726, id: '3', meltdownType: ["ios-people"], image: require('../../assets/images/child_photo.png')},
-{name: "Routinary Meltdown", severity: "Severe", timestamp: 1569109273726, id: '4', meltdownType: ["ios-people"], image: ""}
-]
-
-
-                    
-export default class Home extends Component {
-
+export default class Users extends Component {
     static navigationOptions = {
-        //To hide the NavigationBar from current Screen
-        header: null
-      };
+        header: null,
+        
+    };
+
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      posts: [
+        {id:1, color:"#002F6F", icon:"https://bootdey.com/img/Content/avatar/avatar1.png", name: "Very Severe", timestamp: 1569109273726, tags:['Sensory', 'Routine', 'Social', 'Custom', 'Other',], text:"Charles felt uncomfortable during science class", image: require('../../assets/images/child_photo.png'), tagsIcon:["ios-body", "ios-calendar", "ios-people"] } ,
+        {id:2, color:"#0050A1", icon:"https://bootdey.com/img/Content/avatar/avatar2.png", name: "Severe", timestamp: 1569109273726, tags:['tag 1', 'tag 2', 'tag 3', 'Dey-Dey', 'Developer'],  image: require('../../assets/images/test2.png'), text:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."}, 
+        {id:3, color:"#0D92CB", icon:"https://bootdey.com/img/Content/avatar/avatar3.png", name: "Moderate", timestamp: 1569109273726, tags:['tag 1', 'tag 2', 'tag 3'], image: require('../../assets/images/child_photo.png')}, 
+        {id:4, color:"#93CBE4", icon:"https://bootdey.com/img/Content/avatar/avatar4.png", name: "Mild", timestamp: 1569109273726, tags:['tag 1', 'tag 2', 'tag 3']}, 
+        {id:5, color:"#DBECF9", icon:"https://bootdey.com/img/Content/avatar/avatar5.png", name: "Slight", tags:['tag 1', 'tag 2', 'tag 3']}, 
+        {id:6, color:"#002F6F", icon:"https://bootdey.com/img/Content/avatar/avatar6.png", name: "User 6", tags:['tag 1', 'tag 2', 'tag 3']}, 
+        {id:7, color:"#002F6F", icon:"https://bootdey.com/img/Content/avatar/avatar1.png", name: "User 7", tags:['tag 1', 'tag 2', 'tag 3']}, 
+        {id:8, color:"#002F6F", icon:"https://bootdey.com/img/Content/avatar/avatar2.png", name: "User 8", tags:['tag 1', 'tag 2', 'tag 3']},
+        {id:9, color:"#002F6F", icon:"https://bootdey.com/img/Content/avatar/avatar3.png", name: "User 9", tags:['tag 1', 'tag 2', 'tag 3']},
+      ],
+    };
+  }
 
 
 
-    returnType() {
-        postList = posts.map((type,index) => {
-            //console.log('index = ', index, 'post = ', type.meltdownType)
-            
-                for(let i = 0; i < 3; i++)
-                {                        console.log(type.meltdownType)
 
-                    return (
-                        <Ionicons style={{marginRight: 15}} name={type.meltdownType[i]} size={20} color="#C4C6CE"/>
-                    )
-                }
-            
-        })
+  renderTags = (item) =>{
+    return item.tags.map((tag, key) => {
+      return (
+        <TouchableOpacity key={key} style={styles.btnColor} onPress={() => {}}>
+             <Text style={styles.tag}> {tag}</Text>
+        </TouchableOpacity> 
+      );
+    })
+  }
 
-        return postList
-    }
+  renderTagIcon = (item) =>{
+    return item.tagsIcon.map((tag, key) => {
+      return (
+        <Ionicons name={tag} size={20} />
+      );
+    })
+  }
 
-
-    renderPost = post => {
-
-
-        return (
-        <TouchableOpacity> 
-            <View style={styles.feedItem}>
-
-                <View style={styles.avatarCircle}>
-                <Text style={{color:'purple', fontWeight:"bold", fontSize:22, marginRight: 10,}}> 7 </Text>
-                </View>
-
-                {/* <Ionicons name={post.meltdownType}style={styles.avatar} size={30} /> */}
-                <View style={{ flex: 1 }}> 
-                    <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
-                        <View>
-                            {/* <Text style={styles.name}> {post.name} </Text>  */}
-                            <Text style={styles.severity}> {post.severity} </Text>
-                            <View style={{flexDirection: "row",  } }>
-                                <Ionicons name="ios-pin" size={14} color="#C4C6CE"  style={{marginTop:3, marginRight: 3}} />
-                                <Text style={styles.timestamp}> Irvine California  -</Text>
-                                <Text style={styles.timestamp}> {moment(post.timestamp).fromNow()}  </Text>
-                            </View>
-                        </View>
-                        </View>
-                <View>
-                    <Text style={styles.post}> {post.text}  </Text>
-                    <Image source={post.image} style={styles.postImage} resizeMethod="cover" />
-                </View>
-
-                <View style={{flexDirection:"row",}}>
-                    {this.returnType()}
-                </View>
-            
-            </View>
-
-            
-        </View>
-        </TouchableOpacity>
-        )
-    }
-
-    render() {
-
-        // const { params } = this.props.navigation.state;
-        return (
-            
-            <View> 
-                <View style={styles.container}>
-                    {/* <Text>This is the Home Screen</Text> */}
-                    <CalendarStrip
+  render() {
+    return (
+        
+      <View style={styles.container}>
+          <CalendarStrip
                         minDayComponentSize={60}
                         calendarAnimation={{ type: 'sequence', duration: 30 }}
                         selection={'border'}
                         selectionAnimation={{ duration: 300, borderWidth: 1 }}
-                        style={{ position: 'absolute', top: 0, marginTop: '10%', marginBottom: '10%' }}
-                        calendarHeaderStyle={{ color: 'black', width: deviceWidth, marginBottom: 10 }}
+                        style={{ position: 'absolute', top: 0, marginTop: '10%', marginBottom: '10%'  }}
+                        calendarHeaderStyle={{ color: 'black', width: deviceWidth, marginBottom: 10  }}
                         // calendarColor={'#7743CE'}
                         highlightColor={'#9265DC'}
                         dateNumberStyle={{ color: 'black' }}
@@ -111,108 +86,161 @@ export default class Home extends Component {
                         // iconRight={require('./img/right-arrow.png')}
                         iconContainer={{ flex: 0.1 }}
                     />
+
+          
+
+
+        <FlatList 
+          style={styles.notificationList}
+          data={this.state.posts}
+          keyExtractor= {(item) => {
+            return item.id;
+          }}
+          renderItem={({item}) => {
+            return (
+              <TouchableOpacity style={[styles.card, {borderColor:item.color}]} >
+                <View style={styles.cardContent}>
+
+                  <Text style={styles.name}>{item.name}</Text>
+                  <Text style={styles.timestamp2}> {moment(item.timestamp).fromNow()}  </Text>
+
+                  
+                </View>
+
+                <Text style={styles.post}> {item.text}  </Text>
+                <Image source={item.image} style={styles.postImage} resizeMethod="cover" />
+
+                    
+                <View style={[styles.cardContent, styles.tagsContent]}>
+                  {this.renderTags(item)}
+                </View>
+
+                <View style={{flexDirection: "row", marginTop: 15, marginLeft:15 } }>
+                        <Ionicons name="ios-pin" size={20} color="#C4C6CE"  style={{marginRight: 3}} />
+                        <Text style={styles.timestamp}> Irvine California  -</Text>
                     </View>
-
-                    <FlatList 
-                    style={styles.feed}
-                     data={posts} 
-                     renderItem = {({ item }) => this.renderPost(item)}
-                     keyExtractor = { item => item.id}
-                     showsVerticalScrollIndicator={false}
-                     />
-            </View>
-
-        );
-    }
+              </TouchableOpacity>
+            )
+          }}/>
+      </View>
+    );
+  }
 }
 
-let deviceWidth = Dimensions.get('window').width;
-
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "#EFECF4",
-    },
+  container: {
+    flex: 1,
+    backgroundColor: '#EBEBEB',
+  },
+  formContent:{
+    flexDirection: 'row',
+    marginTop:30,
+  },
+  inputContainer: {
+    borderBottomColor: '#F5FCFF',
+    backgroundColor: '#FFFFFF',
+    borderRadius:30,
+    borderBottomWidth: 1,
+    height:45,
+    flexDirection: 'row',
+    alignItems:'center',
+    flex:1,
+    margin:10,
+  },
+  icon:{
+    width:30,
+    height:30,
+  },
+  iconBtnSearch:{
+    alignSelf:'center'
+  },
+  inputs:{
+    height:45,
+    marginLeft:16,
+    borderBottomColor: '#FFFFFF',
+    flex:1,
+  },
+  inputIcon:{
+    marginLeft:15,
+    justifyContent: 'center'
+  },
+  notificationList:{
+    marginTop:140,
+    padding:10,
+  },
+  card: {
+    height:null,
+    paddingTop:10,
+    paddingBottom:10,
+    marginTop:5,
+    backgroundColor: '#FFFFFF',
+    flexDirection: 'column',
+    borderTopWidth:20,
+    marginBottom:20,
+    borderRadius: 10
+  },
+  cardContent:{
+    flexDirection:'row',
+    //marginLeft:10, 
+  },
+  imageContent:{
+    marginTop:-40,
+  },
+  tagsContent:{
+    marginTop:10,
+    flexWrap:'wrap'
+  },
+  tag:
+  {
+      fontSize: 13,
+      color: 'black'
+  },
 
-    feedContainer: {
-        flex:1,
-        backgroundColor: "#EFECF4",
-    },
+  image:{
+    width:60,
+    height:60,
+    borderRadius:30,
+  },
+  name:{
+    fontSize:20,
+    fontWeight: 'bold',
+    marginHorizontal:10,
+    alignSelf: 'center'
+  },
+  btnColor: {
+    padding:8,
+    borderRadius:30,
+    marginHorizontal:3,
+    backgroundColor:'#eee',
+    marginTop:5,
+  },
 
-    name: {
-        fontSize: 13,
-        fontWeight: "500",
-        color: "#454D65"
-    },
 
-    severity: {
-        fontSize: 13,
-        color: '#000000',
-        fontWeight: "500",
-        color: "#000000",
+  post: {
+    margin:10 ,
+    fontSize: 14,
+    color: "#838899",
+},
 
-        
-    },
+postImage:{
+    width: undefined,
+    height: 150,
+    borderRadius: 5,
+    marginHorizontal: 10,
+},
 
-    timestamp: {
-        fontSize: 11,
-        color: "#C4C6CE",
-        marginVertical: 5,
-    },
+timestamp: {
+    fontSize: 11,
+    color: "#C4C6CE",
+    marginVertical: 5,
+},
 
-    pinnedLocation: {
-        fontSize: 11,
-        color: "#8c9daa",
-        marginTop: 5
-    },
-
-    feed: {
-        marginHorizontal: 0,
-        marginTop: 120,
-
-    },
-
-    feedItem: {
-        backgroundColor: "#FFF",
-        borderRadius: 5,
-        padding: 8,
-        flexDirection: "row",
-        margin: 12,
-        borderRadius: 5,
-        borderWidth: 2,
-        borderColor: "#DFDFDF",
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 4,
-        },
-        shadowOpacity: 0.30,
-        shadowRadius: 4.65,
-        elevation: 8,
-        
-
-    }
-,
-    avatar: {
-        color: '#8c9daa',     
-        marginRight: 15,  
-         
-    },
-
-    post: {
-        marginTop: 5,
-        fontSize: 14,
-        color: "#838899",
-
-    },
-
-    postImage:{
-        width: undefined,
-        height: 150,
-        borderRadius: 5,
-        marginVertical: 16,
-
-    },
+timestamp2: {
+    fontSize: 11,
+    color: "#C4C6CE",
+    marginTop: 8,
+    marginLeft: -5
     
+},
 
-});
+});   
