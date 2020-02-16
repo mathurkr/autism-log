@@ -11,6 +11,7 @@ import Profile from './Profile';
 import Settings from './Settings';
 import Logs from './Logs';
 
+import MainHelper from './MainHelper';
 import HomeHelper from './HomeHelper';
 
 // Import device components
@@ -132,11 +133,12 @@ TabNavigator.path = '';
 
 const AppNavigator = createSwitchNavigator(
     {
-        HomeHelper: HomeHelper,
-        TabsNavigator: TabNavigator
+        MainHelper: MainHelper,       // Used to convert params received from Login, SignUp pages
+        TabsNavigator: TabNavigator,  // Holds the main navigation tabs 
+        HomeHelper: HomeHelper        // Helper to reload Home page when changing the date on the calendar
     },
     {
-        initialRouteName: "TabsNavigator",
+        initialRouteName: "MainHelper",
         animationEnabled: true,
         tabBarOptions: {
             showLabel: false,
