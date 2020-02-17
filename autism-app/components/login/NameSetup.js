@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TouchableOpacity, KeyboardAvoidingView, Image } from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
+import { Ionicons } from "@expo/vector-icons";
 
 import { Button, Text, Input, theme } from 'galio-framework';
+import { TextInput } from 'react-native-gesture-handler';
 
 
 export default class NameSetup extends Component {
@@ -32,9 +34,13 @@ export default class NameSetup extends Component {
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding">
 
-                <Text h5 style={{ paddingHorizontal: 39, textAlign: 'center', marginBottom: 28, marginTop: 91 }}> What's your name? </Text>
+                <Text h5 style={{ paddingHorizontal: 39, textAlign: 'center', marginBottom: 28, marginTop: 91 }}> What's your name </Text>
 
-                <Input placeholder="Enter name" style={styles.input} onChangeText={(text) => this.setState({ name: text })} />
+                <View style={styles.inputContainer}>
+                    <Ionicons name="ios-person" size={30} color="#73788B" style={[styles.inputIcon, styles.icon]} />
+                    <TextInput placeholder="Enter name" style={styles.inputs} onChangeText={(text) => this.setState({ name: text })} />
+                </View>
+
 
                 <Button shadowless round color="#29d2e4" style={{ marginTop: 10 }} onPress={() => this._validateName()}>Continue</Button>
             </KeyboardAvoidingView>
@@ -76,5 +82,39 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         borderColor: '#898989',
         borderWidth: 1,
+    },
+
+    inputSection: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#fff',
+    },
+
+    inputContainer: {
+        width: '89%',
+        height: 50,
+        marginBottom: 9,
+        backgroundColor: '#E9EDEF',
+        marginBottom: 65,
+        flexDirection: "row",
+        alignItems: 'center'
+    },
+
+    inputs: {
+        height: 45,
+        marginLeft: 16,
+        flex: 1
+    },
+
+    inputIcon: {
+        marginLeft: 10,
+    },
+
+    icon: {
+        width: 30,
+        height: 30,
     }
+
 });
