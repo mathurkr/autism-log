@@ -1,12 +1,16 @@
 import React, { Component, useState } from 'react';
-import { StyleSheet, View, Image, ScrollView, FlatList, TouchableOpacity} from 'react-native';
+import { StyleSheet, View, Image, ScrollView, FlatList, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient'
 import { Button, Text, Input } from 'galio-framework';
-import { FontAwesome, Foundation} from '@expo/vector-icons';
- 
+import { FontAwesome, Foundation } from '@expo/vector-icons';
+
 
 export default class Profile extends Component {
-    constructor(){
+    state = {
+
+    };
+
+    constructor() {
         super()
         {
         }
@@ -14,65 +18,69 @@ export default class Profile extends Component {
 
     static navigationOptions = {
         title: "Settings",
-        }
-        
+    }
+
     render() {
-        const dataSource = [{icon: "mail", description: 'Email', subDescription: 'jason.almaraz808@gmailcom', arrow: require('../../assets/images/test2.png')},
-        {icon: "lock", description: 'Reset Password', subDescription: '', arrow: require('../../assets/images/test2.png')},
-        {icon: "torso", description: 'Edit Profile', subDescription: "Jason Almaraz", arrow: require('../../assets/images/test2.png')},
-        {icon: 'credit-card', description: 'Manage Subscriptions', subDescription: '', arrow: require('../../assets/images/test2.png')},
+        const params = this.props.navigation.dangerouslyGetParent().dangerouslyGetParent().dangerouslyGetParent();
+
+        const dataSource = [{ icon: "mail", description: 'Email', subDescription: `${params.getParam('email')}`, arrow: require('../../assets/images/test2.png') },
+        { icon: "lock", description: 'Reset Password', subDescription: '', arrow: require('../../assets/images/test2.png') },
+        { icon: "torso", description: 'Edit Profile', subDescription: `${params.getParam('name')}`, arrow: require('../../assets/images/test2.png') },
+        { icon: 'credit-card', description: 'Manage Subscriptions', subDescription: '', arrow: require('../../assets/images/test2.png') },
         ]
 
-        const communitySection = [{icon: "star", description: 'Rate us on App Store', arrow: require('../../assets/images/test2.png')},
-        {icon: "torsos-all", description: 'Find Lumious Online', arrow: require('../../assets/images/test2.png')},
-        {icon: "link", description: 'Share Luminous w/ a Friend', arrow: require('../../assets/images/test2.png')},
-  
-    ]
+        const communitySection = [{ icon: "star", description: 'Rate us on the App Store', arrow: require('../../assets/images/test2.png') },
+        { icon: "torsos-all", description: 'Find Luminous Online', arrow: require('../../assets/images/test2.png') },
+        { icon: "link", description: 'Share Luminous with a Friend', arrow: require('../../assets/images/test2.png') },
+
+        ]
 
         return (
-          
-          <ScrollView style={styles.container}>
 
-          <View style={styles.body}>
-            </View>
+            <ScrollView style={styles.container}>
 
-              <Text style={styles.sectionTitle}> GENERAL </Text>
-                    <FlatList style={styles.notificationList} 
+                <View style={styles.body}>
+                </View>
+
+                <Text style={styles.sectionTitle}> GENERAL </Text>
+                <FlatList style={styles.notificationList}
                     data={dataSource}
-                    renderItem ={({item}) => {
+                    renderItem={({ item }) => {
                         return (
-                          <TouchableOpacity> 
-                        <View style={styles.notificationBox}>
-                            <Foundation name={item.icon} size={25} style={styles.icon} />
-                            <View style={styles.btntextcontainer}> 
-                                <Text style={styles.description}>{item.description}</Text>
-                            </View>
-                            <Text style={styles.subDescription}>{item.subDescription}</Text>
-                          <Image style={styles.arrow} source={item.arrow}/> 
-                        </View>
-                        </TouchableOpacity>
-                     )}}/>
+                            <TouchableOpacity>
+                                <View style={styles.notificationBox}>
+                                    <Foundation name={item.icon} size={25} style={styles.icon} />
+                                    <View style={styles.btntextcontainer}>
+                                        <Text style={styles.description}>{item.description}</Text>
+                                    </View>
+                                    <Text style={styles.subDescription}>{item.subDescription}</Text>
+                                    <Image style={styles.arrow} source={item.arrow} />
+                                </View>
+                            </TouchableOpacity>
+                        )
+                    }} />
 
 
-                  <Text style={styles.sectionTitle}> Community </Text>
-                  <FlatList style={styles.notificationList} 
+                <Text style={styles.sectionTitle}> Community </Text>
+                <FlatList style={styles.notificationList}
                     data={communitySection}
-                    renderItem ={({item}) => {
+                    renderItem={({ item }) => {
                         return (
-                          <TouchableOpacity> 
-                        <View style={styles.notificationBox}>
-                            <Foundation name={item.icon} size={25} style={styles.icon} />
-                            <View style={styles.btntextcontainer}> 
-                                <Text style={styles.description}>{item.description}</Text>
-                            </View>
-                            <Text style={styles.subDescription}>{item.subDescription}</Text>
-                          <Image style={styles.arrow} source={item.arrow}/> 
-                        </View>
-                        </TouchableOpacity>
-                     )}}/>
+                            <TouchableOpacity>
+                                <View style={styles.notificationBox}>
+                                    <Foundation name={item.icon} size={25} style={styles.icon} />
+                                    <View style={styles.btntextcontainer}>
+                                        <Text style={styles.description}>{item.description}</Text>
+                                    </View>
+                                    <Text style={styles.subDescription}>{item.subDescription}</Text>
+                                    <Image style={styles.arrow} source={item.arrow} />
+                                </View>
+                            </TouchableOpacity>
+                        )
+                    }} />
 
-          </ScrollView>
-           
+            </ScrollView>
+
         );
     }
 }
@@ -90,100 +98,100 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
 
-////
+    ////
 
-      notificationList:{
-        marginVertical:10,
-        paddingHorizontal:21,
-      },
-      
-      notificationBox: {
-        padding:5,
-        marginTop:5,
-        marginBottom:10,
+    notificationList: {
+        marginVertical: 10,
+        paddingHorizontal: 21,
+    },
+
+    notificationBox: {
+        padding: 5,
+        marginTop: 5,
+        marginBottom: 10,
         backgroundColor: '#E9EDEF',
         flexDirection: 'row',
-        borderRadius:10,
-      },
+        borderRadius: 10,
+    },
 
-      icon: {
+    icon: {
         marginVertical: 10,
         paddingRight: 10,
         marginHorizontal: 10,
         color: '#0047cc'
 
-      },
+    },
 
-      arrow:{
+    arrow: {
         width: 6,
         height: 12,
         marginTop: 12,
         marginVertical: 8,
         padding: 8,
-        
-      },
 
-      description:{
-        fontSize:16,
+    },
+
+    description: {
+        fontSize: 16,
         color: "#042c5c",
-        marginLeft:5,
+        marginLeft: 5,
         fontWeight: 'bold',
         paddingTop: 12
-      
-      },
 
-      subDescription:{
-        fontSize:12,
+    },
+
+    subDescription: {
+        fontSize: 12,
         color: "#77869e",
-        paddingTop: 12, 
+        paddingTop: 12,
         marginRight: 8
-      },
+    },
 
-      btntextcontainer :{
+    btntextcontainer: {
         flex: 1,
         flexDirection: 'column',
         alignItems: 'flex-start'
-      },
+    },
 
-      ///
+    ///
 
-      header:{
-        height:120,
-      },
+    header: {
+        height: 120,
+    },
 
-      avatar: {
+    avatar: {
         width: 130,
         height: 130,
         borderRadius: 63,
         borderWidth: 4,
         borderColor: "white",
-        marginBottom:10,
-        alignSelf:'center',
+        marginBottom: 10,
+        alignSelf: 'center',
         position: 'absolute',
-        marginTop:40,
-      },
-      
-      name:{
-        fontSize:22,
-        color:"black",
-        fontWeight:'600',
-      },
+        marginTop: 40,
+    },
 
-      body:{
-        marginTop:20,
-      },
-      
-      bodyContent: {
+    name: {
+        fontSize: 22,
+        color: "black",
+        fontWeight: '600',
+    },
+
+    body: {
+        marginTop: 20,
+    },
+
+    bodyContent: {
         flex: 1,
         alignItems: 'center',
-        padding:30,
-      },
+        padding: 30,
+    },
 
-      cogIcon: {
+    cogIcon: {
         marginRight: 18,
         color: "#5574c3"
-      }
+    }
 
-      
+
 
 });

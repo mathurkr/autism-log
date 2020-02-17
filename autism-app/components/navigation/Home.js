@@ -28,12 +28,10 @@ export default class Home extends Component {
         posts: []
     };
 
-    componentDidMount() {
-        // Get email and password from parent
+    componentWillMount() {
+        // Get params passed from MainHelper
         const { params } = this.props.navigation.state;
-        // alert(`Email: ${params.email}, Password: ${params.password}`);
-        // const parent = this.props.navigation.dangerouslyGetParent();
-        // alert(params.date);
+
         // Format current date
         const date = params.date;
         let day = date.getDate();
@@ -41,52 +39,14 @@ export default class Home extends Component {
             day = "0" + day;
         }
         let full_date = this.state.months[date.getMonth()] + " " + day + " " + date.getFullYear();
-        // alert()
-        // // Retrieve Doc ID and posts corresponding to user email and password
-        this._queryDocID(params, full_date);
 
+        // Retrieve logs for the user and posts corresponding to user email and password
+        this._retrieveLogs(params.doc_id, full_date);
     }
 
-    _fetchNewDate = selectedDate => {
-        // Reload Home page with new date
-        const { params } = this.props.navigation.state;
-        const new_date = new Date(selectedDate);
-
-        this.props.navigation.navigate('HomeHelper', { email: params.email, password: params.password, date: new_date });
-
-        // const new_params = { email: params.email, password: params.password, date: new_date };
-
-        // const resetAction = NavigationActions.reset({
-        //     index: 0,
-        //     actions: [
-        //         NavigationActions.navigate({ "Home", new_params })
-        //     ],
-        // });
-
-        // navigation.dispatch(resetAction);
-
-        // NavigationActions.push({ routeName: 'Home', params: { email: params.email, password: params.password, date: new_date } })
-    }
-
-    _queryDocID = (params, date) => {
-        // Fetch ID for this user based on their email and password from users collection
-        DB.firestore().collection("users").where("email", "==", params.email).where("password", "==", params.password)
-            .get()
-            .then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    this.setState({ doc_id: doc.id }, () => {
-                        this._retrieveLogs(date);
-                    });
-                })
-            })
-            .catch(function (error) {
-                alert("Error getting documents from user collection: ", error);
-            });
-    }
-
-    _retrieveLogs = date => {
+    _retrieveLogs = (doc_id, date) => {
         let ddate = "Feb 03 2020"  // Test this for now
-        DB.firestore().collection("logs").doc(this.state.doc_id)
+        DB.firestore().collection("logs").doc(doc_id)
             .get()
             .then((doc) => {
                 if (doc.exists) {
@@ -114,6 +74,25 @@ export default class Home extends Component {
 
     }
 
+    _fetchNewDate = selectedDate => {
+        // Reload Home page with new date
+        const { params } = this.props.navigation.state;
+        const new_date = new Date(selectedDate);
+
+        // Use HomeHelper to refresh the Home component -- possibly a better way to refresh Home available?
+        this.props.navigation.navigate('HomeHelper', { email: params.email, password: params.password, doc_id: params.doc_id, date: new_date });
+
+        // const resetAction = NavigationActions.reset({
+        //     index: 0,
+        //     actions: [
+        //         NavigationActions.navigate({ "Home", new_params })
+        //     ],
+        // });
+
+        // navigation.dispatch(resetAction);
+
+        // NavigationActions.push({ routeName: 'Home', params: { email: params.email, password: params.password, date: new_date } })
+    }
 
     renderPost = post => {
 
