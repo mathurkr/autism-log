@@ -9,189 +9,317 @@ import {
   ScrollView,
   FlatList,
   Button,
+  Dimensions,
+  Share
 } from 'react-native';
 
 import {Ionicons} from '@expo/vector-icons';
 import moment from "moment";
 import { LinearGradient } from 'expo-linear-gradient'
 
-
-posts = [{name: "Social Meltdown", severity: "Very Severe",  timestamp: 1569109273726, id: '1', meltdownType:["ios-body", "ios-calendar", "ios-people"], image: require('../../assets/images/child_photo.png'), text:"Charles felt uncomfortable during science class." },
-
-{name: "Routinary Metldown", severity: "Moderate", timestamp: 1569109273726, id: '2', meltdownType: ["ios-calendar"], image: require('../../assets/images/test2.png'), text:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."},
-{name: "Social Meltdown", severity: "Low", timestamp: 1569109273726, id: '3', meltdownType: ["ios-people"], image: require('../../assets/images/child_photo.png')},
-{name: "Routinary Meltdown", severity: "Severe", timestamp: 1569109273726, id: '4', meltdownType: ["ios-people"], image: ""}
-]
+var { width, height } = Dimensions.get('window')
 
 
 export default class ExpandedLog extends Component {
-    static navigationOptions = {
-        title: "Log",
-        headerRight: () =>
-        (
-          <TouchableOpacity>
-            <Ionicons name="ios-more" style={{marginRight:15}} size={20} />
-          </TouchableOpacity>
-        ),
-        headerBackground: (
-            <LinearGradient
-                colors={['#4AD4D4', '#C395FF']}
-                style={{flex: 1}}
-                start={{x:0, y:0}}
-                end={{x: 1, y:1}}
-            />
-          ),
-           
-
-
+    static navigationOptions = ({navigation}) => {
+        const {params={}} = navigation.state;
+        return {
+            title: 'Log',
+            message: 'hey',
+            headerTitleStyle :{color:'black'},
+            headerStyle: {backgroundColor:'white'},
+            headerRight: <Ionicons name="ios-more" style={{ marginRight:15,color:'black' }} size={30} onPress={() => params.handleShare()} />
+        };
+        
         }
 
-
+        
   constructor(props) {
     super(props);
+    this._shareMessage = this._shareMessage.bind(this);
+    this._showResult = this._showResult.bind(this);
+    this.state = {result: ''}
+    this.state = {
+      posts: [
+        {id:1, color:"#3200DF", icon:"https://bootdey.com/img/Content/avatar/avatar1.png", name: "Very Severe", timestamp: 1569109273726, 
+        tags:
+
+        [
+            {
+                name:"Sensory",
+                icon: "ios-body",
+            },
+            { 
+                name:"Routine",
+                icon:"ios-calendar"
+            },
+            { 
+                name:"Social",
+                icon:"ios-people"
+            },
+        ]
+
+        , text:"Charles felt uncomfortable during science class", image: require('../../assets/images/child_photo.png'),
+        behaviors:["Verbal Aggression", "Rolling on the Floor", "Destroying Property"], resolution:["Trigger removed", "Redirection", "Waited it out"]} ,
+      ],
+    };
   }
 
-  clickEventListener() {
-    Alert.alert("Success", "Product has beed added to cart")
+
+    _showResult(result){
+        this.setState({result})
+    }
+
+
+    componentDidMount() {
+        this.props.navigation.setParams({ handleShare: this._shareMessage });
+    }
+
+    _shareMessage = async() =>  {
+        const uri = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQke1-AID5bmLopVaEGKNMorH2oKLh6ZGoI0AyjTmEJqeDhoWYh"
+        Share.share({
+            message: "This is a test",
+            url: uri,
+        },
+        { 
+            excludedActivityTypes: [
+                'com.apple.UIKit.activity.Print',
+                'com.apple.UIKit.activity.SaveToCameraRoll',
+                'com.apple.UIKit.activity.AirDrop',
+
+            ]
+        }
+        ).then(this._showResult);
+
+        
+    }
+        
+
+  renderTags = (item) =>{
+    return item.tags.map((tag, key) => {
+      return (
+        <TouchableOpacity key={key} style={styles.btnColor} onPress={() => {}}>
+            <View style={{flexDirection:"row"}}>
+                <Ionicons color="#0047cc" name={tag.icon} size={15}/>
+                <Text style={styles.tag}> {tag.name}</Text>
+             </View>
+        </TouchableOpacity> 
+      );
+    })
   }
 
-  
-  renderPost = post => {
+  renderBehavior = (item) =>{
+    return item.behaviors.map((tag, key) => {
+      return (
+        <TouchableOpacity key={key} style={styles.btnColor2} onPress={() => {}}>
+             <Text style={styles.tag}> {tag}</Text>
+        </TouchableOpacity> 
+      );
+    })
+  }
+
+  renderTagsIcon = (item) =>{
+    return item.tagsIcon.map((tag, key) => {
+      return (
+        <Ionicon name={tag} /> 
+      );
+    })
+  }
+
+  renderResolution = (item) =>{
+    return item.resolution.map((tag, key) => {
+      return (
+        <TouchableOpacity key={key} style={styles.btnColor2} onPress={() => {}}>
+             <Text style={styles.tag}> {tag}</Text>
+        </TouchableOpacity> 
+      );
+    })
+  }
 
 
+  renderTagIcon = (item) =>{
+    return item.tagsIcon.map((tag, key) => {
+      return (
+        <Ionicons name={tag} size={20} />
+      );
+    })
+  }
+
+
+
+  render() {
     return (
-    <TouchableOpacity> 
 
-    </TouchableOpacity>
-    )
-}
+      <View style={styles.container}>
+          {/* <Text>
+              {JSON.stringify(this.state.result)}
+          </Text> */}
+        <FlatList 
+          style={styles.notificationList}
+          data={this.state.posts}
+          keyExtractor= {(item) => {
+            return item.id;
+          }}
 
-render = post => {
+          renderItem={({item}) => {
+            return (   
+            <View>  
+                 <TouchableOpacity style={[styles.card, {borderColor:"white"} ]} >
+                    <View style={{flexDirection:"row",}}>
+                        <View style={[styles.circle, {backgroundColor: item.color}]} />
+                        <Text style={[styles.name, {color:item.color}]}>{item.name}</Text>
+                        <Text style={styles.timestamp2}> {moment(item.timestamp).fromNow()}  </Text>
+                    </View>
+ 
 
-    return (
-        <View style={styles.container}>
-            <View style={styles.feedItem}>
-            <Text style={{color:'purple', fontWeight:"bold", fontSize:22, borderColor:"black", borderWidth:2, marginRight: 10,}}> 7 </Text>
+                    <Text style={styles.post}> {item.text}  </Text>
+                    <Image source={item.image} style={styles.postImage}  />
 
-            {/* <Ionicons name={post.meltdownType}style={styles.avatar} size={30} /> */}
-            <View style={{ justifyContent:'', borderColor:'black',}}> 
-                <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
-                    <View>
-                        {/* <Text style={styles.name}> {post.name} </Text>  */}
-                        <Text style={styles.severity}> Severe </Text>
-                        <View style={{flexDirection: "row",  } }>
-                            <Ionicons name="ios-pin" size={14} color="#C4C6CE"  style={{marginTop:3, marginRight: 3}} />
-                            <Text style={styles.timestamp}> Irvine California  -</Text>
-                            <Text style={styles.timestamp}> 12 minutes ago  </Text>
+                        
+                    <View style={[styles.cardContent, styles.tagsContent]}>
+                    {this.renderTags(item)}
+                    </View>
+
+                    <View style={{flexDirection: "row", marginTop: 15, marginLeft:15 } }>
+                            <Ionicons name="ios-pin" size={20} color="#C4C6CE"  style={{marginRight: 3}} />
+                            <Text style={styles.timestamp}> Irvine California  </Text>
+                    </View>
+                    
+                    <View style={{
+                        borderBottomColor: 'grey', 
+                        borderBottomWidth: 0.8, 
+                        width: width - 40,
+                        alignSelf: 'center',
+                        marginVertical: 20}}>
+                    </View>
+
+                    <View style={{}}>
+                        <Text style={styles.behaviors}> Behaviors Shown </Text>
+                        <View style={[styles.cardContent, styles.tagsContent]}>
+                            {this.renderBehavior(item)}
                         </View>
                     </View>
-                    </View>  
-            <View>
-                <Text style={styles.post}> asdfasdfa </Text>
-                <Image  style={styles.postImage} source={require('../../assets/images/child_photo.png')} resizeMethod="scale"/>
-            </View>
 
 
-            
-            <View>
-            <View style={{ borderBottomColor: '#C4C6CE', borderBottomWidth: 1, marginBottom: 25}}/>
+                    <View style={{
+                        borderBottomColor: 'grey', 
+                        borderBottomWidth: 0.8, 
+                        width: width - 40,
+                        alignSelf: 'center',
+                        marginVertical: 20}}>
+                    </View>
 
-                <Text style={{marginBottom: 10, fontSize: 15}}> Meltdown Type </Text>
-                <View style={{flexDirection:"row"}} >
-                    <Ionicons style={{marginRight: 8}} name={"ios-people"} size={20} color="#C4C6CE"/>
-                    <Text style={{ fontSize: 14,marginRight: 15, color: "grey"}}>Social </Text> 
-
-                    <Ionicons style={{marginRight: 8}} name={"ios-calendar"} size={20} color="#C4C6CE"/>
-                    <Text style={{ fontSize: 14, marginRight: 15, color: "grey"}}>Routine </Text> 
-
-                    <Ionicons style={{marginRight: 8}} name={"ios-body"} size={20} color="#C4C6CE"/>
-                    <Text style={{ fontSize: 14, color: "grey"}}>Sensory </Text> 
-                </View>
-
-            
-            <View style={{ borderBottomColor: '#C4C6CE', borderBottomWidth: 1, marginVertical: 25}}/>
-                <Text style={{marginBottom: 10, fontSize: 15}}> Behaviors Shown </Text>
-                <View style={{flexDirection:"row"}} >
-                <Ionicons style={{marginRight: 8}} name={"ios-people"} size={20} color="#C4C6CE"/>
-                <Text style={{ fontSize: 14,marginRight: 15, color: "grey"}}>Verbal Aggression </Text> 
-                <Ionicons style={{marginRight: 8}} name={"ios-calendar"} size={20} color="#C4C6CE"/>
-                <Text style={{ fontSize: 14, marginRight: 15, color: "grey"}}>Hand over ears </Text> 
-                <View style={{flex:1}}> 
-                    <Ionicons style={{marginRight: 8}} name={"ios-body"} size={20} color="#C4C6CE"/>
-                    <Text style={{ fontSize: 14, color: "grey"}}> Rolling on Floor </Text> 
-                </View>
-            </View>
-            </View>
+                    <View style={{}}>
+                        <Text style={styles.behaviors}> Resolution </Text>
+                        <View style={[styles.cardContent, styles.tagsContent]}>
+                            {this.renderResolution(item)}
+                        </View>
+                    </View>
+                </TouchableOpacity>
 
 
-            
-        </View>
-        
-    </View>
 
 
-    <View style={styles.container}>
-    <View style={styles.feedItem}>
 
-    <View style={{flexDirection:'start', marginLeft: 15}}>
-            <View style={{ borderBottomColor: '#C4C6CE', borderBottomWidth: 1, marginBottom: 25}}/>
-
-                <Text style={{marginBottom: 10, fontSize: 15}}> Meltdown Type </Text>
-                <View style={{flexDirection:"row"}} >
-                    <Ionicons style={{marginRight: 8}} name={"ios-people"} size={20} color="#C4C6CE"/>
-                    <Text style={{ fontSize: 14,marginRight: 15, color: "grey"}}>Social </Text> 
-
-                    <Ionicons style={{marginRight: 8}} name={"ios-calendar"} size={20} color="#C4C6CE"/>
-                    <Text style={{ fontSize: 14, marginRight: 15, color: "grey"}}>Routine </Text> 
-
-                    <Ionicons style={{marginRight: 8}} name={"ios-body"} size={20} color="#C4C6CE"/>
-                    <Text style={{ fontSize: 14, color: "grey"}}>Sensory </Text> 
-                </View>
-
-            
-            <View style={{ borderBottomColor: '#C4C6CE', borderBottomWidth: 1, marginVertical: 25}}/>
-                <Text style={{marginBottom: 10, fontSize: 15}}> Behaviors Shown </Text>
-                <View style={{flexDirection:"row"}} >
-                <Ionicons style={{marginRight: 8}} name={"ios-people"} size={20} color="#C4C6CE"/>
-                <Text style={{ fontSize: 14,marginRight: 15, color: "grey"}}>Verbal Aggression </Text> 
-                <Ionicons style={{marginRight: 8}} name={"ios-calendar"} size={20} color="#C4C6CE"/>
-                <Text style={{ fontSize: 14, marginRight: 15, color: "grey"}}>Hand over ears </Text> 
-                <View style={{flex:1}}> 
-                    <Ionicons style={{marginRight: 8}} name={"ios-body"} size={20} color="#C4C6CE"/>
-                    <Text style={{ fontSize: 14, color: "grey"}}> Rolling on Floor </Text> 
-                </View>
-            </View>
-            </View>
-    </View>
-    </View>
-    </View>
+              </View>
+            )
+          }}/>
+      </View>
     );
+  }
 }
-}
-
 
 const styles = StyleSheet.create({
-container: {
+  container: {
     flex: 1,
-    backgroundColor: "#EFECF4",
+    backgroundColor: '#FFFFFF',
+  },
+
+
+  notificationList:{
+    padding:10,
+  },
+  card: {
+    height:null,
+    //paddingTop:10,
+    paddingBottom:10,
+    marginTop:5,
+    backgroundColor: '#FFFFFF',
+    flexDirection: 'column',
+    borderTopWidth:10,
+    marginBottom:10,
+    borderRadius: 5,
+    borderWidth: 0,
+    shadowColor: "#000",
+    shadowOffset: {
+        width: 0,
+        height: 4,
+    },
+    shadowOpacity: 0.30,
+    shadowRadius: 5,
+    elevation: 8,
+
+    
+  },
+  cardContent:{
+    flexDirection:'row',
+
+    //marginLeft:10, 
+  },
+  imageContent:{
+    marginTop:-40,
+  },
+  tagsContent:{
+    marginTop:10,
+    flexWrap:'wrap'
+  },
+  tag:
+  {
+      fontSize: 13,
+      color: 'black'
+  },
+
+  image:{
+    width:60,
+    height:60,
+    borderRadius:30,
+  },
+  name:{
+    fontSize:20,
+    fontWeight: 'bold',
+    marginHorizontal:10,
+  },
+  btnColor: {
+    padding:8,
+    borderRadius:30,
+    marginHorizontal:3,
+    backgroundColor:'rgba(110,211,225,0.30)',
+    marginTop:5,
+  },
+
+  btnColor2: {
+    padding:8,
+    borderRadius:30,
+    marginHorizontal:3,
+    backgroundColor:'rgba(110,211,225,0.30)',
+    marginTop:5,
+  },
+
+
+  post: {
+    margin:10 ,
+    fontSize: 14,
+    color: "#838899",
 },
 
-feedContainer: {
-    flex:1,
-    backgroundColor: "#EFECF4",
-},
-
-name: {
-    fontSize: 13,
-    fontWeight: "500",
-    color: "#454D65"
-},
-
-severity: {
-    fontSize: 13,
-    color: '#000000',
-    fontWeight: "500",
-    color: "#000000"
+postImage:{
+    //width: undefined,
+    //height: 150,
+    borderRadius: 5,
+    marginHorizontal: 10,
+    height: 300,
+    flex: 1,
+    width: null
 },
 
 timestamp: {
@@ -200,47 +328,36 @@ timestamp: {
     marginVertical: 5,
 },
 
-pinnedLocation: {
+timestamp2: {
     fontSize: 11,
-    color: "#8c9daa",
-    marginTop: 5
+    color: "#C4C6CE",
+    marginTop: 8,
+    marginLeft: -5
 },
 
-feed: {
-    marginHorizontal: 0,
-
-},
-
-feedItem: {
-    backgroundColor: "#FFF",
-    borderRadius: 5,
-    padding: 8,
-    flexDirection: "row",
-    margin: 12,
-    borderRadius: 5,
-    borderColor:"black",
-    borderWidth:2,
-    
-
-
+circle: {
+    width: 8,
+    height: 8,
+    borderRadius: 8/2,
+    marginTop: 9,
+    marginLeft: 10
 }
 ,
-avatar: {
-    color: '#8c9daa',     
-    marginRight: 15,   
+
+bottomCircle: {
+    width: 5,
+    height: 5,
+    borderRadius: 5/2,
+    marginTop: 9,
+    marginLeft: 10
 },
 
-post: {
-    marginTop: 5,
+behaviors: {
+    marginHorizontal:10 ,
+    marginVertical: 0,
     fontSize: 14,
-    color: "#838899",
-
+    color: "black",
 },
 
-postImage:{
-    width: undefined,
-    height: 300,
 
-}
-
-});
+});   

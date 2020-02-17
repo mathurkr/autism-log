@@ -28,15 +28,133 @@ export default class Users extends Component {
     super(props);
     this.state = {
       posts: [
-        {id:1, color:"#002F6F", icon:"https://bootdey.com/img/Content/avatar/avatar1.png", name: "Very Severe", timestamp: 1569109273726, tags:['Sensory', 'Routine', 'Social', 'Custom', 'Other',], text:"Charles felt uncomfortable during science class", image: require('../../assets/images/child_photo.png'), tagsIcon:["ios-body", "ios-calendar", "ios-people"] } ,
-        {id:2, color:"#0050A1", icon:"https://bootdey.com/img/Content/avatar/avatar2.png", name: "Severe", timestamp: 1569109273726, tags:['tag 1', 'tag 2', 'tag 3', 'Dey-Dey', 'Developer'],  image: require('../../assets/images/test2.png'), text:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."}, 
-        {id:3, color:"#0D92CB", icon:"https://bootdey.com/img/Content/avatar/avatar3.png", name: "Moderate", timestamp: 1569109273726, tags:['tag 1', 'tag 2', 'tag 3'], image: require('../../assets/images/child_photo.png')}, 
-        {id:4, color:"#93CBE4", icon:"https://bootdey.com/img/Content/avatar/avatar4.png", name: "Mild", timestamp: 1569109273726, tags:['tag 1', 'tag 2', 'tag 3']}, 
-        {id:5, color:"#DBECF9", icon:"https://bootdey.com/img/Content/avatar/avatar5.png", name: "Slight", tags:['tag 1', 'tag 2', 'tag 3']}, 
-        {id:6, color:"#002F6F", icon:"https://bootdey.com/img/Content/avatar/avatar6.png", name: "User 6", tags:['tag 1', 'tag 2', 'tag 3']}, 
-        {id:7, color:"#002F6F", icon:"https://bootdey.com/img/Content/avatar/avatar1.png", name: "User 7", tags:['tag 1', 'tag 2', 'tag 3']}, 
-        {id:8, color:"#002F6F", icon:"https://bootdey.com/img/Content/avatar/avatar2.png", name: "User 8", tags:['tag 1', 'tag 2', 'tag 3']},
-        {id:9, color:"#002F6F", icon:"https://bootdey.com/img/Content/avatar/avatar3.png", name: "User 9", tags:['tag 1', 'tag 2', 'tag 3']},
+        {id:1, color:"#3200DF", icon:"https://bootdey.com/img/Content/avatar/avatar1.png", name: "Very Severe", timestamp: 1569109273726, 
+        tags:
+
+        [
+            {
+                name:"Sensory",
+                icon: "ios-body",
+            },
+            { 
+                name:"Routine",
+                icon:"ios-calendar"
+            },
+            { 
+                name:"Social",
+                icon:"ios-people"
+            },
+        ]
+
+        , text:"Charles felt uncomfortable during science class", image: require('../../assets/images/child_photo.png'),
+        behaviors:["Verbal Aggression", "Rolling on the Floor", "Destroying Property"], resolution:["Trigger removed", "Redirection", "Waited it out"]} ,
+
+        {id:2, color:"#333FDF", icon:"https://bootdey.com/img/Content/avatar/avatar2.png", name: "Severe", timestamp: 1569109273726, 
+        tags:
+
+        [
+            {
+                name:"Sensory",
+                icon: "ios-body",
+            },
+            { 
+                name:"Routine",
+                icon:"ios-calendar"
+            },
+            { 
+                name:"Social",
+                icon:"ios-people"
+            },
+        ],
+         image: require('../../assets/images/test2.png'), text:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."}, 
+
+        {id:3, color:"#3200DF", icon:"https://bootdey.com/img/Content/avatar/avatar1.png", name: "Very Severe", timestamp: 1569109273726, 
+        tags:
+
+        [
+            {
+                name:"Sensory",
+                icon: "ios-body",
+            },
+            { 
+                name:"Routine",
+                icon:"ios-calendar"
+            },
+            { 
+                name:"Social",
+                icon:"ios-people"
+            },
+        ]
+
+        , text:"Charles felt uncomfortable during science class", image: require('../../assets/images/child_photo.png'),
+        behaviors:["Verbal Aggression", "Rolling on the Floor", "Destroying Property"], resolution:["Trigger removed", "Redirection", "Waited it out"]} ,
+        
+
+        {id:4, color:"#3200DF", icon:"https://bootdey.com/img/Content/avatar/avatar1.png", name: "Very Severe", timestamp: 1569109273726, 
+        tags:
+
+        [
+            {
+                name:"Sensory",
+                icon: "ios-body",
+            },
+            { 
+                name:"Routine",
+                icon:"ios-calendar"
+            },
+            { 
+                name:"Social",
+                icon:"ios-people"
+            },
+        ]
+
+        , text:"Charles felt uncomfortable during science class", image: require('../../assets/images/child_photo.png'),
+        behaviors:["Verbal Aggression", "Rolling on the Floor", "Destroying Property"], resolution:["Trigger removed", "Redirection", "Waited it out"]} ,
+        
+
+        {id:5, color:"#3200DF", icon:"https://bootdey.com/img/Content/avatar/avatar1.png", name: "Very Severe", timestamp: 1569109273726, 
+        tags:
+
+        [
+            {
+                name:"Sensory",
+                icon: "ios-body",
+            },
+            { 
+                name:"Routine",
+                icon:"ios-calendar"
+            },
+            { 
+                name:"Social",
+                icon:"ios-people"
+            },
+        ]
+
+        , text:"Charles felt uncomfortable during science class", image: require('../../assets/images/child_photo.png'),
+        behaviors:["Verbal Aggression", "Rolling on the Floor", "Destroying Property"], resolution:["Trigger removed", "Redirection", "Waited it out"]} ,
+        
+
+        {id:6, color:"#3200DF", icon:"https://bootdey.com/img/Content/avatar/avatar1.png", name: "Very Severe", timestamp: 1569109273726, 
+        tags:
+
+        [
+            {
+                name:"Sensory",
+                icon: "ios-body",
+            },
+            { 
+                name:"Routine",
+                icon:"ios-calendar"
+            },
+            { 
+                name:"Social",
+                icon:"ios-people"
+            },
+        ]
+
+        , text:"Charles felt uncomfortable during science class", image: require('../../assets/images/child_photo.png'),
+        behaviors:["Verbal Aggression", "Rolling on the Floor", "Destroying Property"], resolution:["Trigger removed", "Redirection", "Waited it out"]} ,
+        
       ],
     };
   }
@@ -48,11 +166,15 @@ export default class Users extends Component {
     return item.tags.map((tag, key) => {
       return (
         <TouchableOpacity key={key} style={styles.btnColor} onPress={() => {}}>
-             <Text style={styles.tag}> {tag}</Text>
+            <View style={{flexDirection:"row"}}>
+                <Ionicons color="#0047cc" name={tag.icon} size={15}/>
+                <Text style={styles.tag}> {tag.name}</Text>
+             </View>
         </TouchableOpacity> 
       );
     })
   }
+  
 
   renderTagIcon = (item) =>{
     return item.tagsIcon.map((tag, key) => {
@@ -96,30 +218,49 @@ export default class Users extends Component {
           keyExtractor= {(item) => {
             return item.id;
           }}
+
           renderItem={({item}) => {
-            return (
-              <TouchableOpacity style={[styles.card, {borderColor:item.color}]} >
-                <View style={styles.cardContent}>
+            return (   
+            <View>  
 
-                  <Text style={styles.name}>{item.name}</Text>
-                  <Text style={styles.timestamp2}> {moment(item.timestamp).fromNow()}  </Text>
 
-                  
+
+                
+                <TouchableOpacity style={[styles.card, {borderColor:"white"} ]} >
+
+                <View style={{flexDirection:"row",}}>
+                    <View style={[styles.circle, {backgroundColor: item.color}]} />
+                    <Text style={[styles.name, {color:item.color}]}>{item.name}</Text>
+                    <Text style={styles.timestamp2}> {moment(item.timestamp).fromNow()}  </Text>
                 </View>
-
-                <Text style={styles.post}> {item.text}  </Text>
-                <Image source={item.image} style={styles.postImage} resizeMethod="cover" />
-
+                
+                    <View style={[styles.cardContent, {backgroundColor:"rgba(41, 210, 228, 0.4)"}]}>
                     
-                <View style={[styles.cardContent, styles.tagsContent]}>
-                  {this.renderTags(item)}
+                    </View>
+
+                    <Text style={styles.post}> {item.text}  </Text>
+                    <Image source={item.image} style={styles.postImage} resizeMethod="cover" />
+
+                        
+                    <View style={[styles.cardContent, styles.tagsContent]}>
+                    {this.renderTags(item)}
+                    </View>
+
+                    <View style={{flexDirection: "row", marginTop: 15, marginLeft:15 } }>
+                            <Ionicons name="ios-pin" size={20} color="#C4C6CE"  style={{marginRight: 3}} />
+                            <Text style={styles.timestamp}> Irvine California  </Text>
+                        </View>
+                </TouchableOpacity>
+                
+                <View sttle={{}}> 
+                    <View style={[styles.bottomCircle, {backgroundColor: '#E9E9E9' }]} />
+                    <View style={[styles.bottomCircle, {backgroundColor: '#E9E9E9' }]} />
+                    <View style={[styles.bottomCircle, {backgroundColor: '#E9E9E9', marginBottom: 10}]} />
                 </View>
 
-                <View style={{flexDirection: "row", marginTop: 15, marginLeft:15 } }>
-                        <Ionicons name="ios-pin" size={20} color="#C4C6CE"  style={{marginRight: 3}} />
-                        <Text style={styles.timestamp}> Irvine California  -</Text>
-                    </View>
-              </TouchableOpacity>
+
+
+              </View>
             )
           }}/>
       </View>
@@ -130,57 +271,40 @@ export default class Users extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#EBEBEB',
-  },
-  formContent:{
-    flexDirection: 'row',
-    marginTop:30,
-  },
-  inputContainer: {
-    borderBottomColor: '#F5FCFF',
     backgroundColor: '#FFFFFF',
-    borderRadius:30,
-    borderBottomWidth: 1,
-    height:45,
-    flexDirection: 'row',
-    alignItems:'center',
-    flex:1,
-    margin:10,
   },
-  icon:{
-    width:30,
-    height:30,
-  },
-  iconBtnSearch:{
-    alignSelf:'center'
-  },
-  inputs:{
-    height:45,
-    marginLeft:16,
-    borderBottomColor: '#FFFFFF',
-    flex:1,
-  },
-  inputIcon:{
-    marginLeft:15,
-    justifyContent: 'center'
-  },
+
+
   notificationList:{
     marginTop:140,
     padding:10,
   },
   card: {
     height:null,
-    paddingTop:10,
+    //paddingTop:10,
     paddingBottom:10,
     marginTop:5,
     backgroundColor: '#FFFFFF',
     flexDirection: 'column',
-    borderTopWidth:20,
-    marginBottom:20,
-    borderRadius: 10
+    borderTopWidth:10,
+    marginBottom:10,
+    borderRadius: 5,
+    borderWidth: 0,
+    shadowColor: "#000",
+    shadowOffset: {
+        width: 0,
+        height: 4,
+    },
+    shadowOpacity: 0.30,
+    shadowRadius: 5,
+    elevation: 8,
+
+
+    
   },
   cardContent:{
     flexDirection:'row',
+
     //marginLeft:10, 
   },
   imageContent:{
@@ -205,13 +329,12 @@ const styles = StyleSheet.create({
     fontSize:20,
     fontWeight: 'bold',
     marginHorizontal:10,
-    alignSelf: 'center'
   },
   btnColor: {
     padding:8,
     borderRadius:30,
     marginHorizontal:3,
-    backgroundColor:'#eee',
+    backgroundColor:'rgba(110,211,225,0.30)',
     marginTop:5,
   },
 
@@ -240,7 +363,25 @@ timestamp2: {
     color: "#C4C6CE",
     marginTop: 8,
     marginLeft: -5
-    
 },
+
+circle: {
+    width: 8,
+    height: 8,
+    borderRadius: 8/2,
+    marginTop: 9,
+    marginLeft: 10
+}
+,
+
+bottomCircle: {
+    width: 5,
+    height: 5,
+    borderRadius: 5/2,
+    marginTop: 9,
+    marginLeft: 10
+}
+
+
 
 });   
