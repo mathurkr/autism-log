@@ -10,7 +10,9 @@ import {
   FlatList,
   Button,
   Dimensions,
-  Share
+  Share,
+  Slider,
+  ActionSheetIOS,
 } from 'react-native';
 
 import {Ionicons} from '@expo/vector-icons';
@@ -28,7 +30,7 @@ export default class ExpandedLog extends Component {
             message: 'hey',
             headerTitleStyle :{color:'black'},
             headerStyle: {backgroundColor:'white'},
-            headerRight: <Ionicons name="ios-more" style={{ marginRight:15,color:'black' }} size={30} onPress={() => params.handleShare()} />
+            headerRight: <Ionicons name="ios-more" style={{ marginRight:15,color:'black' }} size={30} onPress={() => params.handleActionSheet()} />
         };
         
         }
@@ -39,6 +41,9 @@ export default class ExpandedLog extends Component {
     this._shareMessage = this._shareMessage.bind(this);
     this._showResult = this._showResult.bind(this);
     this.state = {result: ''}
+    this.state={
+        value: 15
+    }
     this.state = {
       posts: [
         {id:1, color:"#3200DF", icon:"https://bootdey.com/img/Content/avatar/avatar1.png", name: "Very Severe", timestamp: 1569109273726, 
@@ -65,6 +70,14 @@ export default class ExpandedLog extends Component {
     };
   }
 
+  change(value) {
+    this.setState(() => {
+      return {
+        value: parseFloat(value),
+      };
+    });
+  }
+
 
     _showResult(result){
         this.setState({result})
@@ -72,7 +85,9 @@ export default class ExpandedLog extends Component {
 
 
     componentDidMount() {
+        this.props.navigation.setParams({ handleActionSheet: this.onClick});
         this.props.navigation.setParams({ handleShare: this._shareMessage });
+
     }
 
     _shareMessage = async() =>  {
@@ -90,9 +105,28 @@ export default class ExpandedLog extends Component {
             ]
         }
         ).then(this._showResult);
-
         
     }
+
+    onClick(){
+        ActionSheetIOS.showActionSheetWithOptions(
+            { 
+                options: ['Cancel', 'Delete', 'Share', 'Edit'],
+                destructiveButtonIndex: 1,
+                cancelButtonIndex: 0,
+            },
+            (buttonIndex) => {
+                if(buttonIndex == 1) {
+                    // destructive action
+                }
+                if(buttonIndex == 2)
+                {
+                    this.handleShare()
+                }
+            }
+        )
+    }
+    
         
 
   renderTags = (item) =>{
@@ -147,10 +181,26 @@ export default class ExpandedLog extends Component {
 
 
 
+
+
+
+
   render() {
+    const {value} = this.state;
+
     return (
 
       <View style={styles.container}>
+
+            <View> 
+            {/* <Text style={styles.text}>{String(value)}</Text> */}
+                    {/* <Slider
+                    step={1}
+                    maximumValue={100}
+                    onValueChange={this.change.bind(this)}
+                    value={value}
+                    /> */}
+            </View>
           {/* <Text>
               {JSON.stringify(this.state.result)}
           </Text> */}
@@ -164,12 +214,13 @@ export default class ExpandedLog extends Component {
           renderItem={({item}) => {
             return (   
             <View>  
-                 <TouchableOpacity style={[styles.card, {borderColor:"white"} ]} >
+                 <View style={[styles.card, {borderColor:"white"} ]} >
                     <View style={{flexDirection:"row",}}>
                         <View style={[styles.circle, {backgroundColor: item.color}]} />
                         <Text style={[styles.name, {color:item.color}]}>{item.name}</Text>
                         <Text style={styles.timestamp2}> {moment(item.timestamp).fromNow()}  </Text>
                     </View>
+ 
  
 
                     <Text style={styles.post}> {item.text}  </Text>
@@ -215,7 +266,7 @@ export default class ExpandedLog extends Component {
                             {this.renderResolution(item)}
                         </View>
                     </View>
-                </TouchableOpacity>
+                </View>
 
 
 
@@ -228,6 +279,9 @@ export default class ExpandedLog extends Component {
     );
   }
 }
+
+
+
 
 const styles = StyleSheet.create({
   container: {
