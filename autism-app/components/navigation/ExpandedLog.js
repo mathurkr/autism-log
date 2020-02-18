@@ -18,9 +18,12 @@ import {
 import {Ionicons} from '@expo/vector-icons';
 import moment from "moment";
 import { LinearGradient } from 'expo-linear-gradient'
+import { connectActionSheet } from '@expo/react-native-action-sheet'
+import {SingleImage} from 'react-native-zoom-lightbox';
 
 var { width, height } = Dimensions.get('window')
 
+var Lightbox = require('react-native-lightbox');
 
 export default class ExpandedLog extends Component {
     static navigationOptions = ({navigation}) => {
@@ -64,7 +67,7 @@ export default class ExpandedLog extends Component {
             },
         ]
 
-        , text:"Charles felt uncomfortable during science class", image: require('../../assets/images/child_photo.png'),
+        , text:"Charles felt uncomfortable during science class", image: "https://296y67419hmo2gej4j232hyf-wpengine.netdna-ssl.com/wp-content/uploads/2018/08/japheth-mast-679884-unsplash.jpg",
         behaviors:["Verbal Aggression", "Rolling on the Floor", "Destroying Property"], resolution:["Trigger removed", "Redirection", "Waited it out"]} ,
       ],
     };
@@ -85,7 +88,7 @@ export default class ExpandedLog extends Component {
 
 
     componentDidMount() {
-        this.props.navigation.setParams({ handleActionSheet: this.onClick});
+        this.props.navigation.setParams({ handleActionSheet: this._onOpenActionSheet});
         this.props.navigation.setParams({ handleShare: this._shareMessage });
 
     }
@@ -108,7 +111,7 @@ export default class ExpandedLog extends Component {
         
     }
 
-    onClick(){
+    _onOpenActionSheet(){
         ActionSheetIOS.showActionSheetWithOptions(
             { 
                 options: ['Cancel', 'Delete', 'Share', 'Edit'],
@@ -192,6 +195,7 @@ export default class ExpandedLog extends Component {
 
       <View style={styles.container}>
 
+
             <View> 
             {/* <Text style={styles.text}>{String(value)}</Text> */}
                     {/* <Slider
@@ -224,7 +228,8 @@ export default class ExpandedLog extends Component {
  
 
                     <Text style={styles.post}> {item.text}  </Text>
-                    <Image source={item.image} style={styles.postImage}  />
+                    
+                    <SingleImage uri={item.image} style={styles.postImage}  />
 
                         
                     <View style={[styles.cardContent, styles.tagsContent]}>

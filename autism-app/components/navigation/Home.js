@@ -239,7 +239,7 @@ export default class Users extends Component {
                     </View>
 
                     <Text style={styles.post}> {item.text}  </Text>
-                    <Image source={item.image} style={styles.postImage} resizeMethod="cover" />
+                    <Image source={item.image} uri={item.iamge} style={styles.postImage} resizeMethod="cover" />
 
                         
                     <View style={[styles.cardContent, styles.tagsContent]}>
