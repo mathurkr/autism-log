@@ -1,30 +1,40 @@
 {
-  "expo": {
-    "name": "Chronaly Autism Tracker",
-    "slug": "autism-app",
-    "privacy": "public",
-    "sdkVersion": "35.0.0",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
+    "expo": {
+        "name": "Chronaly Autism Tracker",
+        "slug": "autism-app",
+        "privacy": "public",
+        "sdkVersion": "35.0.0",
+        "platforms": [
+            "ios",
+            "android",
+            "web"
+        ],
+        "version": "1.0.0",
+        "orientation": "portrait",
+        "icon": "./assets/icon.png",
+        "splash": {
+            "image": "./assets/splash.png",
+            "resizeMode": "contain",
+            "backgroundColor": "#ffffff"
+        },
+        "updates": {
+            "fallbackToCacheTimeout": 0
+        },
+        "assetBundlePatterns": [
+            "**/*"
+        ],
+        "ios": {
+            "supportsTablet": true,
+            "bundleIdentifier": "com.luminous.expo.googlesignin",
+            "config": {
+                "googleSignIn": {
+                    "reservedClientId": "com.googleusercontent.apps.778168364367-0gpki6l1kr01ebgurh9ea8m4cdmuv78d"
+                }
+            }
+        },
+        "android": {
+            "package": "com.luminous.expo.googlesignin",
+            "googleServicesFile": "./google-services.json"
+        }
     }
-  }
 }

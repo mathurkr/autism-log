@@ -1,26 +1,32 @@
 import * as React from 'react';
-import { StyleSheet, View, Text, ScrollView, Dimensions, Image, Animated} from 'react-native';
+import { StyleSheet, View, Text, ScrollView, Dimensions, Image, Animated } from 'react-native';
 
 import { Button } from 'galio-framework';
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 
 const photos = [
-    {photo: require('../assets/images/father_image.png'),
-    title: "Welcome to Luminous",
-    description: "Offering a better way to manage developmental disabilities and help children and adults with autism"}, 
+    {
+        photo: require('..//assets/images/father_image.png'),
+        title: "Welcome to Luminous",
+        description: "Offering a better way to manage developmental disabilities and help children and adults with autism"
+    },
 
-    {photo:  require('../assets/images/back_to_school.png'),
-    title: "Capture events while they happen",
-    description: "Observe and monitor behaviors, actions, and day to day interactions, to better manage metldown or burnouts" },
+    {
+        photo: require('../assets/images/back_to_school.png'),
+        title: "Capture events while they happen",
+        description: "Observe and monitor behaviors, actions, and day to day interactions, to better manage metldown or burnouts"
+    },
 
-   {photo: require('../assets/images/undraw_data.png'),
-    title: "Gather and use data for knowledge & insight",
-    description: "Aggregate and use customized visualizations to improve care and well being of those with autism"
-   },
-   { photo: require( '../assets/images/undraw_community.png'),
-    title: "Aggregate and share with your community",
-    description: "Use as a digital companion to help lead on the road to better health, productivity and happier lives."
+    {
+        photo: require('../assets/images/undraw_data.png'),
+        title: "Gather and use data for knowledge & insight",
+        description: "Aggregate and use customized visualizations to improve care and well being of those with autism"
+    },
+    {
+        photo: require('../assets/images/undraw_community.png'),
+        title: "Aggregate and share with your community",
+        description: "Use as a digital companion to help lead on the road to better health, productivity and happier lives."
     }
 
 ]
@@ -35,8 +41,8 @@ export default class Welcome extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state={
-            selectedIndex:0
+        this.state = {
+            selectedIndex: 0
         };
     }
 
@@ -47,9 +53,9 @@ export default class Welcome extends React.Component {
         // get current position of the scrollView
         const contentOffset = event.nativeEvent.contentOffset.x;
         const selectedIndex = Math.floor(contentOffset / viewSize)
-        this.setState({selectedIndex})
+        this.setState({ selectedIndex })
     }
-    
+
 
     // state = {
     //     signedUp: false,
@@ -68,43 +74,45 @@ export default class Welcome extends React.Component {
     }
 
     render() {
-        const {selectedIndex} = this.state;
+        const { selectedIndex } = this.state;
         return (
             <View style={styles.container}>
 
-                    <ScrollView horizontal={true} pagingEnabled={true} 
-                    showsHorizontalScrollIndicator = {false} onMomentumScrollEnd = {this.setSelectedIndex}> 
+                <ScrollView horizontal={true} pagingEnabled={true}
+                    showsHorizontalScrollIndicator={false} onMomentumScrollEnd={this.setSelectedIndex}>
 
-                        {photos.map((source, i) => { // for every object in the photos array...
+                    {photos.map((source, i) => { // for every object in the photos array...
                         return ( // ... we will return an Image with the corresponding object as the source
-                        <View style = {styles.imageContainer}> 
+                            <View style={styles.imageContainer}>
                                 <Image style={styles.images}
-                                key={i} // we will use i for the key because no two (or more) elements in an array will have the same index
-                                style={{        width: 300,
-                                    height:300}}
-                                source={source.photo}
-                            />
-                            <View> 
-                            <Text style={styles.title}> {source.title} </Text>
-                            <Text style={styles.description}> {source.description} </Text>
+                                    key={i} // we will use i for the key because no two (or more) elements in an array will have the same index
+                                    style={{
+                                        width: 300,
+                                        height: 300
+                                    }}
+                                    source={source.photo}
+                                />
+                                <View>
+                                    <Text style={styles.title}> {source.title} </Text>
+                                    <Text style={styles.description}> {source.description} </Text>
+                                </View>
                             </View>
-                        </View>
                         );
                     })}
 
-                    </ScrollView>
+                </ScrollView>
 
-                    <View style={styles.circleDiv}>
-                        {photos.map((source,i)=> (
-                            <View 
+                <View style={styles.circleDiv}>
+                    {photos.map((source, i) => (
+                        <View
                             key={source.photo}
-                            style={[styles.whiteCircle, {opacity: i === selectedIndex ? 0.5 : 1}]}
-                            /> 
-                        ))}
-                    </View>
-                
-           
-                
+                            style={[styles.whiteCircle, { opacity: i === selectedIndex ? 0.5 : 1 }]}
+                        />
+                    ))}
+                </View>
+
+
+
 
                 <View style={styles.buttonContainer}>
                     <Button shadowless round color="#29d2e4" onPress={() => this._toSignUpPage()} style={styles.signupBtn}> SIGN UP</Button>
@@ -112,9 +120,9 @@ export default class Welcome extends React.Component {
                         <Text>LOG IN</Text>
                     </Button>
                 </View>
-                
+
             </View>
-            
+
         );
     }
 }
@@ -125,12 +133,12 @@ const styles = StyleSheet.create({
 
     },
 
-    imageContainer : {
-        alignItems:'center',
+    imageContainer: {
+        alignItems: 'center',
         flexGrow: 1,
         justifyContent: 'center',
         width: Dimensions.get('window').width,
-    }, 
+    },
 
 
     title: {
@@ -181,7 +189,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: '100%',
         display: 'flex',
-        
+
     },
 
     whiteCircle:

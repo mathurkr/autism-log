@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
@@ -7,7 +7,8 @@ import { createStackNavigator } from 'react-navigation-stack';
 // Components for the SignUp process
 import Welcome from './components/Welcome';
 import SignUp from './components/login/SignUp';
-import PasswordForm from './components/login/SignUpPassword';
+import SignUpPassword from './components/login/SignUpPassword';
+import SignUpForm from './components/login/SignUpForm';
 import PaymentInfo from './components/login/PaymentInfo';
 import TermsOfService from './components/login/TermsOfService';
 import PrivatePolicy from './components/login/PrivatePolicy';
@@ -16,23 +17,28 @@ import Login from './components/login/Login';
 import ForgotPassword from './components/login/ForgotPassword';
 import VerifyCode from './components/login/VerifyCode';
 import LoggerSelection from './components/login/LoggerSelection';
-import SignUpForm from './components/login/SignUpForm'
+import ProfileSetUp from './components/login/ProfileSetUp';
+
+
+import ChildSetup from './components/login/ChildSetup';
+import AgeSetup from './components/login/AgeSetup';
+
 
 // Include MainTabNavigator for main application navigation
 import MainAppNavigator from './components/navigation/MainAppNavigator';
 import Profile from './components/navigation/Profile';
 import Settings from './components/navigation/Settings'
 import Home from './components/navigation/Home'
+import NameSetup from './components/login/NameSetup';
 
 // SignUpNavigator holds all components associated with SignUp process -- may divide them up in the future
 const SignUpNavigator = createStackNavigator({
-   // Home: { screen: Home},
-    //Settings: { screen: Settings},
-    //Profile: { screen: Profile},
     Welcome: { screen: Welcome },
     SignUp: { screen: SignUp },
+    SignUpPassword: { screen: SignUpPassword },
     SignUpForm: { screen: SignUpForm },
-    PasswordForm: { screen: PasswordForm },
+    NameSetup: { screen: NameSetup },
+    AgeSetup: { screen: AgeSetup },
     PaymentInfo: { screen: PaymentInfo },
     TermsOfService: { screen: TermsOfService },
     PrivatePolicy: { screen: PrivatePolicy },
@@ -41,7 +47,27 @@ const SignUpNavigator = createStackNavigator({
     ForgotPassword: { screen: ForgotPassword },
     VerifyCode: { screen: VerifyCode },
     LoggerSelection: { screen: LoggerSelection },
+    ProfileSetUp: { screen: ProfileSetUp },
+    ChildSetup: { screen: ChildSetup },
+    // Home: { screen: Home},
+    // Settings: { screen: Settings},
+    // Profile: { screen: Profile},
+
+
+
+
 });
+
+// class MainAppNav extends Component {
+//     render() {
+//         const { navigation } = this.props;
+//         return <MainAppNavigator
+//             screenProps={{
+//                 params: navigation.state.params,
+//                 rootNavigation: navigation
+//             }} />
+//     }
+// }
 
 // Universal App Navigator
 const UniversalNavigator = createSwitchNavigator({
@@ -55,7 +81,6 @@ const UniversalNavigator = createSwitchNavigator({
 const App = createAppContainer(UniversalNavigator);
 
 export default App;
-
 
 
 // export default function App() {

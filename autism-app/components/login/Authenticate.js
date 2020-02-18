@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import * as Google from 'expo-google-app-auth';
 import firebase from '../config/DatabaseConfig'
+import * as GoogleSignIn from 'expo-google-sign-in';
 
+// import { GoogleSignin } from 'react-native-google-signin';
 import { Button } from 'galio-framework';
 
-import MainAppNavigator from '../navigation/MainAppNavigator'
+// import MainAppNavigator from './navigation/MainAppNavigator'
 // import Profile from './navigation/Profile';
 import Login from './Login';
 import SignUp from './SignUp';
@@ -18,7 +20,8 @@ export default class Authenticate extends Component {
         loggedIn: false,
         formCompleted: null,
         authType: '',
-        name: ''
+        name: '',
+        user: null
     };
 
     // constructor(props) {
@@ -34,6 +37,7 @@ export default class Authenticate extends Component {
                 console.log('Auth Changed.')
             }
         })
+        // this._initAsync();
     }
 
 //Navigates to Main if User in Firebase, SignUpForm if Not
@@ -50,8 +54,43 @@ export default class Authenticate extends Component {
     }
 
 //ADD TO FIREBASE AUTH WHITELIST FOR CLIENT IDS
+    // _initAsync = async () => {
+    //     await GoogleSignIn.initAsync({
+    //         clientId: '778168364367-0gpki6l1kr01ebgurh9ea8m4cdmuv78d.apps.googleusercontent.com'
+    //     });
+    //     this._syncUserWithStateAsync();
+    // }
+
+    // _syncUserWithStateAsync = async () => {
+    //     const user = await GoogleSignIn.signInSilentlyAsync();
+    //     if (this.state.signedUp) {
+    //         this.setState({
+    //             loggedIn: true,
+    //             user: user,
+    //             authType: 'Login'
+    //         });
+    //     }
+    //     else {
+    //         this.setState({
+    //             signedUp: true,
+    //             user: user,
+    //             authType: 'Sign Up'
+    //         });
+    //     }
+    // }
+
     _googleLogin = async () => {
         try {
+
+            // await GoogleSignIn.askForPlayServicesAsync();
+            // const { type, user } = await GoogleSignIn.signInAsync();
+            // if (type === 'success') {
+            //     this._syncUserWithStateAsync();
+            // }
+            // else {
+            //     alert("Could not authenticate user through Google");
+            // }
+
             const result = await Google.logInAsync({
                 androidClientId: "751957114156-lvkj70nh3oaihov2dl82nufuq0ra7a1m.apps.googleusercontent.com",
                 iosClientId: "751957114156-gplohjh7bdca8l36rgtonsrchsr2sqrv.apps.googleusercontent.com",
@@ -86,12 +125,12 @@ export default class Authenticate extends Component {
                     }
                 })
             }
-            else {
-                console.log("cancelled");
-            }
+            // else {
+            //     console.log("cancelled");
+            // }
         }
-        catch (e) {
-            console.log("error", e);
+        catch (message) {
+            alert('login: Error:' + message);
         }
     }
 

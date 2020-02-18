@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableOpacity, KeyboardAvoidingView, Picker } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, KeyboardAvoidingView, Image } from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
+
+import { Button, Text, Input, theme } from 'galio-framework';
 
 import firebase from '../config/DatabaseConfig'
 
-import { Button, Radio, Text, Input, theme } from 'galio-framework';
-
-// import { Select } from '../tools/';
-
-//THIS IS USED WHEN THEY REGISTER WITH FACEBOOK/GOOGLE.
+//THIS IS USED FOR WHEN THEY REGISTER WITH EMAIL.
 export default class SignUpForm extends Component {
     state = {
         email: '',
+        password: '',
         firstName: '',
         lastName: '',
         phone: '',
@@ -29,25 +28,20 @@ export default class SignUpForm extends Component {
         alert(this.state.gender);
     }
 
-    // Test function to see user input
-    _displayUserInput() {
-        if (this.state.firstName == '') {
-            alert('Please enter your first name');
-        }
-        else if (this.state.lastName == '') {
-            alert('Please enter your last name');
-        }
-        else if (this.state.gender == '') {
-            alert('Please select your gender');
-        }
-        else if (this.state.age == '') {
-            alert('Please enter your age');
+    _formatPhoneNum = text => {
+        let formatted = ('' + text).replace(/\D/g, '');
+        let match = formatted.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/);
+        if (match) {
+            let intlCode = match[1] ? '+1 ' : '';
+            let number = [intlCode, '(', match[2], ') ', match[3], '-', match[4]].join('');
+            this.setState({ phone: number });
         }
         else {
-            alert('Name: ' + this.state.firstName + ' ' + this.state.lastName + ', Gender: ' + this.state.gender + ', Age: ' + this.state.age);
+            this.setState({ phone: text });
         }
     }
 
+    // Maybe put in a more seamless validation process here
     _validateForm() {
         if (this.state.firstName == '') {
             alert('Please enter your first name');
@@ -74,6 +68,7 @@ export default class SignUpForm extends Component {
 
             //Create entry in db
             firebase.firestore().collection('users').doc(`${uid}`).set({
+                email: this.state.email,
                 firstName: this.state.firstName,
                 lastName: this.state.lastName,
                 phone: this.state.phone,
@@ -121,7 +116,14 @@ export default class SignUpForm extends Component {
                     </ModalDropdown>
                     <Input placeholder="Age" styles={{ width: '44%' }} keyboardType={'numeric'} onChangeText={(text) => this.setState({ age: text })} />
                 </View>
-                <Input placeholder="Phone Number" style={styles.input} onChangeText={(text) => this.setState({ phone: text })} />
+                <Input
+                    placeholder="Phone Number"
+                    style={styles.input}
+                    textContentType='telephoneNumber'
+                    dataDetectorTypes='phoneNumber'
+                    keyboardType={'phone-pad'}
+                    maxLength={14}
+                    onChangeText={(text) => this._formatPhoneNum(text)} />
                 <Button shadowless round color="#29d2e4" style={{ marginTop: 10 }} onPress={() => this._validateForm()}>Continue</Button>
             </KeyboardAvoidingView>
         );
@@ -133,17 +135,21 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        marginBottom: '37%',
     },
     input: {
-        width: '89%'
+        width: '89%',
+        marginBottom: 9,
+        backgroundColor: '#E9EDEF',
+        height: 50
     },
+
     dropdownLabel: {
         width: 200,
         height: 44,
         backgroundColor: '#FFFFFF',
         paddingHorizontal: 16,
         paddingTop: 10,
-        // paddingBottom: 8,
         borderRadius: 8,
         borderColor: '#898989',
         borderWidth: 1,
