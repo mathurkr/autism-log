@@ -232,6 +232,8 @@ export default class ExpandedLog extends Component {
                     <SingleImage uri={item.image} style={styles.postImage}  />
 
                         
+                    <Text style={{marginHorizontal:10, marginTop: 20, fontSize: 14, }}> Meltdown Type </Text> 
+
                     <View style={[styles.cardContent, styles.tagsContent]}>
                     {this.renderTags(item)}
                     </View>
@@ -297,6 +299,7 @@ const styles = StyleSheet.create({
 
   notificationList:{
     padding:10,
+    backgroundColor:"#EFEFEF"
   },
   card: {
     height:null,
@@ -354,6 +357,8 @@ const styles = StyleSheet.create({
     marginHorizontal:3,
     backgroundColor:'rgba(110,211,225,0.30)',
     marginTop:5,
+    marginLeft: 20
+
   },
 
   btnColor2: {
@@ -362,6 +367,8 @@ const styles = StyleSheet.create({
     marginHorizontal:3,
     backgroundColor:'rgba(110,211,225,0.30)',
     marginTop:5,
+    marginLeft: 20
+
   },
 
 

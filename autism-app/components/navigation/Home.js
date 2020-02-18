@@ -195,7 +195,7 @@ export default class Users extends Component {
                         selectionAnimation={{ duration: 300, borderWidth: 1 }}
                         style={{ position: 'absolute', top: 0, marginTop: '10%', marginBottom: '10%'  }}
                         calendarHeaderStyle={{ color: 'black', width: deviceWidth, marginBottom: 10  }}
-                        // calendarColor={'#7743CE'}
+                        calendarColor={'white'}
                         highlightColor={'#9265DC'}
                         dateNumberStyle={{ color: 'black' }}
                         dateNameStyle={{ color: 'black' }}
@@ -211,7 +211,7 @@ export default class Users extends Component {
 
           
 
-
+   
         <FlatList 
           style={styles.notificationList}
           data={this.state.posts}
@@ -221,7 +221,7 @@ export default class Users extends Component {
 
           renderItem={({item}) => {
             return (   
-            <View>  
+            <View style={ {backgroundColor: '#EFEFEF'}}>  
 
 
 
@@ -241,9 +241,10 @@ export default class Users extends Component {
                     <Text style={styles.post}> {item.text}  </Text>
                     <Image source={item.image} uri={item.iamge} style={styles.postImage} resizeMethod="cover" />
 
-                        
+                    <Text style={{marginHorizontal:10, marginTop: 20, fontSize: 1, }}> Meltdown Type </Text> 
+
                     <View style={[styles.cardContent, styles.tagsContent]}>
-                    {this.renderTags(item)}
+                             {this.renderTags(item)}
                     </View>
 
                     <View style={{flexDirection: "row", marginTop: 15, marginLeft:15 } }>
@@ -252,18 +253,18 @@ export default class Users extends Component {
                         </View>
                 </TouchableOpacity>
                 
-                <View sttle={{}}> 
+                {/* <View sttle={{}}> 
                     <View style={[styles.bottomCircle, {backgroundColor: '#E9E9E9' }]} />
                     <View style={[styles.bottomCircle, {backgroundColor: '#E9E9E9' }]} />
                     <View style={[styles.bottomCircle, {backgroundColor: '#E9E9E9', marginBottom: 10}]} />
-                </View>
+                </View> */}
 
 
 
               </View>
             )
           }}/>
-      </View>
+          </View>
     );
   }
 }
@@ -271,13 +272,13 @@ export default class Users extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
   },
 
 
   notificationList:{
     marginTop:140,
     padding:10,
+    backgroundColor: "#EFEFEF"
   },
   card: {
     height:null,
@@ -336,6 +337,7 @@ const styles = StyleSheet.create({
     marginHorizontal:3,
     backgroundColor:'rgba(110,211,225,0.30)',
     marginTop:5,
+    marginLeft: 20
   },
 
 

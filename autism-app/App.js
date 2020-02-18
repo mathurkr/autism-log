@@ -40,7 +40,7 @@ const SignUpNavigator = createStackNavigator({
     // NameSetup: { screen: NameSetup},
     // AgeSetup: { screen: AgeSetup },
     // PaymentInfo: { screen: PaymentInfo },
-    //Home: { screen: Home},
+    // Home: { screen: Home},
     // TermsOfService: { screen: TermsOfService },
     // PrivatePolicy: { screen: PrivatePolicy },
     // Authenticate: { screen: Authenticate },
