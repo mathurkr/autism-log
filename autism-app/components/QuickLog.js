@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity, Slider } from 'react-native';
 import { TextInput } from 'react-native';
 
-import { Button, Slider, Block } from 'galio-framework';
+import { Button, Block } from 'galio-framework';
 //import Slider from '@react-native-community/slider';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
@@ -19,7 +19,7 @@ export default class QuickLog extends Component {
             date: new Date(),
             show: false,
             triggers: [],//tags
-            severity: 0
+            severity: 1
             
         };
 
@@ -29,34 +29,50 @@ export default class QuickLog extends Component {
     toggleDatePicker = ()=>{
         if(!this.show){
             this.setState({show:true});
+            console.log("toggle is now "+this.show);
         }
         else{
             this.setState({show:false});
+            console.log("toggle is now "+this.show);
         }
         
-    }
+    };
     //Client-side data handlers
-    setDate = (event,date) => {
+    setDate = (date) => {
+        console.log("changing date...");
         date = date || this.state.date;
 
         this.setState({
             show: Platform.OS === 'ios' ? true : false,
             date,
         });
-    }
+    };
 
     setSeverity = (severity) =>{
-        severity = severity || this.state.severity;
+        console.log("changing severity to "+severity);
+        
 
         this.setState({
-            severity
+            severity 
         });
-    }
+    };
+
+    setTriggers = (trigger) => {
+        console.log("changing trigger list...")
+
+    };
     //Data submission
     _submitLog = ()=>{
         //Do data validation
-        //Trigger another component to do something with data
-    }
+        alert('Severity: '+this.state.severity);
+        if(this.state.location==''){
+            alert('Please enter a location.');
+        }
+        else{
+            alert('Location: '+this.state.location);
+        }
+        
+    };
     render() {
         return (
             <View style={styles.container}>
@@ -67,12 +83,11 @@ export default class QuickLog extends Component {
                     onChangeText={location => this.setState({location})}
                     value={this.state.location}
                 />
-                <Text>{this.state.location}</Text>
-                <Button shadowless round color="#ffffff" onPress={this.toggleDatePicker}>
+                {/* <Button shadowless round color="#ffffff" onPress={this.toggleDatePicker}>
                     <Text>Date:</Text>
                     <Text>{this.state.date.toLocaleString('en-US')}</Text> 
-                </Button>
-                {/* Find date picker */}
+                </Button> */}
+                {/* Date picker broken for now... stack trace "Unhandled promise rejection: TypeError: null is not an object (evaluating.....RNDatePickerAndroid.open" */}
                 {this.state.show && <DateTimePicker value={this.state.date}
                     mode='date'
                     is24Hour={true}
@@ -102,21 +117,27 @@ export default class QuickLog extends Component {
                     </Button>
                 </View>
                 <Text>Severity</Text>
-                {/* <Slider
-                    style={{width: 200, height: 40}}
-                    minimumValue={0}
-                    maximumValue={6}
-                    minimumTrackTintColor="#FFFFFF"
-                    maximumTrackTintColor="#000000"
-                /> */}
-                
                 <Slider
+                    style={{width: '80%', height: 40}}
+                    minimumValue={0}
+                    maximumValue={10}
+                    value={this.state.severity}
+                    minimumTrackTintColor="#6ed3e1"
+                    maximumTrackTintColor="#ffffff"
+                    onSlidingComplete={severity => this.setSeverity(severity)}
+                />
+
+                {/* Galio Slider below... */}
+                {/* <Slider
+                    minimumValue={1}
                     maximumValue={30}
                     value={this.state.severity}
-                    onSlidingcomplete={() => this.setSeverity()}
-                />
+                    onSlidingComplete={severity => this.setState({severity})}//this.setSeverity(severity)
+                /> */}
+               
                 
-                <Button shadowless round color="#ffffff" /* onPress={() => this._submitLog()} */ style={styles.submitButton}>
+                
+                <Button shadowless round color="#ffffff" style={styles.submitButton} onPress={() => this._submitLog()}>
                     <Text>Submit </Text>
                 </Button>
             </View>
