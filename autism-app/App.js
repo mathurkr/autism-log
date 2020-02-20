@@ -47,13 +47,13 @@ const SignUpNavigator = createStackNavigator({
     // Login: { screen: Login },
     // ForgotPassword: { screen: ForgotPassword },
     // VerifyCode: { screen: VerifyCode },
-    // LoggerSelection: { screen: LoggerSelection },
-    // ChildSetup: {screen: ChildSetup},
+    //  LoggerSelection: { screen: LoggerSelection },
+    //  ChildSetup: {screen: ChildSetup},
     // ProfileSetUp: { screen: ProfileSetUp },
     
-    // Settings: { screen: Settings},
-    // Profile: { screen: Profile},
-    ExpandedLog: {screen: ExpandedLog},
+    Settings: { screen: Settings},
+     //Profile: { screen: Profile},
+    // ExpandedLog: {screen: ExpandedLog},
 
 
 

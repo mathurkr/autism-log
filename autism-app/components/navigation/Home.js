@@ -9,7 +9,8 @@ import {
   ScrollView,
   TextInput,
   FlatList,
-  Dimensions
+  Dimensions,
+  Share
 } from 'react-native';
 import CalendarStrip from 'react-native-calendar-strip';
 import {Ionicons} from "@expo/vector-icons";
@@ -22,6 +23,9 @@ export default class Users extends Component {
         header: null,
         
     };
+
+
+
 
 
   constructor(props) {

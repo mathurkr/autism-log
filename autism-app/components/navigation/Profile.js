@@ -1,16 +1,45 @@
 import React, { Component, useState } from 'react';
-import { StyleSheet, View, Image, ScrollView, FlatList, TouchableOpacity} from 'react-native';
+import { StyleSheet, View, Linking, Image, ScrollView, FlatList, TouchableOpacity, Share, Alert} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient'
 import { Button, Text, Input } from 'galio-framework';
 import { FontAwesome } from '@expo/vector-icons';
 
- 
+const dataSource = [{id: 0, toggle: false, icon: "cog", description: 'Profile Settings', subDescription: 'Update and modify Charles profile', arrow: require('../../assets/images/test2.png')},
+{id: 1, toggle: false, icon: "bell", description: 'Notifications', subDescription: 'Change your notifications settings', arrow: require('../../assets/images/test2.png')},
+{id: 2, toggle: false, icon: "star", description: 'Goals', subDescription: "Update and manage Charles' goals", arrow: require('../../assets/images/test2.png')},
+{id: 3, toggle: false, icon: 'group', description: 'Tell your Friends', subDescription: 'Let other know about this app', arrow: require('../../assets/images/test2.png')},
+]
+
+const dataSection = [{icon: "bar-chart-o", description: 'Weekly Reports', subDescription: "View previous week's activites", arrow: require('../../assets/images/test2.png')},
+{icon: "pie-chart", description: 'Export Entries', subDescription: 'Download and share entries', arrow: require('../../assets/images/test2.png')},
+]
 
 export default class Profile extends Component {
-    constructor(){
-        super()
+  
+    constructor(props){
+        super(props)
         {
+
+          // this.dataSource = [{id: 0, toggle: false, icon: "cog", description: 'Profile Settings', subDescription: 'Update and modify Charles profile', arrow: require('../../assets/images/test2.png')},
+          // {id: 1, toggle:false, icon: "bell", description: 'Notifications', subDescription: 'Change your notifications settings', arrow: require('../../assets/images/test2.png')},
+          // {id: 2, toggle: false, icon: "star", description: 'Goals', subDescription: "Update and manage Charles' goals", arrow: require('../../assets/images/test2.png')},
+          // {id: 3, toggle: false, icon: 'group', description: 'Tell your Friends', subDescription: 'Let other know about this app', arrow: require('../../assets/images/test2.png')},
+          // ]
         }
+    }
+
+    
+    onPress = (item, index) => {
+      //console.log(item.key);
+      //console.log(id);
+      //console.log(index);
+
+        //console.log(elem.id);
+        // if(elem.id == index)
+        // {
+        //   elem.toggle = true
+        // }
+      
     }
 
     static navigationOptions = {
@@ -31,17 +60,51 @@ export default class Profile extends Component {
             />
           ),
         }
-        
-    render() {
-        const dataSource = [{icon: "cog", description: 'Profile Settings', subDescription: 'Update and modify Charles profile', arrow: require('../../assets/images/test2.png')},
-        {icon: "bell", description: 'Notifications', subDescription: 'Change your notifications settings', arrow: require('../../assets/images/test2.png')},
-        {icon: "star", description: 'Goals', subDescription: "Update and manage Charles' goals", arrow: require('../../assets/images/test2.png')},
-        {icon: 'group', description: 'Tell your Friends', subDescription: 'Let other know about this app', arrow: require('../../assets/images/test2.png')},
-        ]
 
-        const dataSection = [{icon: "bar-chart-o", description: 'Weekly Reports', subDescription: "View previous week's activites", arrow: require('../../assets/images/test2.png')},
-        {icon: "pie-chart", description: 'Export Entries', subDescription: 'Download and share entries', arrow: require('../../assets/images/test2.png')},
-      ]
+        actionOnRow(item, index) {
+
+          if(index==0)
+          {
+            Alert.alert("Navigate to Profile Settings")
+          }
+
+          if(index==1)
+          {
+            Alert.alert("Navigate to Notification")
+          }
+
+          if(index==2)
+          {
+            Alert.alert("Goals")
+          }
+
+          if(index==3)
+          {
+            this.onShare()
+          }
+      }
+
+
+
+        onShare = async ()  => {
+          Share.share(
+              {
+                  message: 'Hey I use this great app. Luminous enables you to keep a private diary to empower people with Autism and their care community.',
+                  url: 'https://apps.apple.com/us/app/chronaly/id1202635037'
+              }
+          )
+      }
+
+      onOpenApp = async () => {
+        const AppStore = 'itms-apps://itunes.apple.com';
+        const Settings = 'app-settings://';
+        return Linking.openURL(AppStore);
+      }
+
+      onLinkToIns
+     
+    render() {
+
 
         return (
           
@@ -64,9 +127,11 @@ export default class Profile extends Component {
               <Text style={styles.sectionTitle}> GENERAL </Text>
                     <FlatList style={styles.notificationList} 
                     data={dataSource}
-                    renderItem ={({item}) => {
+                    keyExtractor={(item, index) => item.key}
+                    renderItem ={({item, index}) => {
                         return (
-                          <TouchableOpacity> 
+                        
+                        <TouchableOpacity onPress={()=> this.actionOnRow(item,index)}> 
                         <View style={styles.notificationBox}>
                             <FontAwesome name={item.icon} size={25} style={styles.icon} />
                             <View style={styles.btntextcontainer}> 
@@ -82,7 +147,7 @@ export default class Profile extends Component {
                   <Text style={styles.sectionTitle}> DATA </Text>
                     <FlatList style={styles.notificationList} 
                     data={dataSection}
-                    renderItem ={({item}) => {
+                    renderItem ={({item, index}) => {
                         return (
                           <TouchableOpacity> 
                         <View style={styles.notificationBox}>
@@ -109,7 +174,8 @@ export default class Profile extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-    },
+        backgroundColor: "#EFEFEF"
+      },
 
     sectionTitle: {
         color: '#8485f9',
@@ -130,7 +196,7 @@ const styles = StyleSheet.create({
         padding:5,
         marginTop:5,
         marginBottom:10,
-        backgroundColor: '#E9EDEF',
+        backgroundColor: 'white',
         flexDirection: 'row',
         borderRadius:10,
       },
@@ -216,3 +282,4 @@ const styles = StyleSheet.create({
       
 
 });
+
