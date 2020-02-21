@@ -1,8 +1,17 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image, Alert, ScrollView, TextInput, FlatList, Dimensions } from 'react-native';
-import { NavigationActions } from 'react-navigation';
-import { Button, Input } from 'galio-framework';
-
+import {
+    StyleSheet,
+    Text,
+    View,
+    TouchableOpacity,
+    Image,
+    Alert,
+    ScrollView,
+    TextInput,
+    FlatList,
+    Dimensions,
+    Share
+} from 'react-native';
 import CalendarStrip from 'react-native-calendar-strip';
 import { Ionicons } from "@expo/vector-icons";
 import moment from "moment";
@@ -253,154 +262,140 @@ export default class Home extends Component {
     }
 
 
-    // constructor(props) {
+    //   constructor(props) {
     //     super(props);
     //     this.state = {
-    //         posts: [
+    //       posts: [
+    //         {id:1, color:"#3200DF", icon:"https://bootdey.com/img/Content/avatar/avatar1.png", name: "Very Severe", timestamp: 1569109273726, 
+    //         tags:
+
+    //         [
     //             {
-    //                 id: 1, color: "#3200DF", icon: "https://bootdey.com/img/Content/avatar/avatar1.png", name: "Very Severe", timestamp: 1569109273726,
-    //                 tags:
-
-    //                     [
-    //                         {
-    //                             name: "Sensory",
-    //                             icon: "ios-body",
-    //                         },
-    //                         {
-    //                             name: "Routine",
-    //                             icon: "ios-calendar"
-    //                         },
-    //                         {
-    //                             name: "Social",
-    //                             icon: "ios-people"
-    //                         },
-    //                     ]
-
-    //                 , text: "Charles felt uncomfortable during science class", image: require('../../assets/images/child_photo.png'),
-    //                 behaviors: ["Verbal Aggression", "Rolling on the Floor", "Destroying Property"], resolution: ["Trigger removed", "Redirection", "Waited it out"]
+    //                 name:"Sensory",
+    //                 icon: "ios-body",
     //             },
+    //             { 
+    //                 name:"Routine",
+    //                 icon:"ios-calendar"
+    //             },
+    //             { 
+    //                 name:"Social",
+    //                 icon:"ios-people"
+    //             },
+    //         ]
 
+    //         , text:"Charles felt uncomfortable during science class", image: require('../../assets/images/child_photo.png'),
+    //         behaviors:["Verbal Aggression", "Rolling on the Floor", "Destroying Property"], resolution:["Trigger removed", "Redirection", "Waited it out"]} ,
+
+    //         {id:2, color:"#333FDF", icon:"https://bootdey.com/img/Content/avatar/avatar2.png", name: "Severe", timestamp: 1569109273726, 
+    //         tags:
+
+    //         [
     //             {
-    //                 id: 2, color: "#333FDF", icon: "https://bootdey.com/img/Content/avatar/avatar2.png", name: "Severe", timestamp: 1569109273726,
-    //                 tags:
-
-    //                     [
-    //                         {
-    //                             name: "Sensory",
-    //                             icon: "ios-body",
-    //                         },
-    //                         {
-    //                             name: "Routine",
-    //                             icon: "ios-calendar"
-    //                         },
-    //                         {
-    //                             name: "Social",
-    //                             icon: "ios-people"
-    //                         },
-    //                     ],
-    //                 image: require('../../assets/images/test2.png'), text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    //                 name:"Sensory",
+    //                 icon: "ios-body",
     //             },
-
-    //             {
-    //                 id: 3, color: "#3200DF", icon: "https://bootdey.com/img/Content/avatar/avatar1.png", name: "Very Severe", timestamp: 1569109273726,
-    //                 tags:
-
-    //                     [
-    //                         {
-    //                             name: "Sensory",
-    //                             icon: "ios-body",
-    //                         },
-    //                         {
-    //                             name: "Routine",
-    //                             icon: "ios-calendar"
-    //                         },
-    //                         {
-    //                             name: "Social",
-    //                             icon: "ios-people"
-    //                         },
-    //                     ]
-
-    //                 , text: "Charles felt uncomfortable during science class", image: require('../../assets/images/child_photo.png'),
-    //                 behaviors: ["Verbal Aggression", "Rolling on the Floor", "Destroying Property"], resolution: ["Trigger removed", "Redirection", "Waited it out"]
+    //             { 
+    //                 name:"Routine",
+    //                 icon:"ios-calendar"
     //             },
-
-
-    //             {
-    //                 id: 4, color: "#3200DF", icon: "https://bootdey.com/img/Content/avatar/avatar1.png", name: "Very Severe", timestamp: 1569109273726,
-    //                 tags:
-
-    //                     [
-    //                         {
-    //                             name: "Sensory",
-    //                             icon: "ios-body",
-    //                         },
-    //                         {
-    //                             name: "Routine",
-    //                             icon: "ios-calendar"
-    //                         },
-    //                         {
-    //                             name: "Social",
-    //                             icon: "ios-people"
-    //                         },
-    //                     ]
-
-    //                 , text: "Charles felt uncomfortable during science class", image: require('../../assets/images/child_photo.png'),
-    //                 behaviors: ["Verbal Aggression", "Rolling on the Floor", "Destroying Property"], resolution: ["Trigger removed", "Redirection", "Waited it out"]
+    //             { 
+    //                 name:"Social",
+    //                 icon:"ios-people"
     //             },
-
-
-    //             {
-    //                 id: 5, color: "#3200DF", icon: "https://bootdey.com/img/Content/avatar/avatar1.png", name: "Very Severe", timestamp: 1569109273726,
-    //                 tags:
-
-    //                     [
-    //                         {
-    //                             name: "Sensory",
-    //                             icon: "ios-body",
-    //                         },
-    //                         {
-    //                             name: "Routine",
-    //                             icon: "ios-calendar"
-    //                         },
-    //                         {
-    //                             name: "Social",
-    //                             icon: "ios-people"
-    //                         },
-    //                     ]
-
-    //                 , text: "Charles felt uncomfortable during science class", image: require('../../assets/images/child_photo.png'),
-    //                 behaviors: ["Verbal Aggression", "Rolling on the Floor", "Destroying Property"], resolution: ["Trigger removed", "Redirection", "Waited it out"]
-    //             },
-
-
-    //             {
-    //                 id: 6, color: "#3200DF", icon: "https://bootdey.com/img/Content/avatar/avatar1.png", name: "Very Severe", timestamp: 1569109273726,
-    //                 tags:
-
-    //                     [
-    //                         {
-    //                             name: "Sensory",
-    //                             icon: "ios-body",
-    //                         },
-    //                         {
-    //                             name: "Routine",
-    //                             icon: "ios-calendar"
-    //                         },
-    //                         {
-    //                             name: "Social",
-    //                             icon: "ios-people"
-    //                         },
-    //                     ]
-
-    //                 , text: "Charles felt uncomfortable during science class", image: require('../../assets/images/child_photo.png'),
-    //                 behaviors: ["Verbal Aggression", "Rolling on the Floor", "Destroying Property"], resolution: ["Trigger removed", "Redirection", "Waited it out"]
-    //             },
-
     //         ],
+    //          image: require('../../assets/images/test2.png'), text:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."}, 
+
+    //         {id:3, color:"#3200DF", icon:"https://bootdey.com/img/Content/avatar/avatar1.png", name: "Very Severe", timestamp: 1569109273726, 
+    //         tags:
+
+    //         [
+    //             {
+    //                 name:"Sensory",
+    //                 icon: "ios-body",
+    //             },
+    //             { 
+    //                 name:"Routine",
+    //                 icon:"ios-calendar"
+    //             },
+    //             { 
+    //                 name:"Social",
+    //                 icon:"ios-people"
+    //             },
+    //         ]
+
+    //         , text:"Charles felt uncomfortable during science class", image: require('../../assets/images/child_photo.png'),
+    //         behaviors:["Verbal Aggression", "Rolling on the Floor", "Destroying Property"], resolution:["Trigger removed", "Redirection", "Waited it out"]} ,
+
+
+    //         {id:4, color:"#3200DF", icon:"https://bootdey.com/img/Content/avatar/avatar1.png", name: "Very Severe", timestamp: 1569109273726, 
+    //         tags:
+
+    //         [
+    //             {
+    //                 name:"Sensory",
+    //                 icon: "ios-body",
+    //             },
+    //             { 
+    //                 name:"Routine",
+    //                 icon:"ios-calendar"
+    //             },
+    //             { 
+    //                 name:"Social",
+    //                 icon:"ios-people"
+    //             },
+    //         ]
+
+    //         , text:"Charles felt uncomfortable during science class", image: require('../../assets/images/child_photo.png'),
+    //         behaviors:["Verbal Aggression", "Rolling on the Floor", "Destroying Property"], resolution:["Trigger removed", "Redirection", "Waited it out"]} ,
+
+
+    //         {id:5, color:"#3200DF", icon:"https://bootdey.com/img/Content/avatar/avatar1.png", name: "Very Severe", timestamp: 1569109273726, 
+    //         tags:
+
+    //         [
+    //             {
+    //                 name:"Sensory",
+    //                 icon: "ios-body",
+    //             },
+    //             { 
+    //                 name:"Routine",
+    //                 icon:"ios-calendar"
+    //             },
+    //             { 
+    //                 name:"Social",
+    //                 icon:"ios-people"
+    //             },
+    //         ]
+
+    //         , text:"Charles felt uncomfortable during science class", image: require('../../assets/images/child_photo.png'),
+    //         behaviors:["Verbal Aggression", "Rolling on the Floor", "Destroying Property"], resolution:["Trigger removed", "Redirection", "Waited it out"]} ,
+
+
+    //         {id:6, color:"#3200DF", icon:"https://bootdey.com/img/Content/avatar/avatar1.png", name: "Very Severe", timestamp: 1569109273726, 
+    //         tags:
+
+    //         [
+    //             {
+    //                 name:"Sensory",
+    //                 icon: "ios-body",
+    //             },
+    //             { 
+    //                 name:"Routine",
+    //                 icon:"ios-calendar"
+    //             },
+    //             { 
+    //                 name:"Social",
+    //                 icon:"ios-people"
+    //             },
+    //         ]
+
+    //         , text:"Charles felt uncomfortable during science class", image: require('../../assets/images/child_photo.png'),
+    //         behaviors:["Verbal Aggression", "Rolling on the Floor", "Destroying Property"], resolution:["Trigger removed", "Redirection", "Waited it out"]} ,
+
+    //       ],
     //     };
-    // }
-
-
+    //   }
 
 
     renderTags = (item) => {
@@ -454,6 +449,9 @@ export default class Home extends Component {
                     iconContainer={{ flex: 0.1 }}
                 />
 
+
+
+
                 <FlatList
                     style={styles.notificationList}
                     data={this.state.posts}
@@ -463,13 +461,16 @@ export default class Home extends Component {
 
                     renderItem={({ item }) => {
                         return (
-                            <View>
+                            <View style={{ backgroundColor: '#EFEFEF' }}>
+
+
+
 
                                 <TouchableOpacity style={[styles.card, { borderColor: "white" }]} >
 
                                     <View style={{ flexDirection: "row", }}>
                                         <View style={[styles.circle, { backgroundColor: "#3200DF" }]} />
-                                        <Text style={[styles.name, { color: "#3200DF" }]}>{item.scale}</Text>
+                                        <Text style={[styles.name, { color: item.color }]}>{item.scale}</Text>
                                         <Text style={styles.timestamp2}> {moment(item.timestamp).fromNow()}  </Text>
                                     </View>
 
@@ -478,25 +479,49 @@ export default class Home extends Component {
                                     </View>
 
                                     <Text style={styles.post}> {item.text}  </Text>
-                                    <Image source={{ uri: item.image }} style={styles.postImage} resizeMethod="auto" />
+                                    <Image source={{ uri: item.image }} uri={item.image} style={styles.postImage} resizeMethod="cover" />
 
+                                    <Text style={{ marginHorizontal: 10, marginTop: 20, fontSize: 1, }}> Meltdown Type </Text>
 
                                     <View style={[styles.cardContent, styles.tagsContent]}>
                                         {this.renderTags(item)}
                                     </View>
-
-                                    <View style={{ flexDirection: "row", marginTop: 15, marginLeft: 15 }}>
-                                        <Ionicons name="ios-pin" size={20} color="#C4C6CE" style={{ marginRight: 3 }} />
-                                        <Text style={styles.timestamp}>{item.location}</Text>
-                                    </View>
                                 </TouchableOpacity>
 
-                                <View style={{}}>
-                                    <View style={[styles.bottomCircle, { backgroundColor: '#E9E9E9' }]} />
-                                    <View style={[styles.bottomCircle, { backgroundColor: '#E9E9E9' }]} />
-                                    <View style={[styles.bottomCircle, { backgroundColor: '#E9E9E9', marginBottom: 10 }]} />
-                                </View>
+                                {/* <View sttle={{}}> 
+                    <View style={[styles.bottomCircle, {backgroundColor: '#E9E9E9' }]} />
+                    <View style={[styles.bottomCircle, {backgroundColor: '#E9E9E9' }]} />
+                    <View style={[styles.bottomCircle, {backgroundColor: '#E9E9E9', marginBottom: 10}]} />
+                </View> */}
 
+                                {/* // feedContainer: {
+    //     flex: 1,
+    //     backgroundColor: "#EFECF4",
+    // },
+
+    notificationList: {
+        marginTop: 140,
+        padding: 10,
+    },
+    card: {
+        height: null,
+        //paddingTop:10,
+        paddingBottom: 10,
+        marginTop: 5,
+        backgroundColor: '#FFFFFF',
+        flexDirection: 'column',
+        borderTopWidth: 10,
+        marginBottom: 10,
+        borderRadius: 5,
+        borderWidth: 0,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 4,
+        },
+        shadowOpacity: 0.30,
+        shadowRadius: 5,
+        elevation: 8, */}
 
 
                             </View>
@@ -510,17 +535,13 @@ export default class Home extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#FFFFFF',
     },
 
-    // feedContainer: {
-    //     flex: 1,
-    //     backgroundColor: "#EFECF4",
-    // },
 
     notificationList: {
         marginTop: 140,
         padding: 10,
+        backgroundColor: "#EFEFEF"
     },
     card: {
         height: null,
@@ -579,6 +600,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 3,
         backgroundColor: 'rgba(110,211,225,0.30)',
         marginTop: 5,
+        marginLeft: 20
     },
 
 
@@ -588,30 +610,6 @@ const styles = StyleSheet.create({
         color: "#838899",
     },
 
-    // feedItem: {
-    //     backgroundColor: "#FFF",
-    //     borderRadius: 5,
-    //     padding: 8,
-    //     flexDirection: "row",
-    //     marginVertical: 12,
-    //     borderRadius: 10,
-    //     borderWidth: 2,
-    //     borderColor: "#DFDFDF",
-    //     shadowColor: "#000",
-    //     shadowOffset: {
-    //         width: 0,
-    //         height: 4,
-    //     },
-    //     shadowOpacity: 0.30,
-    //     shadowRadius: 4.65,
-    //     elevation: 8,
-    // }
-    // ,
-    // avatar: {
-    //     width: 20,
-    //     height: 30,
-    //     marginRight: 16,
-    // },
     postImage: {
         width: undefined,
         height: 150,
@@ -648,6 +646,74 @@ const styles = StyleSheet.create({
         marginTop: 9,
         marginLeft: 10
     }
+
+
+    // post: {
+    //     margin: 10,
+    //     fontSize: 14,
+    //     color: "#838899",
+    // },
+
+    // // feedItem: {
+    // //     backgroundColor: "#FFF",
+    // //     borderRadius: 5,
+    // //     padding: 8,
+    // //     flexDirection: "row",
+    // //     marginVertical: 12,
+    // //     borderRadius: 10,
+    // //     borderWidth: 2,
+    // //     borderColor: "#DFDFDF",
+    // //     shadowColor: "#000",
+    // //     shadowOffset: {
+    // //         width: 0,
+    // //         height: 4,
+    // //     },
+    // //     shadowOpacity: 0.30,
+    // //     shadowRadius: 4.65,
+    // //     elevation: 8,
+    // // }
+    // // ,
+    // // avatar: {
+    // //     width: 20,
+    // //     height: 30,
+    // //     marginRight: 16,
+    // // },
+    // postImage: {
+    //     width: undefined,
+    //     height: 150,
+    //     borderRadius: 5,
+    //     marginHorizontal: 10,
+    // },
+
+    // timestamp: {
+    //     fontSize: 11,
+    //     color: "#C4C6CE",
+    //     marginVertical: 5,
+    // },
+
+    // timestamp2: {
+    //     fontSize: 11,
+    //     color: "#C4C6CE",
+    //     marginTop: 8,
+    //     marginLeft: -5
+    // },
+
+    // circle: {
+    //     width: 8,
+    //     height: 8,
+    //     borderRadius: 8 / 2,
+    //     marginTop: 9,
+    //     marginLeft: 10
+    // }
+    // ,
+
+    // bottomCircle: {
+    //     width: 5,
+    //     height: 5,
+    //     borderRadius: 5 / 2,
+    //     marginTop: 9,
+    //     marginLeft: 10
+    // }
 
 
     // postImage: {

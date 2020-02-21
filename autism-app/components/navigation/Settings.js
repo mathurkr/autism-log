@@ -1,39 +1,65 @@
 import React, { Component, useState } from 'react';
-import { StyleSheet, View, Image, ScrollView, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Image, ScrollView, FlatList, TouchableOpacity, Alert, Dimensions, Platform } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient'
 import { Button, Text, Input } from 'galio-framework';
 import { FontAwesome, Foundation } from '@expo/vector-icons';
+import Modal from 'react-native-modalbox';
+import EmailModal from '../navigation/EmailModal';
 
+
+var screen = Dimensions.get("window");
+const params = this.props.navigation.dangerouslyGetParent().dangerouslyGetParent().dangerouslyGetParent();
+
+const dataSource = [{ icon: "mail", description: 'Email', subDescription: `${params.getParam('email')}`, arrow: require('../../assets/images/test2.png') },
+{ icon: "lock", description: 'Reset Password', subDescription: '', arrow: require('../../assets/images/test2.png') },
+{ icon: "torso", description: 'Edit Profile', subDescription: `${params.getParam('name')}`, arrow: require('../../assets/images/test2.png') },
+{ icon: 'credit-card', description: 'Manage Subscriptions', subDescription: '', arrow: require('../../assets/images/test2.png') },
+]
+
+const communitySection = [{ icon: "star", description: 'Rate us on App Store', arrow: require('../../assets/images/test2.png') },
+{ icon: "torsos-all", description: 'Find Lumious Online', arrow: require('../../assets/images/test2.png') },
+{ icon: "link", description: 'Share Luminous w/ a Friend', arrow: require('../../assets/images/test2.png') },
+
+]
 
 export default class Profile extends Component {
-    state = {
-
-    };
-
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         {
         }
+        //this._onPressAdd = this._onPressAdd.bind(this);
     }
 
     static navigationOptions = {
         title: "Settings",
     }
 
+
+    actionOnRow(item, index) {
+
+        if (index == 0) {
+            this.refs.addModal.showAddModal();
+        }
+
+        if (index == 1) {
+            Alert.alert("Reset Password")
+        }
+
+        if (index == 2) {
+            Alert.alert("Edit Profile")
+        }
+
+        if (index == 3) {
+            Alert.alert("Manage Subscription")
+        }
+    }
+
+
+
+
+
     render() {
-        const params = this.props.navigation.dangerouslyGetParent().dangerouslyGetParent().dangerouslyGetParent();
 
-        const dataSource = [{ icon: "mail", description: 'Email', subDescription: `${params.getParam('email')}`, arrow: require('../../assets/images/test2.png') },
-        { icon: "lock", description: 'Reset Password', subDescription: '', arrow: require('../../assets/images/test2.png') },
-        { icon: "torso", description: 'Edit Profile', subDescription: `${params.getParam('name')}`, arrow: require('../../assets/images/test2.png') },
-        { icon: 'credit-card', description: 'Manage Subscriptions', subDescription: '', arrow: require('../../assets/images/test2.png') },
-        ]
-
-        const communitySection = [{ icon: "star", description: 'Rate us on the App Store', arrow: require('../../assets/images/test2.png') },
-        { icon: "torsos-all", description: 'Find Luminous Online', arrow: require('../../assets/images/test2.png') },
-        { icon: "link", description: 'Share Luminous with a Friend', arrow: require('../../assets/images/test2.png') },
-
-        ]
 
         return (
 
@@ -45,20 +71,28 @@ export default class Profile extends Component {
                 <Text style={styles.sectionTitle}> GENERAL </Text>
                 <FlatList style={styles.notificationList}
                     data={dataSource}
-                    renderItem={({ item }) => {
+                    renderItem={({ item, index }) => {
                         return (
-                            <TouchableOpacity>
+
+                            <TouchableOpacity onPress={() => this.actionOnRow(item, index)}>
                                 <View style={styles.notificationBox}>
                                     <Foundation name={item.icon} size={25} style={styles.icon} />
                                     <View style={styles.btntextcontainer}>
                                         <Text style={styles.description}>{item.description}</Text>
                                     </View>
                                     <Text style={styles.subDescription}>{item.subDescription}</Text>
-                                    <Image style={styles.arrow} source={item.arrow} />
+                                    {/* <Image style={styles.arrow} source={item.arrow}/>  */}
                                 </View>
                             </TouchableOpacity>
                         )
                     }} />
+
+                <EmailModal ref={'addModal'}>
+
+
+                </EmailModal>
+
+
 
 
                 <Text style={styles.sectionTitle}> Community </Text>
@@ -88,6 +122,8 @@ export default class Profile extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        marginTop: "10%",
+        backgroundColor: '#EFEFEF'
     },
 
     sectionTitle: {
@@ -98,7 +134,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
 
-    ////
+
 
     notificationList: {
         marginVertical: 10,
@@ -109,7 +145,7 @@ const styles = StyleSheet.create({
         padding: 5,
         marginTop: 5,
         marginBottom: 10,
-        backgroundColor: '#E9EDEF',
+        backgroundColor: 'white',
         flexDirection: 'row',
         borderRadius: 10,
     },
@@ -143,7 +179,7 @@ const styles = StyleSheet.create({
     subDescription: {
         fontSize: 12,
         color: "#77869e",
-        paddingTop: 12,
+        paddingTop: 14,
         marginRight: 8
     },
 

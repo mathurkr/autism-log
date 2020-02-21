@@ -10,15 +10,20 @@ import {
   FlatList,
   Button,
   Dimensions,
-  Share
+  Share,
+  Slider,
+  ActionSheetIOS,
 } from 'react-native';
 
 import {Ionicons} from '@expo/vector-icons';
 import moment from "moment";
 import { LinearGradient } from 'expo-linear-gradient'
+import { connectActionSheet } from '@expo/react-native-action-sheet'
+import {SingleImage} from 'react-native-zoom-lightbox';
 
 var { width, height } = Dimensions.get('window')
 
+var Lightbox = require('react-native-lightbox');
 
 export default class ExpandedLog extends Component {
     static navigationOptions = ({navigation}) => {
@@ -28,7 +33,7 @@ export default class ExpandedLog extends Component {
             message: 'hey',
             headerTitleStyle :{color:'black'},
             headerStyle: {backgroundColor:'white'},
-            headerRight: <Ionicons name="ios-more" style={{ marginRight:15,color:'black' }} size={30} onPress={() => params.handleShare()} />
+            headerRight: <Ionicons name="ios-more" style={{ marginRight:15,color:'black' }} size={30} onPress={() => params.handleActionSheet()} />
         };
         
         }
@@ -39,6 +44,9 @@ export default class ExpandedLog extends Component {
     this._shareMessage = this._shareMessage.bind(this);
     this._showResult = this._showResult.bind(this);
     this.state = {result: ''}
+    this.state={
+        value: 15
+    }
     this.state = {
       posts: [
         {id:1, color:"#3200DF", icon:"https://bootdey.com/img/Content/avatar/avatar1.png", name: "Very Severe", timestamp: 1569109273726, 
@@ -59,10 +67,18 @@ export default class ExpandedLog extends Component {
             },
         ]
 
-        , text:"Charles felt uncomfortable during science class", image: require('../../assets/images/child_photo.png'),
+        , text:"Charles felt uncomfortable during science class", image: "https://296y67419hmo2gej4j232hyf-wpengine.netdna-ssl.com/wp-content/uploads/2018/08/japheth-mast-679884-unsplash.jpg",
         behaviors:["Verbal Aggression", "Rolling on the Floor", "Destroying Property"], resolution:["Trigger removed", "Redirection", "Waited it out"]} ,
       ],
     };
+  }
+
+  change(value) {
+    this.setState(() => {
+      return {
+        value: parseFloat(value),
+      };
+    });
   }
 
 
@@ -72,7 +88,9 @@ export default class ExpandedLog extends Component {
 
 
     componentDidMount() {
+        this.props.navigation.setParams({ handleActionSheet: this._onOpenActionSheet});
         this.props.navigation.setParams({ handleShare: this._shareMessage });
+
     }
 
     _shareMessage = async() =>  {
@@ -90,9 +108,28 @@ export default class ExpandedLog extends Component {
             ]
         }
         ).then(this._showResult);
-
         
     }
+
+    _onOpenActionSheet(){
+        ActionSheetIOS.showActionSheetWithOptions(
+            { 
+                options: ['Cancel', 'Delete', 'Share', 'Edit'],
+                destructiveButtonIndex: 1,
+                cancelButtonIndex: 0,
+            },
+            (buttonIndex) => {
+                if(buttonIndex == 1) {
+                    // destructive action
+                }
+                if(buttonIndex == 2)
+                {
+                    this.handleShare()
+                }
+            }
+        )
+    }
+    
         
 
   renderTags = (item) =>{
@@ -147,10 +184,27 @@ export default class ExpandedLog extends Component {
 
 
 
+
+
+
+
   render() {
+    const {value} = this.state;
+
     return (
 
       <View style={styles.container}>
+
+
+            <View> 
+            {/* <Text style={styles.text}>{String(value)}</Text> */}
+                    {/* <Slider
+                    step={1}
+                    maximumValue={100}
+                    onValueChange={this.change.bind(this)}
+                    value={value}
+                    /> */}
+            </View>
           {/* <Text>
               {JSON.stringify(this.state.result)}
           </Text> */}
@@ -164,18 +218,22 @@ export default class ExpandedLog extends Component {
           renderItem={({item}) => {
             return (   
             <View>  
-                 <TouchableOpacity style={[styles.card, {borderColor:"white"} ]} >
+                 <View style={[styles.card, {borderColor:"white"} ]} >
                     <View style={{flexDirection:"row",}}>
                         <View style={[styles.circle, {backgroundColor: item.color}]} />
                         <Text style={[styles.name, {color:item.color}]}>{item.name}</Text>
                         <Text style={styles.timestamp2}> {moment(item.timestamp).fromNow()}  </Text>
                     </View>
  
+ 
 
                     <Text style={styles.post}> {item.text}  </Text>
-                    <Image source={item.image} style={styles.postImage}  />
+                    
+                    <SingleImage uri={item.image} style={styles.postImage}  />
 
                         
+                    <Text style={{marginHorizontal:10, marginTop: 20, fontSize: 14, }}> Meltdown Type </Text> 
+
                     <View style={[styles.cardContent, styles.tagsContent]}>
                     {this.renderTags(item)}
                     </View>
@@ -215,7 +273,7 @@ export default class ExpandedLog extends Component {
                             {this.renderResolution(item)}
                         </View>
                     </View>
-                </TouchableOpacity>
+                </View>
 
 
 
@@ -229,6 +287,9 @@ export default class ExpandedLog extends Component {
   }
 }
 
+
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -238,6 +299,7 @@ const styles = StyleSheet.create({
 
   notificationList:{
     padding:10,
+    backgroundColor:"#EFEFEF"
   },
   card: {
     height:null,
@@ -295,6 +357,8 @@ const styles = StyleSheet.create({
     marginHorizontal:3,
     backgroundColor:'rgba(110,211,225,0.30)',
     marginTop:5,
+    marginLeft: 20
+
   },
 
   btnColor2: {
@@ -303,6 +367,8 @@ const styles = StyleSheet.create({
     marginHorizontal:3,
     backgroundColor:'rgba(110,211,225,0.30)',
     marginTop:5,
+    marginLeft: 20
+
   },
 
 
