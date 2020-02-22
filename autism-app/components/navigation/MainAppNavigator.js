@@ -2,6 +2,7 @@ import React from 'react';
 import { Platform } from 'react-native';
 import { createBottomTabNavigator, createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import { createSwitchNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 
 import TabBarIcon from './TabBarIcon';
 
@@ -10,6 +11,11 @@ import Home from './Home';
 import Profile from './Profile';
 import Settings from './Settings';
 import Logs from './Logs';
+
+import ExpandedLog from './ExpandedLog';
+
+import MainHelper from './MainHelper';
+import HomeHelper from './HomeHelper';
 
 // Import device components
 // import CameraLog from './camera/CameraLog';
@@ -22,11 +28,31 @@ const config = Platform.select({
     default: {},
 });
 
-const HomeStack = createSwitchNavigator(
+// const HomeStack = createMaterialTopTabNavigator(
+//     {
+//         QuickCamera: QuickCamera,
+//         Home: Home
+//     },
+//     {
+//         initialRouteName: "Home",
+//         animationEnabled: true,
+//         tabBarOptions: {
+//             showLabel: false,
+//             showIcon: false,
+//             style: { height: 0 }
+//         }
+//     }
+// );
+
+const HomeStack = createStackNavigator(
     {
-        Home: Home
+        Home: Home,
+        ExpandedLog: ExpandedLog,
     },
-    config
+    // config
+    {
+        initialRouteName: "Home"
+    }
 );
 
 HomeStack.navigationOptions = {
@@ -109,13 +135,14 @@ const TabNavigator = createBottomTabNavigator(
 
 TabNavigator.path = '';
 
-const AppNavigator = createMaterialTopTabNavigator(
+const AppNavigator = createSwitchNavigator(
     {
-        QuickCamera: QuickCamera,
-        TabsNavigator: TabNavigator
+        MainHelper: MainHelper,       // Used to convert params received from Login, SignUp pages
+        TabsNavigator: TabNavigator,  // Holds the main navigation tabs 
+        HomeHelper: HomeHelper        // Helper to reload Home page when changing the date on the calendar
     },
     {
-        initialRouteName: "TabsNavigator",
+        initialRouteName: "MainHelper",
         animationEnabled: true,
         tabBarOptions: {
             showLabel: false,

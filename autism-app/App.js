@@ -22,7 +22,7 @@ import ProfileSetUp from './components/login/ProfileSetUp';
 
 import ChildSetup from './components/login/ChildSetup';
 import AgeSetup from './components/login/AgeSetup';
-
+import ExpandedLog from './components/navigation/ExpandedLog'
 
 // Include MainTabNavigator for main application navigation
 import MainAppNavigator from './components/navigation/MainAppNavigator';
@@ -49,9 +49,9 @@ const SignUpNavigator = createStackNavigator({
     LoggerSelection: { screen: LoggerSelection },
     ProfileSetUp: { screen: ProfileSetUp },
     ChildSetup: { screen: ChildSetup },
-    // Home: { screen: Home},
-    // Settings: { screen: Settings},
-    // Profile: { screen: Profile},
+
+
+    // ExpandedLog: { screen: ExpandedLog },
 
 
 

@@ -64,32 +64,32 @@ export default class LoggerSelection extends Component {
     }
 
 
-    componentDidUpdate() {
-        // const { params } = this.props.navigation.state;
-        // const collection = DB.firestore().collection('users');
-        // // Store all user account information so far -- new added information for self-logger will be in another collection
-        // collection.add({
-        //     email: params.email,
-        //     // password: this.state.password  // Don't store password directly in database for security reasons
-        //     firstName: params.firstName,
-        //     lastName: params.lastName,
-        //     phone: params.phone,
-        //     age: params.age,
-        //     gender: params.gender,
-        //     loggerType: this.state.loggerType
-        // }).catch((error) => {
-        //     alert('There was an error adding the user to the DB');
-        // });
+    // componentDidUpdate() {
+    //     const { params } = this.props.navigation.state;
+    //     const collection = DB.firestore().collection('users');
+    //     // Store all user account information so far -- new added information for self-logger will be in another collection
+    //     collection.add({
+    //         email: params.email,
+    //         // password: this.state.password  // Don't store password directly in database for security reasons
+    //         firstName: params.firstName,
+    //         lastName: params.lastName,
+    //         phone: params.phone,
+    //         age: params.age,
+    //         gender: params.gender,
+    //         loggerType: this.state.loggerType
+    //     }).catch((error) => {
+    //         alert('There was an error adding the user to the DB');
+    //     });
 
-        // Go to Profile Set Up
-        //this.props.navigation.navigate('ProfileSetUp');
-    }
+    //     //Go to Profile Set Up
+    //     this.props.navigation.navigate('ProfileSetUp');
+    // }
 
     render() {
         const { params } = this.props.navigation.state;
         return (
             <View style={styles.container}>
-                <Text h5>What kind of user are you?</Text>
+                <Text h5>I am using Luminous as a</Text>
                 <View style={{ flexDirection: "row", marginTop: 20, }}>
                     <View style={styles.container}>
                         <TouchableOpacity
