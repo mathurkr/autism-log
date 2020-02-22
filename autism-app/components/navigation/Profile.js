@@ -55,18 +55,18 @@ export default class Profile extends Component {
     }
 
 
-    onPress = (item, index) => {
-        //console.log(item.key);
-        //console.log(id);
-        //console.log(index);
+    // onPress = (item, index) => {
+    //     //console.log(item.key);
+    //     //console.log(id);
+    //     //console.log(index);
 
-        //console.log(elem.id);
-        // if(elem.id == index)
-        // {
-        //   elem.toggle = true
-        // }
+    //     //console.log(elem.id);
+    //     // if(elem.id == index)
+    //     // {
+    //     //   elem.toggle = true
+    //     // }
 
-    }
+    // }
 
     static navigationOptions = {
         title: "Profile(s)",
@@ -139,15 +139,15 @@ export default class Profile extends Component {
         ]
 
 
-        const dataSource = [{ icon: "cog", description: 'Profile Settings', subDescription: `Update and Modify ${this.state.name}'s Profile`, arrow: require('../../assets/images/test2.png') },
-        { icon: "bell", description: 'Notifications', subDescription: 'Change your notifications settings', arrow: require('../../assets/images/test2.png') },
-        { icon: "star", description: 'Goals', subDescription: `Update and Manage ${this.state.name}'s Goals`, arrow: require('../../assets/images/test2.png') },
-        { icon: 'group', description: 'Tell your Friends', subDescription: 'Let other know about this app', arrow: require('../../assets/images/test2.png') },
-        ]
+        // const dataSource = [{ icon: "cog", description: 'Profile Settings', subDescription: `Update and Modify ${this.state.name}'s Profile`, arrow: require('../../assets/images/test2.png') },
+        // { icon: "bell", description: 'Notifications', subDescription: 'Change your notifications settings', arrow: require('../../assets/images/test2.png') },
+        // { icon: "star", description: 'Goals', subDescription: `Update and Manage ${this.state.name}'s Goals`, arrow: require('../../assets/images/test2.png') },
+        // { icon: 'group', description: 'Tell your Friends', subDescription: 'Let other know about this app', arrow: require('../../assets/images/test2.png') },
+        // ]
 
-        const dataSection = [{ icon: "bar-chart-o", description: 'Weekly Reports', subDescription: "View previous week's activites", arrow: require('../../assets/images/test2.png') },
-        { icon: "pie-chart", description: 'Export Entries', subDescription: 'Download and share entries', arrow: require('../../assets/images/test2.png') },
-        ]
+        // const dataSection = [{ icon: "bar-chart-o", description: 'Weekly Reports', subDescription: "View previous week's activites", arrow: require('../../assets/images/test2.png') },
+        // { icon: "pie-chart", description: 'Export Entries', subDescription: 'Download and share entries', arrow: require('../../assets/images/test2.png') },
+        // ]
 
         return (
 

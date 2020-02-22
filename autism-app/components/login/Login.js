@@ -96,7 +96,7 @@ class Login extends Component {
                         <View style={styles.block}>
 
                             <View style={styles.logoContainer}>
-                                <Text style={styles.title}> Welcome back to Lumionus! </Text>
+                                <Text style={styles.title}> Welcome back to Luminous! </Text>
 
                                 <TouchableOpacity activeOpacity={0.9} style={styles.facebook}>
                                     <View style={{ flexDirection: "row" }}>

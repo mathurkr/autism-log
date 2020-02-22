@@ -8,19 +8,6 @@ import EmailModal from '../navigation/EmailModal';
 
 
 var screen = Dimensions.get("window");
-const params = this.props.navigation.dangerouslyGetParent().dangerouslyGetParent().dangerouslyGetParent();
-
-const dataSource = [{ icon: "mail", description: 'Email', subDescription: `${params.getParam('email')}`, arrow: require('../../assets/images/test2.png') },
-{ icon: "lock", description: 'Reset Password', subDescription: '', arrow: require('../../assets/images/test2.png') },
-{ icon: "torso", description: 'Edit Profile', subDescription: `${params.getParam('name')}`, arrow: require('../../assets/images/test2.png') },
-{ icon: 'credit-card', description: 'Manage Subscriptions', subDescription: '', arrow: require('../../assets/images/test2.png') },
-]
-
-const communitySection = [{ icon: "star", description: 'Rate us on App Store', arrow: require('../../assets/images/test2.png') },
-{ icon: "torsos-all", description: 'Find Lumious Online', arrow: require('../../assets/images/test2.png') },
-{ icon: "link", description: 'Share Luminous w/ a Friend', arrow: require('../../assets/images/test2.png') },
-
-]
 
 export default class Profile extends Component {
     constructor(props) {
@@ -59,7 +46,19 @@ export default class Profile extends Component {
 
 
     render() {
+        const params = this.props.navigation.dangerouslyGetParent().dangerouslyGetParent().dangerouslyGetParent();
 
+        const dataSource = [{ icon: "mail", description: 'Email', subDescription: `${params.getParam('email')}`, arrow: require('../../assets/images/test2.png') },
+        { icon: "lock", description: 'Reset Password', subDescription: '', arrow: require('../../assets/images/test2.png') },
+        { icon: "torso", description: 'Edit Profile', subDescription: `${params.getParam('name')}`, arrow: require('../../assets/images/test2.png') },
+        { icon: 'credit-card', description: 'Manage Subscriptions', subDescription: '', arrow: require('../../assets/images/test2.png') },
+        ]
+
+        const communitySection = [{ icon: "star", description: 'Rate us on App Store', arrow: require('../../assets/images/test2.png') },
+        { icon: "torsos-all", description: 'Find Luminous Online', arrow: require('../../assets/images/test2.png') },
+        { icon: "link", description: 'Share Luminous w/ a Friend', arrow: require('../../assets/images/test2.png') },
+
+        ]
 
         return (
 

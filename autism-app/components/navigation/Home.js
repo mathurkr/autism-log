@@ -420,6 +420,24 @@ export default class Home extends Component {
         })
     }
 
+    actionOnRow = (item, index) => {
+        const post = this.state.posts[index];
+
+        // Navigate to Expanded Log
+        this.props.navigation.navigate('ExpandedLog', {
+            avatar: post.avatar,
+            behaviors: post.behaviors,
+            id: post.id,
+            image: post.image,
+            location: post.location,
+            resolution: post.resolution,
+            scale: post.scale,
+            tags: post.tags,
+            text: post.text,
+            timestamp: post.timestamp
+        });
+    }
+
     render() {
         const { params } = this.props.navigation.state;
         return (
@@ -432,7 +450,7 @@ export default class Home extends Component {
                     // calendarAnimation={{ type: 'sequence', duration: 30 }}
                     selection={'border'}
                     selectionAnimation={{ duration: 300, borderWidth: 1 }}
-                    style={{ position: 'absolute', top: 0, paddingTop: 10, paddingBottom: 10 }}
+                    style={{ position: 'absolute', top: 20, paddingTop: 10, paddingBottom: 0 }}
                     calendarHeaderStyle={{ color: 'black', width: deviceWidth, marginBottom: 10 }}
                     onDateSelected={selectedDate => this._fetchNewDate(selectedDate)}
                     // calendarColor={'#7743CE'}
@@ -449,9 +467,6 @@ export default class Home extends Component {
                     iconContainer={{ flex: 0.1 }}
                 />
 
-
-
-
                 <FlatList
                     style={styles.notificationList}
                     data={this.state.posts}
@@ -459,14 +474,14 @@ export default class Home extends Component {
                         return item.id;
                     }}
 
-                    renderItem={({ item }) => {
+                    renderItem={({ item, index }) => {
                         return (
                             <View style={{ backgroundColor: '#EFEFEF' }}>
 
 
 
 
-                                <TouchableOpacity style={[styles.card, { borderColor: "white" }]} >
+                                <TouchableOpacity style={[styles.card, { borderColor: "white" }]} onPress={() => this.actionOnRow(item, index)} >
 
                                     <View style={{ flexDirection: "row", }}>
                                         <View style={[styles.circle, { backgroundColor: "#3200DF" }]} />
@@ -479,9 +494,9 @@ export default class Home extends Component {
                                     </View>
 
                                     <Text style={styles.post}> {item.text}  </Text>
-                                    <Image source={{ uri: item.image }} uri={item.image} style={styles.postImage} resizeMethod="cover" />
+                                    <Image source={{ uri: item.image }} uri={item.image} style={styles.postImage} resizeMethod="auto" />
 
-                                    <Text style={{ marginHorizontal: 10, marginTop: 20, fontSize: 1, }}> Meltdown Type </Text>
+                                    <Text style={{ marginHorizontal: 10, marginTop: 20, fontSize: 14, }}> Meltdown Type </Text>
 
                                     <View style={[styles.cardContent, styles.tagsContent]}>
                                         {this.renderTags(item)}

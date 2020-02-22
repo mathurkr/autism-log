@@ -2,6 +2,7 @@ import React from 'react';
 import { Platform } from 'react-native';
 import { createBottomTabNavigator, createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import { createSwitchNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 
 import TabBarIcon from './TabBarIcon';
 
@@ -10,6 +11,8 @@ import Home from './Home';
 import Profile from './Profile';
 import Settings from './Settings';
 import Logs from './Logs';
+
+import ExpandedLog from './ExpandedLog';
 
 import MainHelper from './MainHelper';
 import HomeHelper from './HomeHelper';
@@ -41,9 +44,10 @@ const config = Platform.select({
 //     }
 // );
 
-const HomeStack = createMaterialTopTabNavigator(
+const HomeStack = createStackNavigator(
     {
         Home: Home,
+        ExpandedLog: ExpandedLog,
     },
     // config
     {

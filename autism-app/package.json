@@ -27,6 +27,7 @@
         "react": "16.8.3",
         "react-dom": "16.8.3",
         "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
+        "react-native-action-sheet": "^2.2.0",
         "react-native-activity-view": "^0.2.11",
         "react-native-calendar-strip": "^1.4.0",
         "react-native-easy-grid": "^0.2.2",

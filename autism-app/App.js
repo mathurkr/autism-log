@@ -51,7 +51,7 @@ const SignUpNavigator = createStackNavigator({
     ChildSetup: { screen: ChildSetup },
 
 
-    ExpandedLog: { screen: ExpandedLog },
+    // ExpandedLog: { screen: ExpandedLog },
 
 
 
