@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity, Slider } from 'react-native';
-import { TextInput } from 'react-native';
+import { TextInput} from 'react-native';
 
 import { Button, Block } from 'galio-framework';
 //import Slider from '@react-native-community/slider';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import * as ImagePicker from 'expo-image-picker';
+//import ImagePicker from 'react-native-image-picker';
+// import UserPermissions from 'utlitities/UserPermissions';
 
 export default class QuickLog extends Component {
     static navigationOptions = {
@@ -14,12 +17,12 @@ export default class QuickLog extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            //media:
+            mediaSource:null,
             location: '',
             date: new Date(),
             show: false,
-            triggers: [],//tags
-            severity: 1
+            triggers: [],//[sensory,social,routine,food,item]
+            severity: 5,
             
         };
 
@@ -37,6 +40,43 @@ export default class QuickLog extends Component {
         }
         
     };
+
+    toggleImagePicker = async () =>{
+        //UserPermissions.getCameraPermission();
+        const options = {
+            mediaType: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [4,3]
+        };
+        
+        let response = await ImagePicker.launchImageLibraryAsync(options);
+        
+        console.log('Response = ', response);
+        
+        if (response.cancelled) {
+            console.log('User cancelled image picker');
+        } else if (response.error) {
+            console.log('ImagePicker Error: ', response.error);
+        }else {
+            const source = { uri: response.uri };
+        
+            // You can also display the image using data:
+            // const source = { uri: 'data:image/jpeg;base64,' + response.data };
+        
+            this.setState({
+                mediaSource: response.uri
+            });
+        }
+        
+    };
+    getTriggerStyle=(triggerType)=>{
+        if(triggerType in this.state.triggers){
+            return styles.triggerClicked;
+        }
+        else{
+            return styles.triggerUnlicked;
+        }
+    }
     //Client-side data handlers
     setDate = (date) => {
         console.log("changing date...");
@@ -50,15 +90,27 @@ export default class QuickLog extends Component {
 
     setSeverity = (severity) =>{
         console.log("changing severity to "+severity);
-        
-
         this.setState({
             severity 
         });
     };
 
-    setTriggers = (trigger) => {
-        console.log("changing trigger list...")
+    setTriggers = (trigger) => {        
+        let triggers = this.state.triggers;
+        console.log('Trigger list before: '+JSON.stringify(triggers));
+        let i = triggers.indexOf(trigger);
+        if(i>=0){
+            console.log(trigger + ' found in array at index '+i+ ', removing...');
+            triggers.splice(i,1);
+        }
+        else{
+            console.log(trigger + ' not found in array, adding at index 0...');
+            triggers.splice(0,0,trigger);
+        }
+        console.log('Trigger list AFTER: '+JSON.stringify(triggers));
+        this.setState({
+            triggers
+        });
 
     };
     //Data submission
@@ -76,6 +128,13 @@ export default class QuickLog extends Component {
     render() {
         return (
             <View style={styles.container}>
+                <Image source={{uri:this.state.mediaSource}} style={styles.uploadMedia} />
+                <TouchableOpacity style={styles.triggerUnclicked} onPress={this.toggleImagePicker}>
+                    <Text>Upload Photo/Video</Text>
+                </TouchableOpacity>
+                <TouchableOpacity>
+
+                </TouchableOpacity>
                 <Text>Location</Text>
                 {/* Start with single-line text field, transition to location search if a library exists for react native. */}
                 <TextInput
@@ -98,23 +157,26 @@ export default class QuickLog extends Component {
                 <Text>Meltdown Triggers</Text>
                 {/* Need 5 custom buttons with images inside of them. Maybe create a component? */}
                 <View style={styles.triggerContainer}>
-                    <Button color= '#ffffff' style={styles.triggerButton}>
+                    <TouchableOpacity style={styles.triggerUnclicked} onPress={()=>this.setTriggers('sensory')}>
                         <Image source= {require('../assets/hand.png')}/>
                         <Text>Sensory</Text>
-                    </Button>
-                    <Button color= '#ffffff' style={styles.triggerButton}>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.triggerUnclicked}>
+
                         <Text>Social</Text>
-                    </Button>
-                    <Button color= '#ffffff' style={styles.triggerButton}>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.triggerUnclicked}>
                         
                         <Text>Routine</Text>
-                    </Button>
-                    <Button color= '#ffffff'style={styles.triggerButton}>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.triggerUnclicked}>
+
                         <Text>Food</Text>
-                    </Button>
-                    <Button color='#ffffff' style={styles.triggerButton}>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.triggerUnclicked}>
+
                         <Text>Item Taken Away</Text>
-                    </Button>
+                    </TouchableOpacity>
                 </View>
                 <Text>Severity</Text>
                 <Slider
@@ -174,10 +236,25 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
 
-    triggerButton: {
+    triggerUnclicked: {
         width: 100,
         height: 100,
         color: '#ffffff',
-        shadowColor: 'blue' 
+        borderWidth: 1,
+        borderRadius: 10 
+    },
+
+    triggerClicked: {
+        width: 100,
+        height: 100,
+        color: '#ffffff',
+        borderWidth: 1,
+        borderRadius: 10
+        
+    },
+
+    uploadMedia:{
+        width: '60%',
+        height: 200
     }
 });
