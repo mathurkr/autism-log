@@ -4,6 +4,13 @@ import { StyleSheet, Text, View } from 'react-native';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
+
+import IndexScreen from './src/screens/IndexScreen';
+import { Provider } from  './src/context/BlogContext'
+import ShowScreen from './src/screens/ShowScreen'
+import CreateScreen from './src/screens/CreateScreen'
+import EditScreen from './src/screens/EditScreen';
+
 // Components for the SignUp process
 import Welcome from './components/Welcome';
 import SignUp from './components/login/SignUp';
@@ -31,8 +38,18 @@ import Settings from './components/navigation/Settings'
 import Home from './components/navigation/Home'
 import NameSetup from './components/login/NameSetup';
 
+
+///
+
+
+
 // SignUpNavigator holds all components associated with SignUp process -- may divide them up in the future
-const SignUpNavigator = createStackNavigator({
+const SignUpNavigator = createStackNavigator(
+    { 
+        Index: IndexScreen,
+        Show: ShowScreen,
+        Create: CreateScreen,
+        Edit: EditScreen
     // Welcome: { screen: Welcome },
     // SignUp: { screen: SignUp },
     // SignUpPassword: { screen: SignUpPassword },
@@ -49,16 +66,17 @@ const SignUpNavigator = createStackNavigator({
     // VerifyCode: { screen: VerifyCode },
     //  LoggerSelection: { screen: LoggerSelection },
     //  ChildSetup: {screen: ChildSetup},
-    // ProfileSetUp: { screen: ProfileSetUp },
+    //  ProfileSetUp: { screen: ProfileSetUp },
     
-    Settings: { screen: Settings},
-     //Profile: { screen: Profile},
-    // ExpandedLog: {screen: ExpandedLog},
+    // Settings: { screen: Settings},
+    //  Profile: { screen: Profile},
+    //ExpandedLog: {screen: ExpandedLog},
+
+    }
 
 
 
-
-});
+);
 
 // Universal App Navigator
 const UniversalNavigator = createSwitchNavigator({
@@ -68,22 +86,10 @@ const UniversalNavigator = createSwitchNavigator({
 
 const App = createAppContainer(UniversalNavigator);
 
-export default App;
-
-
-// export default function App() {
-//     return (
-//         <View style={styles.container}>
-//             <WelcomeScreen />
-//         </View>
-//     );
-// }
-
-// const styles = StyleSheet.create({
-//     container: {
-//         flex: 1,
-//         backgroundColor: '#fff',
-//         alignItems: 'center',
-//         justifyContent: 'center',
-//     },
-// });
+export default () => {
+    return (
+        <Provider>
+            <App />
+        </Provider>
+    )
+}
