@@ -62,12 +62,16 @@ export default class ChildSetup extends Component {
                 }
             ];
             const collection = DB.firestore().collection('profiles');
-            collection.add({
+
+            collection.doc(params.doc_id).set({
                 profiles: profiles
-            }).catch((error) => {
-                alert('There was an error adding profiles to the DB');
             });
-            this.props.navigation.navigate('Main', { email: params.email, password: params.password, date: new Date() });
+            // collection.add({
+            //     profiles: profiles
+            // }).catch((error) => {
+            //     alert('There was an error adding profiles to the DB');
+            // });
+            this.props.navigation.navigate('Main', { email: params.email, date: new Date() });
         }
 
     }

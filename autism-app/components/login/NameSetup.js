@@ -23,7 +23,7 @@ export default class NameSetup extends Component {
             this.props.navigation.navigate('AgeSetup',
                 {
                     email: params.email,
-                    password: params.password,
+                    // password: params.password,
                     name: this.state.name,
                 });
 
@@ -34,7 +34,7 @@ export default class NameSetup extends Component {
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding">
 
-                <Text h5 style={{ paddingHorizontal: 39, textAlign: 'center', marginBottom: 28, marginTop: 91 }}> What's your name </Text>
+                <Text h5 style={{ paddingHorizontal: 39, textAlign: 'center', marginBottom: 28, marginTop: 91 }}> What's your name?</Text>
 
                 <View style={styles.inputContainer}>
                     <Ionicons name="ios-person" size={30} color="#73788B" style={[styles.inputIcon, styles.icon]} />

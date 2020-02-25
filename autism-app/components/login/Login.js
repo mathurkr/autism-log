@@ -56,7 +56,7 @@ class Login extends Component {
                 //         ],
                 //     }))
                 // )
-                .then(() => this.props.navigation.navigate('Main', { email: this.state.email, password: this.state.password, date: new Date() }))
+                .then(() => this.props.navigation.navigate('Main', { email: this.state.email, date: new Date() }))
                 // alert('something');
                 // const navigateAction = SwitchActions.navigate({
                 //     routeName: 'Main',
@@ -70,7 +70,9 @@ class Login extends Component {
                 // this.props.navigation.dispatch(navigateAction);
                 // })
                 // => this.props.navigation.navigate('Home', { email: this.state.email, password: this.state.password, name: "Test" }))
-                .catch(error => "User does not exist");
+                .catch(error => "Error occurred while trying to login in user: " + error);
+
+            // alert("User account does not exist with provided email and password");
             // this.props.navigation.navigate('Home');
 
         }

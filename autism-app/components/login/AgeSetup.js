@@ -23,7 +23,7 @@ export default class AgeSetup extends Component {
             this.props.navigation.navigate('LoggerSelection',
                 {
                     email: params.email,
-                    password: params.password,
+                    // password: params.password,
                     name: params.name,
                     age: this.state.age,
                 });

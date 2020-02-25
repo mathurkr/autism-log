@@ -208,7 +208,7 @@ export default class Home extends Component {
         let full_date = this.state.months[date.getMonth()] + " " + day + " " + date.getFullYear();
         this.setState({ date: full_date, doc_id: params.doc_id });
 
-        // Retrieve logs for the user and posts corresponding to user email and password
+        // Retrieve logs for the user 
         this._retrieveLogs(params.doc_id, full_date);
     }
 
@@ -247,7 +247,7 @@ export default class Home extends Component {
         const new_date = new Date(selectedDate);
 
         // Use HomeHelper to refresh the Home component -- possibly a better way to refresh Home available?
-        this.props.navigation.navigate('HomeHelper', { email: params.email, password: params.password, doc_id: params.doc_id, date: new_date });
+        this.props.navigation.navigate('HomeHelper', { email: params.email, doc_id: params.doc_id, date: new_date });
 
         // const resetAction = NavigationActions.reset({
         //     index: 0,

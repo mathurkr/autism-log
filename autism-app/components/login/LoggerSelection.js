@@ -36,7 +36,7 @@ export default class LoggerSelection extends Component {
             const collection = DB.firestore().collection('users');
             collection.add({
                 email: params.email,
-                password: params.password,  // Find way to not store password directly in database for security reasons?
+                // password: params.password,  // Find way to not store password directly in database for security reasons?
                 name: params.name,
                 // phone: params.phone,
                 age: params.age,
@@ -47,12 +47,12 @@ export default class LoggerSelection extends Component {
             });
 
             // Fetch newly created Doc ID for this user based on their email and password from users collection
-            collection.where("email", "==", params.email).where("password", "==", params.password)
+            collection.where("email", "==", params.email)//.where("password", "==", params.password)
                 .get()
                 .then((querySnapshot) => {
                     querySnapshot.forEach((doc) => {
                         this.setState({ doc_id: doc.id }, () => {
-                            this.props.navigation.navigate('ChildSetup', { email: params.email, password: params.password, doc_id: this.state.doc_id });
+                            this.props.navigation.navigate('ChildSetup', { email: params.email, doc_id: this.state.doc_id });
                         });
                     })
                 })
