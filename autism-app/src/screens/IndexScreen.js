@@ -1,21 +1,75 @@
 import React, { useContext } from 'react';
-import { View, Text, FlatList, Button,TouchableOpacity, StyleSheet} from 'react-native';
+import { View, Text, FlatList, Button,TouchableOpacity, StyleSheet, Dimensions} from 'react-native';
 import {Context} from '../context/BlogContext';
 import { Ionicons } from '@expo/vector-icons';
 import {Feather} from '@expo/vector-icons'
+import CalendarStrip from 'react-native-calendar-strip';
+import moment from "moment";
+
+let deviceWidth = Dimensions.get('window').width;
+
+
+renderTags = (item) =>{
+  return item.tags.map((tag, key) => {
+    return (
+      <TouchableOpacity key={key} style={styles.btnColor} onPress={() => {}}>
+          <View style={{flexDirection:"row"}}>
+              <Ionicons color="#0047cc" name={tag.icon} size={15}/>
+              <Text style={styles.tag}> {tag.name}</Text>
+           </View>
+      </TouchableOpacity> 
+    );
+  })
+}
+
+
+renderTagIcon = (item) =>{
+  return item.tagsIcon.map((tag, key) => {
+    return (
+      <Ionicons name={tag} size={20} />
+    );
+  })
+}
+
 
 const IndexScreen = ({navigation}) => {
   const {state, deleteBlogPost} = useContext(Context);
 
   return (
+    <View style={{backgroundColor:'#EFEFEF'}}>                
     <View>
-      <Button title="Add Post" onPress={()=> navigation.navigate('Create')}/>
+
+    <CalendarStrip
+            minDayComponentSize={60}
+            calendarAnimation={{ type: 'sequence', duration: 30 }}
+            selection={'border'}
+            selectionAnimation={{ duration: 300, borderWidth: 1 }}
+            style={{  top: 0,marginBottom: '10%'  }}
+            calendarHeaderStyle={{ color: 'black', width: deviceWidth, marginBottom: 10  }}
+            calendarColor={'white'}
+            highlightColor={'#9265DC'}
+            dateNumberStyle={{ color: 'black' }}
+            dateNameStyle={{ color: 'black' }}
+            highlightDateNumberStyle={{ color: '#A970CF' }}
+            highlightDateNameStyle={{ color: '#A970CF' }}
+            innerStyle={{}}
+            // borderHighlightColor={'black'}
+            // markedDatesStyle={{ color: 'blue', marginTop: -100 }}
+            // iconLeft={require('./img/left-arrow.png')}
+            // iconRight={require('./img/right-arrow.png')}
+            iconContainer={{ flex: 0.1 }}
+        />
+
+    </View>
+    <Button title="Add Post" onPress={()=> navigation.navigate('Create')}/>
+
       <FlatList
       data = {state}
       keyExtractor = {blogPost => blogPost.title}
       renderItem={({item}) =>{
         return (
-          <TouchableOpacity onPress={()=> navigation.navigate("Show", {id: item.id})}> 
+
+          <TouchableOpacity  style={[styles.card, {borderColor:'white'}]} onPress={()=> navigation.navigate("Show", {id: item.id})}> 
 
             <View style={styles.row}> 
               <Text style={styles.title}> {item.title} </Text>
@@ -26,6 +80,7 @@ const IndexScreen = ({navigation}) => {
               </TouchableOpacity>
               </View>
             </TouchableOpacity>
+
         )
       }}
     />
@@ -55,9 +110,125 @@ const styles = StyleSheet.create({
 
   icon: {
     fontSize: 24
-  }
+  },
+
+  container: {
+    flex: 1,
+  },
 
 
-});
+  notificationList:{
+    marginTop:140,
+    padding:10,
+    backgroundColor: "#EFEFEF"
+  },
+  card: {
+    height:null,
+    //paddingTop:10,
+    paddingBottom:10,
+    marginTop:5,
+    backgroundColor: '#FFFFFF',
+    flexDirection: 'column',
+    borderTopWidth:10,
+    marginBottom:10,
+    borderRadius: 5,
+    borderWidth: 0,
+    shadowColor: "#000",
+    shadowOffset: {
+        width: 0,
+        height: 4,
+    },
+    shadowOpacity: 0.30,
+    shadowRadius: 5,
+    elevation: 8,
+
+
+    
+  },
+  cardContent:{
+    flexDirection:'row',
+
+    //marginLeft:10, 
+  },
+  imageContent:{
+    marginTop:-40,
+  },
+  tagsContent:{
+    marginTop:10,
+    flexWrap:'wrap'
+  },
+  tag:
+  {
+      fontSize: 13,
+      color: 'black'
+  },
+
+  image:{
+    width:60,
+    height:60,
+    borderRadius:30,
+  },
+  name:{
+    fontSize:20,
+    fontWeight: 'bold',
+    marginHorizontal:10,
+  },
+  btnColor: {
+    padding:8,
+    borderRadius:30,
+    marginHorizontal:3,
+    backgroundColor:'rgba(110,211,225,0.30)',
+    marginTop:5,
+    marginLeft: 20
+  },
+
+
+  post: {
+    margin:10 ,
+    fontSize: 14,
+    color: "#838899",
+},
+
+postImage:{
+    width: undefined,
+    height: 150,
+    borderRadius: 5,
+    marginHorizontal: 10,
+},
+
+timestamp: {
+    fontSize: 11,
+    color: "#C4C6CE",
+    marginVertical: 5,
+},
+
+timestamp2: {
+    fontSize: 11,
+    color: "#C4C6CE",
+    marginTop: 8,
+    marginLeft: -5
+},
+
+circle: {
+    width: 8,
+    height: 8,
+    borderRadius: 8/2,
+    marginTop: 9,
+    marginLeft: 10
+}
+,
+
+bottomCircle: {
+    width: 5,
+    height: 5,
+    borderRadius: 5/2,
+    marginTop: 9,
+    marginLeft: 10
+}
+
+
+
+});   
+
 
 export default IndexScreen;

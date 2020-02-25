@@ -1,17 +1,15 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, TextInput, Button, Picker} from 'react-native'
+import {View, Text, StyleSheet, TextInput, Button, TouchableOpacity, Slider} from 'react-native'
 import DatePicker from 'react-native-datepicker';
+
 
 const BlogPostForm = ({onSubmit, initialValues}) => {
     const [title, setTitle] = useState(initialValues.title);
     const [content, setContent] = useState(initialValues.content);
     const [location, setLocation] = useState(initialValues.location);
     const [date, setDate] = useState(initialValues.date);
-    const [show, setShow] = useState(initialValues.show);
-    const [mode, setMode] = useState(initialValues.mode)
-    const [triggers, setTriggers] = useState(initialValues.triggers)
-    const [severity, setSeverity] = useState(initialValues.severity)
-
+    const [triggers, setTriggers] = useState(initialValues.triggers);
+    const [severity, setSeverity] = useState(initialValues.severity);
 
 
 
@@ -51,34 +49,44 @@ const BlogPostForm = ({onSubmit, initialValues}) => {
           onDateChange={(d) => setDate(d)}
         />
 
-<View style={styles.triggerContainer}>
-                    <TouchableOpacity style={styles.triggerUnclicked} onPress={()=>this.setTriggers('sensory')}>
-                        <Image source= {require('../assets/hand.png')}/>
-                        <Text>Sensory</Text>
+        <View style={styles.triggerContainer}>
+                    <TouchableOpacity style={styles.triggerUnclicked} onPress={() => this.setTriggers('sensory')}>
+                        {/* <Image source= {require('../../assets/images/cog.png')}/> */}
+                        <Text> Sensory </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.triggerUnclicked}>
+
+                    <TouchableOpacity style={styles.triggerUnclicked}  onPress={() => this.setTriggers('social')}>
 
                         <Text>Social</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.triggerUnclicked}>
+                    <TouchableOpacity style={styles.triggerUnclicked}  onPress={() => this.setTriggers('routine')}>
                         
                         <Text>Routine</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.triggerUnclicked}>
+                    <TouchableOpacity style={styles.triggerUnclicked} onPress={() => this.setTriggers('food')}>
 
                         <Text>Food</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.triggerUnclicked}>
+                    <TouchableOpacity style={styles.triggerUnclicked} onPress={() => this.setTriggers('Item Taken Away')}>
 
                         <Text>Item Taken Away</Text>
                     </TouchableOpacity>
                 </View>
 
+        
+        <Slider 
+        step={1}
+        maximumValue = {100}
+        value={BlogPostForm.defaultProps.initialValues.severity}
+        onValueChange = {(severity) => setSeverity({severity})}
+        />
+
+        
 
 
         <Button 
         title="Save Blog Post"
-        onPress={() => onSubmit(title,content,location, date)}
+        onPress={() => onSubmit(title,content,location, date, triggers, severity)}
         >
         </Button>
    </View>
@@ -90,13 +98,42 @@ BlogPostForm.defaultProps = {
         content:'',
         location: '',
         date: new Date(),
-        show: false,
-        mode: 'date',
-        triggers: [],//tags
-        severity: 1
-    }
+        triggers: [],
+        severity: 0,
 
+    }
 }
+
+
+
+setTriggers = (trigger) => {        
+    console.log(trigger);
+    let triggers = BlogPostForm.defaultProps.initialValues.triggers;
+    console.log(triggers);
+    // let triggers = BlogPostForm.triggers;
+    console.log('Trigger list before: '+JSON.stringify(triggers));
+    let i = triggers.indexOf(trigger);
+    if(i>=0){
+        console.log(trigger + ' found in array at index '+i+ ', removing...');
+        triggers.splice(i,1);
+    }
+    else{
+        console.log(trigger + ' not found in array, adding at index 0...');
+        triggers.splice(0,0,trigger);
+    }
+    console.log('Trigger list AFTER: '+JSON.stringify(triggers));
+
+};
+
+getTriggerStyle=(triggerType)=>{
+    if(triggerType in this.state.triggers){
+        return styles.triggerClicked;
+    }
+    else{
+        return styles.triggerUnlicked;
+    }
+}
+
 
 const styles = StyleSheet.create({
     input: {
@@ -129,6 +166,11 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 10 
     },
+    toggle: {
+        height: 60,
+        width:125,
+        backgroundColor: 'orange'
+    }
 
 
 })

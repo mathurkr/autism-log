@@ -22,8 +22,6 @@ const blogReducer = (state,action) => {
         content: action.payload.content,
         location: action.payload.location,
         date: action.payload.date,
-        show: action.payload.show,
-        mode: action.payload.mode,
         triggers: action.payload.triggers,
         severity: action.payload.severity
       }
@@ -34,8 +32,8 @@ const blogReducer = (state,action) => {
 }
 
 const addBlogPost = (dispatch) => {
-  return (title,content, location, date, show, mode, triggers, severity, callback,) => { 
-    dispatch({type:'add_blogpost', payload: {title, content, location, date, show, mode, triggers, severity}})
+  return (title,content, location, date,  triggers, severity, callback,) => { 
+    dispatch({type:'add_blogpost', payload: {title, content, location, date,   triggers, severity}})
     callback();
   }
 }
@@ -47,9 +45,9 @@ const deleteBlogPost = dispatch => {
 }
 
 const editBlogPost = dispatch => {
-  return(id, title,content,location, date, show, mode, triggers, severity, callback) => {
+  return(id, title,content,location, date, triggers, severity, callback) => {
     dispatch({type:'edit_blogpost',
-    payload: {id, title, content, location, date, show, mode, triggers, severity,}})
+    payload: {id, title, content, location, date, triggers, severity,}})
     callback();
   }
 }

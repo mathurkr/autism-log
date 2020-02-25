@@ -12,10 +12,13 @@ const ShowScreen = ({navigation}) => {
         <TouchableOpacity onPress={()=>navigation.navigate("Edit", {id:navigation.getParam('id')})}>
             <Text> Edit </Text>
         </TouchableOpacity>
-
+        
+        
         <Text> {blogPost.title} </Text>
         <Text> {blogPost.content} </Text>
         <Text> {blogPost.date} </Text>
+
+        {console.log(blogPost.severity)}
     </View>
 }
 
