@@ -12,7 +12,9 @@ import Profile from './Profile';
 import Settings from './Settings';
 import Logs from './Logs';
 
+// Log Management
 import ExpandedLog from './ExpandedLog';
+import DeleteLog from './DeleteLog';
 
 import MainHelper from './MainHelper';
 import HomeHelper from './HomeHelper';
@@ -48,6 +50,7 @@ const HomeStack = createStackNavigator(
     {
         Home: Home,
         ExpandedLog: ExpandedLog,
+        DeleteLog: DeleteLog
     },
     // config
     {

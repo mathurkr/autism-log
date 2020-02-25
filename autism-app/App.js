@@ -19,7 +19,7 @@ import VerifyCode from './components/login/VerifyCode';
 import LoggerSelection from './components/login/LoggerSelection';
 import ProfileSetUp from './components/login/ProfileSetUp';
 
-
+import NameSetup from './components/login/NameSetup';
 import ChildSetup from './components/login/ChildSetup';
 import AgeSetup from './components/login/AgeSetup';
 import ExpandedLog from './components/navigation/ExpandedLog'
@@ -29,7 +29,7 @@ import MainAppNavigator from './components/navigation/MainAppNavigator';
 import Profile from './components/navigation/Profile';
 import Settings from './components/navigation/Settings'
 import Home from './components/navigation/Home'
-import NameSetup from './components/login/NameSetup';
+
 
 // SignUpNavigator holds all components associated with SignUp process -- may divide them up in the future
 const SignUpNavigator = createStackNavigator({
@@ -52,9 +52,6 @@ const SignUpNavigator = createStackNavigator({
 
 
     // ExpandedLog: { screen: ExpandedLog },
-
-
-
 
 });
 
