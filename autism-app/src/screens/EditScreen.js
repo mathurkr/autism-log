@@ -16,9 +16,9 @@ const EditScreen = ({navigation}) => {
     return <View>
         <BlogPostForm 
             initialValues={{ title: blogPost.title, content:blogPost.content, location:blogPost.location, date:blogPost.date,
-             triggers:blogPost.triggers, severity:blogPost.severity}}
-            onSubmit={(title,content, location, date, triggers, severity,) => {
-            editBlogPost(id, title, content, location, date, triggers, severity,  () => navigation.pop())
+             triggers:blogPost.triggers, severity:blogPost.severity, tags:blogPost.tags}}
+            onSubmit={(title,content, location, date, triggers, severity, tags) => {
+            editBlogPost(id, title, content, location, date, triggers, severity, tags, () => navigation.pop())
         }}/>
     </View>
 }

@@ -8,19 +8,47 @@ import moment from "moment";
 
 let deviceWidth = Dimensions.get('window').width;
 
+iconMapping = (tag) =>
+{
+  let btn;
+  if(tag == "sensory"){
+    btn = <Ionicons name="ios-body" size={15} />
+  }
 
-// renderTags = (item) =>{
-//   return item.tags.map((tag, key) => {
-//     return (
-//       <TouchableOpacity key={key} style={styles.btnColor} onPress={() => {}}>
-//           <View style={{flexDirection:"row"}}>
-//               <Ionicons color="#0047cc" name={tag.icon} size={15}/>
-//               <Text style={styles.tag}> {tag.name}</Text>
-//            </View>
-//       </TouchableOpacity> 
-//     );
-//   })
-// }
+  if(tag == "routine"){
+    btn = <Ionicons name="ios-calendar" size={15} />
+  }
+
+  if(tag == "social"){
+    btn = <Ionicons name="ios-people" size={15} />
+  }
+
+  return btn
+}
+
+renderTags = (item) =>{
+  //console.log(item);
+  return item.triggers.map((tag,key) => {
+
+    <TouchableOpacity key={key} style={styles.btnColor}>
+      {console.log(tag)}
+      <View style={{flexDirection:"row"}}>
+        <Ionicons name={tag} color="#0047cc" name={tag} size={15}/>
+        {/* <Text style={styles.tag}> {tag.name}</Text> */}
+      </View>
+    </TouchableOpacity>
+  })
+  // return item.map((tag, key) => {
+  //   return (
+  //     <TouchableOpacity key={key} style={styles.btnColor} onPress={() => {}}>
+  //         <View style={{flexDirection:"row"}}>
+  //             <Ionicons color="#0047cc" name={tag.icon} size={15}/>
+  //             <Text style={styles.tag}> {tag.name}</Text>
+  //          </View>
+  //     </TouchableOpacity> 
+  //   );
+  // })
+}
 
 
 // renderTagIcon = (item) =>{
@@ -59,8 +87,8 @@ const IndexScreen = ({navigation}) => {
             // iconRight={require('./img/right-arrow.png')}
             iconContainer={{ flex: 0.1 }}
         />
-
     </View>
+
     <Button title="Add Post" onPress={()=> navigation.navigate('Create')}/>
 
       <FlatList
@@ -102,7 +130,7 @@ const IndexScreen = ({navigation}) => {
                     <Text style={{marginHorizontal:10, marginTop: 20, fontSize: 1, }}> Meltdown Type </Text> 
 
                     <View style={[styles.cardContent, styles.tagsContent]}>
-                             {/* {this.renderTags(item)} */}
+                    {this.renderTags(item)}
                     </View>
 
                     <View style={{flexDirection: "row", marginTop: 15, marginLeft:15 } }>

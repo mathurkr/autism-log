@@ -10,6 +10,8 @@ const BlogPostForm = ({onSubmit, initialValues}) => {
     const [date, setDate] = useState(initialValues.date);
     const [triggers, setTriggers] = useState(initialValues.triggers);
     const [severity, setSeverity] = useState(initialValues.severity);
+    const [tags, setTags] = useState(initialValues.tags);
+
 
 
 
@@ -50,16 +52,16 @@ const BlogPostForm = ({onSubmit, initialValues}) => {
         />
 
         <View style={styles.triggerContainer}>
-                    <TouchableOpacity style={styles.triggerUnclicked} onPress={() => this.setTriggers('sensory')}>
+                    <TouchableOpacity style={styles.triggerUnclicked} onPress={() => this.setTriggers('sensory', 'ios-body')}>
                         {/* <Image source= {require('../../assets/images/cog.png')}/> */}
                         <Text> Sensory </Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.triggerUnclicked}  onPress={() => this.setTriggers('social')}>
+                    <TouchableOpacity style={styles.triggerUnclicked}  onPress={() => this.setTriggers('social', 'ios-people')}>
 
                         <Text>Social</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.triggerUnclicked}  onPress={() => this.setTriggers('routine')}>
+                    <TouchableOpacity style={styles.triggerUnclicked}  onPress={() => this.setTriggers('routine', 'ios-calendar')}>
                         
                         <Text>Routine</Text>
                     </TouchableOpacity>
@@ -86,7 +88,7 @@ const BlogPostForm = ({onSubmit, initialValues}) => {
 
         <Button 
         title="Save Blog Post"
-        onPress={() => onSubmit(title,content,location, date, triggers, severity)}
+        onPress={() => onSubmit(title,content,location, date, triggers, severity, tags)}
         >
         </Button>
    </View>
@@ -98,30 +100,57 @@ BlogPostForm.defaultProps = {
         content:'',
         location: '',
         date: new Date(),
-        triggers: [],
+        triggers: [{
+            name:'',
+            icon: ''
+        }],
         severity: 0,
+        tags: ''
 
     }
 }
 
 
 
-setTriggers = (trigger) => {        
-    console.log(trigger);
+setTriggers = (trigger, newIcon) => {        
     let triggers = BlogPostForm.defaultProps.initialValues.triggers;
-    console.log(triggers);
+
+    const newTrigger = triggers.map((file) => {
+        return {...file, name: trigger, icon: newIcon}       
+    });
+
+    
+    console.log(newTrigger)
+    // console.log('Trigger list before: '+JSON.stringify(triggers));
+    // let i = triggers.indexOf(trigger);
+    // if(i>=0){
+    //     console.log(trigger + ' found in array at index '+i+ ', removing...');
+    //     triggers.splice(i,1);
+    // }
+    // else{
+    //     console.log(trigger + ' not found in array, adding at index 0...');
+    //     triggers.splice(0,0,trigger);
+    // }
+    // console.log('Trigger list AFTER: '+JSON.stringify(triggers));
+
+
+
     // let triggers = BlogPostForm.triggers;
-    console.log('Trigger list before: '+JSON.stringify(triggers));
-    let i = triggers.indexOf(trigger);
-    if(i>=0){
-        console.log(trigger + ' found in array at index '+i+ ', removing...');
-        triggers.splice(i,1);
-    }
-    else{
-        console.log(trigger + ' not found in array, adding at index 0...');
-        triggers.splice(0,0,trigger);
-    }
-    console.log('Trigger list AFTER: '+JSON.stringify(triggers));
+    // console.log('Trigger list before: '+JSON.stringify(triggers));
+    // let i = triggers.indexOf(trigger);
+    // if(i>=0){
+    //     console.log(trigger + ' found in array at index '+i+ ', removing...');
+    //     triggers['name'] = trigger
+    //     console.log(triggers);
+    //     //triggers.namesplice(i,1);
+    // }
+    // else{
+    //     console.log(trigger + ' not found in array, adding at index 0...');
+    //     triggers['name'] = trigger
+    //     console.log(triggers);
+    //     //triggers.splice(0,0,trigger);
+    // }
+    // console.log('Trigger list AFTER: '+JSON.stringify(triggers));
 
 };
 

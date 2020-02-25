@@ -23,7 +23,8 @@ const blogReducer = (state,action) => {
         location: action.payload.location,
         date: action.payload.date,
         triggers: action.payload.triggers,
-        severity: action.payload.severity
+        severity: action.payload.severity,
+        tags: action.payload.tags,
       }
       ];
     default:
@@ -32,8 +33,8 @@ const blogReducer = (state,action) => {
 }
 
 const addBlogPost = (dispatch) => {
-  return (title,content, location, date,  triggers, severity, callback,) => { 
-    dispatch({type:'add_blogpost', payload: {title, content, location, date,   triggers, severity}})
+  return (title,content, location, date,  triggers, severity, tags, callback,) => { 
+    dispatch({type:'add_blogpost', payload: {title, content, location, date, triggers, severity, tags}})
     callback();
   }
 }
@@ -45,9 +46,9 @@ const deleteBlogPost = dispatch => {
 }
 
 const editBlogPost = dispatch => {
-  return(id, title,content,location, date, triggers, severity, callback) => {
+  return(id, title,content,location, date, triggers, severity, tags, callback) => {
     dispatch({type:'edit_blogpost',
-    payload: {id, title, content, location, date, triggers, severity,}})
+    payload: {id, title, content, location, date, triggers, severity, tags}})
     callback();
   }
 }
@@ -55,5 +56,5 @@ const editBlogPost = dispatch => {
 export const {Context, Provider} = createDataContext(
   blogReducer, 
   {addBlogPost, deleteBlogPost, editBlogPost},
-  [{title:"Test Post", content: "TEST CONTENT", id:1}]
+  [{title:"Test Post", content: "TEST CONTENT", id:1, triggers:['ios-body', ]}]
   );
