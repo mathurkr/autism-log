@@ -40,7 +40,7 @@ export default class SignUpPassword extends Component {
             // Authenticate user email and password with database
             DB.auth()
                 .createUserWithEmailAndPassword(this.state.email, this.state.password)
-                .then(() => this.props.navigation.navigate('NameSetup', { email: this.state.email, password: this.state.password }))
+                .then(() => this.props.navigation.navigate('NameSetup', { email: this.state.email }))
                 .catch(error => alert("Provided email is already associated with another user"));
         }
         // this.props.navigation.navigate('NameSetup',

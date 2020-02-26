@@ -206,22 +206,23 @@ export default class Home extends Component {
             day = "0" + day;
         }
         let full_date = this.state.months[date.getMonth()] + " " + day + " " + date.getFullYear();
+        this.setState({ date: full_date, doc_id: params.doc_id });
 
-        // Retrieve logs for the user and posts corresponding to user email and password
+        // Retrieve logs for the user 
         this._retrieveLogs(params.doc_id, full_date);
     }
 
     _retrieveLogs = (doc_id, date) => {
-        let ddate = "Feb 03 2020"  // Test this for now
+        let ddate = "Feb 24 2020"  // Test this for now
         DB.firestore().collection("logs").doc(doc_id)
             .get()
             .then((doc) => {
                 if (doc.exists) {
-                    if (doc.get(ddate) != null) {
+                    if (doc.get(date) != null) {
                         const data = doc.data();
-                        for (let i = 0; i < data[ddate].length; i++) {
+                        for (let i = 0; i < data[date].length; i++) {
                             this.setState({
-                                posts: [...this.state.posts, data[ddate][i]]
+                                posts: [...this.state.posts, data[date][i]]
                             });
                         }
 
@@ -238,7 +239,6 @@ export default class Home extends Component {
             .catch(function (error) {
                 alert("Error getting documents from log collection: ", error);
             });
-
     }
 
     _fetchNewDate = selectedDate => {
@@ -247,7 +247,7 @@ export default class Home extends Component {
         const new_date = new Date(selectedDate);
 
         // Use HomeHelper to refresh the Home component -- possibly a better way to refresh Home available?
-        this.props.navigation.navigate('HomeHelper', { email: params.email, password: params.password, doc_id: params.doc_id, date: new_date });
+        this.props.navigation.navigate('HomeHelper', { email: params.email, doc_id: params.doc_id, date: new_date });
 
         // const resetAction = NavigationActions.reset({
         //     index: 0,
@@ -425,6 +425,8 @@ export default class Home extends Component {
 
         // Navigate to Expanded Log
         this.props.navigation.navigate('ExpandedLog', {
+            date: this.state.date,
+            doc_id: this.state.doc_id,
             avatar: post.avatar,
             behaviors: post.behaviors,
             id: post.id,

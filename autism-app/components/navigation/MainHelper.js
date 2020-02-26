@@ -19,18 +19,18 @@ export default class MainHelper extends Component {
 
     _retrieveDocID = params => {
         const email = params.getParam('email');
-        const password = params.getParam('password')
+        // const password = params.getParam('password')
         const date = params.getParam('date');
 
         // Fetch ID for this user based on their email and password from users collection
-        DB.firestore().collection("users").where("email", "==", email).where("password", "==", password)
+        DB.firestore().collection("users").where("email", "==", email)//.where("password", "==", password)
             .get()
             .then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
                     this.setState({ doc_id: doc.id }, () => {
                         // Store doc_id and user's name in parent params
                         params.setParams({ doc_id: doc.id, name: doc.data().name });
-                        this._navigateToHome(email, password, date);
+                        this._navigateToHome(email, date);
                     });
                 })
             })
@@ -39,8 +39,8 @@ export default class MainHelper extends Component {
             });
     }
 
-    _navigateToHome = (email, password, date) => {
-        this.props.navigation.navigate('Home', { email: email, password: password, doc_id: this.state.doc_id, date: date });
+    _navigateToHome = (email, date) => {
+        this.props.navigation.navigate('Home', { email: email, doc_id: this.state.doc_id, date: date });
     }
 
     render() {

@@ -53,6 +53,8 @@ export default class ExpandedLog extends Component {
         this.state = {
             posts: [
                 {
+                    doc_id: params.doc_id,
+                    date: params.date,
                     id: params.id,
                     color: "#3200DF",
                     icon: params.avatar,
@@ -178,10 +180,29 @@ export default class ExpandedLog extends Component {
     }
 
 
+    _deleteLogDialog = () => {
+        Alert.alert(
+            'Deleting Log',
+            'Are you sure you want to delete this log?',
+            [
+                {
+                    text: 'Cancel',
+                    onPress: () => console.log('Cancel Pressed'),
+                    style: 'cancel',
+                },
+                {
+                    text: 'OK',
+                    onPress: () => this._toDeleteLog()
+                },
+            ],
+            { cancelable: false },
+        );
+    }
 
-
-
-
+    _toDeleteLog = () => {
+        // Navigate to DeleteLog component
+        this.props.navigation.navigate('DeleteLog', { doc_id: this.state.posts[0].doc_id, date: this.state.posts[0].date, id: this.state.posts[0].id });
+    }
 
     render() {
         const { value } = this.state;
@@ -214,10 +235,11 @@ export default class ExpandedLog extends Component {
                         return (
                             <View>
                                 <View style={[styles.card, { borderColor: "white" }]} >
-                                    <View style={{ flexDirection: "row", }}>
+                                    <View style={{ flexDirection: "row", flex: 1, display: 'flex' }}>
                                         <View style={[styles.circle, { backgroundColor: item.color }]} />
                                         <Text style={[styles.name, { color: item.color }]}>{item.name}</Text>
                                         <Text style={styles.timestamp2}> {moment(item.timestamp).fromNow()}  </Text>
+                                        <Ionicons name="md-trash" style={{ marginLeft: 'auto', marginRight: 15 }} size={30} onPress={() => this._deleteLogDialog()} />
                                     </View>
 
 
