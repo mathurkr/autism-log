@@ -227,9 +227,6 @@ export default class Users extends Component {
             return (   
             <View style={ {backgroundColor: '#EFEFEF'}}>  
 
-
-
-                
                 <TouchableOpacity style={[styles.card, {borderColor:"white"} ]} >
 
                 <View style={{flexDirection:"row",}}>

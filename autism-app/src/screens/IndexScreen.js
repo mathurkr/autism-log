@@ -8,61 +8,28 @@ import moment from "moment";
 
 let deviceWidth = Dimensions.get('window').width;
 
-iconMapping = (tag) =>
-{
-  let btn;
-  if(tag == "sensory"){
-    btn = <Ionicons name="ios-body" size={15} />
-  }
 
-  if(tag == "routine"){
-    btn = <Ionicons name="ios-calendar" size={15} />
-  }
-
-  if(tag == "social"){
-    btn = <Ionicons name="ios-people" size={15} />
-  }
-
-  return btn
-}
 
 renderTags = (item) =>{
   //console.log(item);
-  return item.triggers.map((tag,key) => {
-
-    <TouchableOpacity key={key} style={styles.btnColor}>
-      {console.log(tag)}
-      <View style={{flexDirection:"row"}}>
-        <Ionicons name={tag} color="#0047cc" name={tag} size={15}/>
-        {/* <Text style={styles.tag}> {tag.name}</Text> */}
-      </View>
-    </TouchableOpacity>
+  return item.triggers.map((tag, key) => {
+    return (
+      <TouchableOpacity key={key} style={styles.btnColor} onPress={() => {}}>
+          <View style={{flexDirection:"row"}}>
+              <Ionicons color="#0047cc" name={tag.icon} size={15}/>
+              <Text style={styles.tag}> {tag.name}</Text>
+           </View>
+      </TouchableOpacity> 
+    );
   })
-  // return item.map((tag, key) => {
-  //   return (
-  //     <TouchableOpacity key={key} style={styles.btnColor} onPress={() => {}}>
-  //         <View style={{flexDirection:"row"}}>
-  //             <Ionicons color="#0047cc" name={tag.icon} size={15}/>
-  //             <Text style={styles.tag}> {tag.name}</Text>
-  //          </View>
-  //     </TouchableOpacity> 
-  //   );
-  // })
 }
 
 
-// renderTagIcon = (item) =>{
-//   return item.tagsIcon.map((tag, key) => {
-//     return (
-//       <Ionicons name={tag} size={20} />
-//     );
-//   })
-// }
+
 
 
 const IndexScreen = ({navigation}) => {
   const {state, deleteBlogPost} = useContext(Context);
-
   return (
     <View style={{flex:1, backgroundColor:'#EFEFEF'}}>                
     <View>
@@ -135,7 +102,7 @@ const IndexScreen = ({navigation}) => {
 
                     <View style={{flexDirection: "row", marginTop: 15, marginLeft:15 } }>
                             <Ionicons name="ios-pin" size={20} color="#C4C6CE"  style={{marginRight: 3}} />
-                            <Text style={styles.timestamp}> Irvine California  </Text>
+                            <Text style={styles.timestamp}> {item.location}  </Text>
                 </View>
 
 

@@ -56,5 +56,5 @@ const editBlogPost = dispatch => {
 export const {Context, Provider} = createDataContext(
   blogReducer, 
   {addBlogPost, deleteBlogPost, editBlogPost},
-  [{title:"Test Post", content: "TEST CONTENT", id:1, triggers:['ios-body', ]}]
+  [{title:"Test Post", location:'Irvine, California', content: "TEST CONTENT", id:1, triggers:[{name:'sensory', icon:'ios-body',}, ]}]
   );

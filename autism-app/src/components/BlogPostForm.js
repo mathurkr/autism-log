@@ -100,10 +100,7 @@ BlogPostForm.defaultProps = {
         content:'',
         location: '',
         date: new Date(),
-        triggers: [{
-            name:'',
-            icon: ''
-        }],
+        triggers: [],
         severity: 0,
         tags: ''
 
@@ -112,47 +109,30 @@ BlogPostForm.defaultProps = {
 
 
 
-setTriggers = (trigger, newIcon) => {        
+setTriggers = (name, iconName) => {        
     let triggers = BlogPostForm.defaultProps.initialValues.triggers;
-
-    const newTrigger = triggers.map((file) => {
-        return {...file, name: trigger, icon: newIcon}       
-    });
-
-    
-    console.log(newTrigger)
-    // console.log('Trigger list before: '+JSON.stringify(triggers));
-    // let i = triggers.indexOf(trigger);
-    // if(i>=0){
-    //     console.log(trigger + ' found in array at index '+i+ ', removing...');
-    //     triggers.splice(i,1);
-    // }
-    // else{
-    //     console.log(trigger + ' not found in array, adding at index 0...');
-    //     triggers.splice(0,0,trigger);
-    // }
-    // console.log('Trigger list AFTER: '+JSON.stringify(triggers));
+    let addFlag=true;
+    //console.log(triggers)
+    for(let oldTrigger=0;oldTrigger<triggers.length;oldTrigger++){
+        let oldName=triggers[oldTrigger].name;
+        if(oldName==name){
+            //remove objectg
+            triggers.splice(oldTrigger,1);
+            addFlag=false;
+        }        
+    }
+    if(addFlag==true){
+        triggers.push({name:name, icon: iconName});
+    }
+   // console.log(triggers);
+    }
 
 
 
-    // let triggers = BlogPostForm.triggers;
-    // console.log('Trigger list before: '+JSON.stringify(triggers));
-    // let i = triggers.indexOf(trigger);
-    // if(i>=0){
-    //     console.log(trigger + ' found in array at index '+i+ ', removing...');
-    //     triggers['name'] = trigger
-    //     console.log(triggers);
-    //     //triggers.namesplice(i,1);
-    // }
-    // else{
-    //     console.log(trigger + ' not found in array, adding at index 0...');
-    //     triggers['name'] = trigger
-    //     console.log(triggers);
-    //     //triggers.splice(0,0,trigger);
-    // }
-    // console.log('Trigger list AFTER: '+JSON.stringify(triggers));
 
-};
+
+
+
 
 getTriggerStyle=(triggerType)=>{
     if(triggerType in this.state.triggers){
