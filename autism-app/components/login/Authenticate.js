@@ -33,12 +33,12 @@ export default class Authenticate extends Component {
     componentDidUpdate() {
         const { navigate } = this.props.navigation;
         if (this.state.authType == 'Login') {
-            // Placeholder for now (with params possibly changing)
-            navigate('Main', { name: this.state.name });
+            let email = "";  // Get email here from Google OAuth Firebase authentication
+            navigate('Main', { email: email, date: new Date() });
         }
         else if (this.state.authType == 'Sign Up') {
-            // Placeholder for now (with params possibly changing); should navigate to another page to complete registration process
-            navigate('Main', { name: this.state.name });
+            let email = "";  // Get email here from Google OAuth Firebase authentication
+            navigate('NameSetup', { email: email });
         }
     }
 
