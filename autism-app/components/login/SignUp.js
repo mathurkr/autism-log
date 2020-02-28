@@ -226,8 +226,6 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: 'center',
         borderRadius: 5
-
-
     },
 
     inputs: {

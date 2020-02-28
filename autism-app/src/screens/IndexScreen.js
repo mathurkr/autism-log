@@ -56,7 +56,7 @@ const IndexScreen = ({navigation}) => {
         />
     </View>
 
-    <Button title="Add Post" onPress={()=> navigation.navigate('Create')}/>
+    {/* <Button title="Add Post" onPress={()=> navigation.navigate('Create')}/> */}
 
       <FlatList
       data = {state}
@@ -114,6 +114,22 @@ const IndexScreen = ({navigation}) => {
     </View>
   );
 };
+
+
+
+IndexScreen.navigationOptions=({navigation})=>{
+  return{
+      title: 'Luminous',
+      headerTitleStyle :{color:'black'},
+      headerStyle: {backgroundColor:'white'},
+      headerRight:(
+          <TouchableOpacity onPress={()=> navigation.navigate('Create')}> 
+          <Ionicons name="ios-add-circle" style={{ marginRight:15,color:'purple' }} size={30}  />
+          </TouchableOpacity>
+      )
+  }
+}
+
 
 IndexScreen.naviationOptions = () => {
   return {
