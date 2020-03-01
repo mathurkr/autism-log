@@ -31,6 +31,8 @@ const BlogPostForm = ({onSubmit, initialValues}) => {
     const [toggleRoutine, setToggleRoutine] = useState(initialValues,toggleRoutine)
     const [toggleFood, setToggleFood] = useState(initialValues,toggleFood)
     const [toggleItem, setToggleItem] = useState(initialValues,toggleItem)
+    
+    const [height, setHeight] = useState(50)
 
 
     
@@ -72,7 +74,6 @@ const BlogPostForm = ({onSubmit, initialValues}) => {
         // })
 
         setRegion(region)
-
     }
 
     test = () =>
@@ -115,7 +116,33 @@ const BlogPostForm = ({onSubmit, initialValues}) => {
         setToggleItem(!toggleItem)
     }
 
-    return <View styles={{flex:1, backgroundColor:'#EFEFEF'}}>
+
+    severityLevelTitle = (severity) => {
+        console.log("KHOLOE")
+        console.log(severity)
+
+        if(severity >= 0 && severity <= 20){
+            return ("Slight Pain")   
+        }
+        else if(severity >= 20 && severity <= 40 ){
+            return("Mild")
+        }
+        else if(severity >= 40 && severity <= 60)
+        {
+            return("Moderate")
+        }
+        else if(severity >=60 && severity <= 80){
+            return("Severe")
+        }
+        else if(severity >= 80 && severity <= 100)
+        {
+            return("Worst Pain")
+        }
+    }
+    
+
+
+    return <View styles={{flex:1, backgroundColor:''}}>
         <ScrollView styles={{}}> 
         <View style={styles.header}>
         <Image         
@@ -136,7 +163,7 @@ const BlogPostForm = ({onSubmit, initialValues}) => {
         </View>
 
 
-        <View style={{backgroundColor:'#EFEFEF'}}>
+        <View style={{backgroundColor:''}}>
         <TouchableOpacity onPress={_getLocationAsync} > 
             <View style={styles.notificationBox}>
                 <Ionicons name="ios-pin" size={20} color="#77909c" style={styles.icon }  />
@@ -167,7 +194,6 @@ const BlogPostForm = ({onSubmit, initialValues}) => {
                     maxDate="01-01-2019"
                     confirmBtnText="Confirm"
                     cancelBtnText="Cancel"
-                    showIcon={false}
                     hideText
                     customStyles={{
                         dateInput: { 
@@ -184,7 +210,9 @@ const BlogPostForm = ({onSubmit, initialValues}) => {
                             color: "white",
                           }
                     }}
-                    onDateChange={(d) => setDate(d)}
+                    onDateChange={
+                        (d) => setDate(d)
+                    }
                     />
                     <Ionicons  style={styles.mblTxt} name="ios-arrow-forward" size={20} color="#77909c" style={styles.icon }  />
             </View>
@@ -201,7 +229,11 @@ const BlogPostForm = ({onSubmit, initialValues}) => {
                     minimumValue={1}
                     maximumValue={100}
                     value={BlogPostForm.defaultProps.initialValues.severity}
-                    onValueChange = {(severity) => setSeverity({severity})}
+                    onValueChange = {
+                        (severity) => {setSeverity({severity})
+                        setTitle(severityLevelTitle(severity))
+                    }
+                    }
                     thumbTintColor='purple'
                     maximumTrackTintColor='#d3d3d3' 
                     minimumTrackTintColor='blue'
@@ -227,13 +259,11 @@ const BlogPostForm = ({onSubmit, initialValues}) => {
 
 
         {/* <Text style={styles.label}> Enter Title </Text>
-        <TextInput style={styles.input} value={title} onChangeText={(text => setTitle(text))} /> 
-        <Text style={styles.label}> Enter Content </Text>
-        <TextInput style={styles.input}value={content} onChangeText={(text) => setContent(text)}/>  */}
+        <TextInput style={styles.input} value={title} onChangeText={(text => setTitle(text))} />  */}
+
 
         {/* <Text style={styles.label}> Location </Text>
         <TextInput style={styles.input} onChangeText={(text) => setLocation(text)} value={location} /> */}
-
         <Text style={styles.iconTitle}>Triggers</Text>
         <View style={[styles.cardContent, styles.tagsContent]}>
 
@@ -354,11 +384,27 @@ const BlogPostForm = ({onSubmit, initialValues}) => {
 
 
         </View>
-  
 
+  
+            <View style={styles.inputContainer}> 
+                <TextInput 
+                multiline
+                placeholder = " Add Note..."
+                placeholderText="#999999 "
+                onContentSizeChange={e => setHeight(e.nativeEvent.contentSize.height)}
+                style={[styles.inputs, {height: height}]} value={content} onChangeText={(text) => setContent(text)}/> 
+            </View>
+            
+            
 
             <View style={{ flex: 1, marginTop: 10 }}>
-                <TouchableOpacity style={{ alignSelf: 'stretch',backgroundColor: '#29d2e4', borderRadius:27, marginHorizontal: 30  }} onPress={() => onSubmit(title,content,location, date, triggers, severity, tags)}>
+                <TouchableOpacity style={{ alignSelf: 'stretch',backgroundColor: '#29d2e4', borderRadius:27, marginHorizontal: 60  }} 
+                onPress={  
+                    () => onSubmit(title,content,location, date, triggers, severity, tags)
+                    
+                    
+                }>
+
                     <Text style={{ alignSelf: 'center',
                                     color: '#ffffff',
                                     fontSize: 16,
@@ -369,7 +415,7 @@ const BlogPostForm = ({onSubmit, initialValues}) => {
             </View>
 
             <View style={{ flex: 1,  marginTop: 10 }}>
-                <TouchableOpacity style={{ alignSelf: 'stretch',backgroundColor: 'white', borderRadius:27, marginHorizontal:30,  borderWidth: 1, borderColor: "black", marginTop: 10 }} onPress={() => { onCancelPress }}>
+                <TouchableOpacity style={{ alignSelf: 'stretch',backgroundColor: 'white', borderRadius:27, marginHorizontal:60,  borderWidth: 1, borderColor: "black", marginTop: 10 }} onPress={() => { onCancelPress }}>
                     <Text style={{ alignSelf: 'center',
                                     color: 'black',
                                     fontSize: 16,
@@ -383,6 +429,8 @@ const BlogPostForm = ({onSubmit, initialValues}) => {
 
         </ScrollView>
    </View>
+
+   
 }
 
 BlogPostForm.defaultProps = {
@@ -403,6 +451,7 @@ BlogPostForm.defaultProps = {
 
     }
 }
+
 
 
 
@@ -574,20 +623,20 @@ const styles = StyleSheet.create({
     },
 
     inputContainer:{
-        height: 50,
-        backgroundColor: 'white',
-        paddingVertical: 5, 
+        backgroundColor: '#F5F5F5',
+        paddingVertical: 10, 
         borderRadius: 5,
-        paddingHorizontal: 30,
-        width: '69%',
-        borderColor: "grey", 
-        borderWidth: 1
+        width: '88%',
+        borderColor: "#D4D4D4", 
+        borderWidth: 1,
+        marginLeft: 15,
+        marginBottom: 15,
+        marginTop: 15
     },
 
     inputs: {
         height: 45,
-        marginLeft: 16,
-        marginRight:16
+        marginLeft: 15
     },
 
     inputIcon: {
