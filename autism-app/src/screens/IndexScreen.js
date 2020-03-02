@@ -90,7 +90,7 @@ const IndexScreen = ({navigation}) => {
                           height: 150,
                           width: undefined,
                         }}
-                        source={{uri:'https://52f4e29a8321344e30ae-0f55c9129972ac85d6b1f4e703468e6b.ssl.cf2.rackcdn.com/products/pictures/177384.jpg'}}
+                        source={{uri:item.media}}
                         resizeMode="cover"
                       />
 
@@ -102,7 +102,7 @@ const IndexScreen = ({navigation}) => {
 
                     <View style={{flexDirection: "row", marginTop: 15, marginLeft:15 } }>
                             <Ionicons name="ios-pin" size={20} color="#C4C6CE"  style={{marginRight: 3}} />
-                            <Text style={styles.timestamp}> {item.location}  </Text>
+                            <Text style={styles.timestamp}> {(item.location)} </Text>
                 </View>
 
 

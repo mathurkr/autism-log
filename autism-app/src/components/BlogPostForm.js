@@ -9,6 +9,7 @@ import {Ionicons} from "@expo/vector-icons";
 import * as ImagePicker from 'expo-image-picker';
 import UserPermissions from '../../components/utlitities/UserPermissions'
 import { FontAwesome } from '@expo/vector-icons';
+import Geocoder from 'react-native-geocoder';
 
 import { connectActionSheet } from '@expo/react-native-action-sheet';
 
@@ -63,9 +64,47 @@ const BlogPostForm = ({onSubmit, initialValues}) => {
         let region = {
             latitude: regionData.coords.latitude,
             longitude: regionData.coords.longitude,
-            latitudeDelta: 0.045,
-            longitudeDelta: 0.45
+            // latitudeDelta: 0.045,
+            // longitudeDelta: 0.45
         }
+
+        fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + region.latitude + ',' + region.longitude + '&key=' + 'AIzaSyDku9k2XFLfH8r-s0a2OTniB0-3z4TxPhM')
+        .then((response) => response.json())
+        .then((responseJson) => {
+            //console.log('ADDRESS GEOCODE is BACK!! => ' + JSON.stringify(responseJson));
+            var stateName = responseJson.results[0].address_components.filter(x => x.types.filter(t => t == 'administrative_area_level_1').length > 0)[0].short_name;
+            var cityName = responseJson.results[0].address_components.filter(x => x.types.filter(t => t == 'administrative_area_level_2').length > 0)[0].short_name;
+            setLocation(cityName + " " +  stateName)
+})
+
+
+        // Geocoder.init('AIzaSyDku9k2XFLfH8r-s0a2OTniB0-3z4TxPhM');
+        // Geocoder.from(41.89, 12.49)
+        // .tehn(jason => {
+        //     var addressComponent = json.results[0].address_components[0];
+        //     console.log(addressComponent);
+        // })
+        // .catch(error =>
+        //         console.log()
+        //     )
+
+        // console.log(ret);
+        // setLocation(region)
+        // let lat =  region.latitude
+        // let lng = region.longitude
+
+        // var pos = { 
+        //     lat, lng
+        // }
+        // console.log("POS: " + pos)
+        
+        // Geocoder.geocodePosition(pos).then(res=>{
+        //     alert(res[0].formattedAddress);
+        // })
+        // .catch(error => alert(error));
+
+
+
         // let regionInfo = ({
         //     latitude: location.coords.latitude,
         //     longitude: location.coords.longitude,
@@ -73,12 +112,11 @@ const BlogPostForm = ({onSubmit, initialValues}) => {
         //     longitudeDelta: 0.045
         // })
 
-        setRegion(region)
     }
 
     test = () =>
     {
-        console.log("tested")
+        console.warn(error)
     }
 
     handleMedia = async () => {
@@ -118,7 +156,6 @@ const BlogPostForm = ({onSubmit, initialValues}) => {
 
 
     severityLevelTitle = (severity) => {
-        console.log("KHOLOE")
         console.log(severity)
 
         if(severity >= 0 && severity <= 20){
@@ -171,7 +208,7 @@ const BlogPostForm = ({onSubmit, initialValues}) => {
                 <Text style={styles.description}>Location</Text>
 
             </View>
-                <Text numberOfLines={2} style={styles.subDescription}> Santa Margarita, California{JSON.stringify(region)} }</Text>
+                <Text numberOfLines={2} style={styles.subDescription}> {(location)} </Text>
 
                 <Ionicons  style={styles.mblTxt} name="ios-arrow-forward" size={20} color="#77909c" style={styles.icon }  />
             </View>
@@ -183,7 +220,7 @@ const BlogPostForm = ({onSubmit, initialValues}) => {
                 <View style={styles.btntextcontainer}> 
                 <Text style={styles.description}>Date & Time</Text>
             </View>
-                <Text numberOfLines={2} style={styles.subDescription}> {JSON.stringify(date)} }</Text>
+                <Text numberOfLines={2} style={styles.subDescription}> {JSON.stringify(date)} </Text>
                 <DatePicker
                     style={{width: 50, marginRight:15,}}
                     date={date} //initial date from state
@@ -239,11 +276,11 @@ const BlogPostForm = ({onSubmit, initialValues}) => {
                     minimumTrackTintColor='blue'
                     />  
                     <View style={styles.textCon}>
-                            <Text style={{color:'#48AAAD'}}> Moderate </Text>
+                            <Text style={{color:'#48AAAD'}}> Slight Pain </Text>
                             <Text style={{color:"#77869e"}}>
                                 {Math.floor(severity.severity)}
                             </Text>
-                            <Text style={{color: "#3200DF"}}> Very Severe </Text>
+                            <Text style={{color: "#3200DF"}}> Worst Pain </Text>
                         </View>
                 </View>
             </View>
@@ -400,7 +437,7 @@ const BlogPostForm = ({onSubmit, initialValues}) => {
             <View style={{ flex: 1, marginTop: 10 }}>
                 <TouchableOpacity style={{ alignSelf: 'stretch',backgroundColor: '#29d2e4', borderRadius:27, marginHorizontal: 60  }} 
                 onPress={  
-                    () => onSubmit(title,content,location, date, triggers, severity, tags)
+                    () => onSubmit(title,content,location, date, triggers, severity, tags, media )
                     
                     
                 }>

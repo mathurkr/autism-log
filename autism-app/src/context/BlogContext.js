@@ -25,6 +25,7 @@ const blogReducer = (state,action) => {
         triggers: action.payload.triggers,
         severity: action.payload.severity,
         tags: action.payload.tags,
+        media: action.payload.media
       }
       ];
     default:
@@ -33,8 +34,8 @@ const blogReducer = (state,action) => {
 }
 
 const addBlogPost = (dispatch) => {
-  return (title,content, location, date,  triggers, severity, tags, callback,) => { 
-    dispatch({type:'add_blogpost', payload: {title, content, location, date, triggers, severity, tags}})
+  return (title,content, location, date,  triggers, severity, tags, media, callback,) => { 
+    dispatch({type:'add_blogpost', payload: {title, content, location, date, triggers, severity, tags,  media}})
     callback();
   }
 }
@@ -46,9 +47,9 @@ const deleteBlogPost = dispatch => {
 }
 
 const editBlogPost = dispatch => {
-  return(id, title,content,location, date, triggers, severity, tags, callback) => {
+  return(id, title,content,location, date, triggers, severity, tags, callback, media) => {
     dispatch({type:'edit_blogpost',
-    payload: {id, title, content, location, date, triggers, severity, tags}})
+    payload: {id, title, content, location, date, triggers, severity, tags,  media}})
     callback();
   }
 }
@@ -56,5 +57,5 @@ const editBlogPost = dispatch => {
 export const {Context, Provider} = createDataContext(
   blogReducer, 
   {addBlogPost, deleteBlogPost, editBlogPost},
-  [{title:"Test Post", location:'Irvine, California', content: "TEST CONTENT", id:1, triggers:[{name:'sensory', icon:'ios-body',}, ]}]
+  [{title:"Test Post", location:'Irvine, California', content: "TEST CONTENT", id:1, media:"https://i.redd.it/0lhcsz48lmc31.png", triggers:[{name:'sensory', icon:'ios-body',},,  ]}]
   );
