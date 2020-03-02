@@ -182,10 +182,16 @@ import DB from '../config/DatabaseConfig';
 let deviceWidth = Dimensions.get('window').width;
 
 export default class Home extends Component {
-    static navigationOptions = {
-        header: null,
-
-    };
+    // navigationOptions = {
+    //     title: 'Luminous',
+    //     headerTitleStyle: { color: 'black' },
+    //     headerStyle: { backgroundColor: 'white' },
+    //     headerRight: (
+    //         <TouchableOpacity onPress={() => this.createLog()}>
+    //             <Ionicons name="ios-add-circle" style={{ marginRight: 15, color: 'purple' }} size={30} />
+    //         </TouchableOpacity>
+    //     )
+    // }
 
     state = {
         months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
@@ -208,6 +214,11 @@ export default class Home extends Component {
         let full_date = this.state.months[date.getMonth()] + " " + day + " " + date.getFullYear();
         this.setState({ date: full_date, doc_id: params.doc_id });
 
+        this.props.navigation.setParams({
+            date: full_date,
+            doc_id: params.doc_id
+        });
+
         // Retrieve logs for the user 
         this._retrieveLogs(params.doc_id, full_date);
     }
@@ -218,11 +229,11 @@ export default class Home extends Component {
             .get()
             .then((doc) => {
                 if (doc.exists) {
-                    if (doc.get(date) != null) {
+                    if (doc.get(ddate) != null) {
                         const data = doc.data();
-                        for (let i = 0; i < data[date].length; i++) {
+                        for (let i = 0; i < data[ddate].length; i++) {
                             this.setState({
-                                posts: [...this.state.posts, data[date][i]]
+                                posts: [...this.state.posts, data[ddate][i]]
                             });
                         }
 
@@ -440,6 +451,11 @@ export default class Home extends Component {
         });
     }
 
+    createLog = () => {
+        console.log(`${this.state.date}, ${this.state.doc_id}`);
+        this.props.navigation.navigate('CreateLog', { date: this.state.date, doc_id: this.state.doc_id })
+    }
+
     render() {
         const { params } = this.props.navigation.state;
         return (
@@ -452,7 +468,7 @@ export default class Home extends Component {
                     // calendarAnimation={{ type: 'sequence', duration: 30 }}
                     selection={'border'}
                     selectionAnimation={{ duration: 300, borderWidth: 1 }}
-                    style={{ position: 'absolute', top: 20, paddingTop: 10, paddingBottom: 0 }}
+                    style={{ position: 'absolute', top: 10, paddingTop: 10, paddingBottom: 0 }}
                     calendarHeaderStyle={{ color: 'black', width: deviceWidth, marginBottom: 10 }}
                     onDateSelected={selectedDate => this._fetchNewDate(selectedDate)}
                     // calendarColor={'#7743CE'}
@@ -503,6 +519,12 @@ export default class Home extends Component {
                                     <View style={[styles.cardContent, styles.tagsContent]}>
                                         {this.renderTags(item)}
                                     </View>
+
+
+                                    <View style={{ flexDirection: "row", marginTop: 15, marginLeft: 15 }}>
+                                        <Ionicons name="ios-pin" size={20} color="#C4C6CE" style={{ marginRight: 3 }} />
+                                        <Text style={styles.timestamp}> {item.location}  </Text>
+                                    </View>
                                 </TouchableOpacity>
 
                                 {/* <View sttle={{}}> 
@@ -548,6 +570,34 @@ export default class Home extends Component {
         );
     }
 }
+
+Home.navigationOptions = ({ navigation = this.props.navigation }) => {
+    // const date = navigation.state.params.date;
+    const date = "Feb 24 2020"; // Test for now
+    const doc_id = navigation.state.params.doc_id;
+    // alert(`${date}, ${doc_id}`);
+    return {
+        title: 'Luminous',
+        headerTitleStyle: { color: 'black' },
+        headerStyle: { backgroundColor: 'white' },
+        headerRight: (
+            <TouchableOpacity onPress={() => navigation.navigate('CreateLog', { date: date, doc_id: doc_id })}>
+                <Ionicons name="ios-add-circle" style={{ marginRight: 15, color: 'purple' }} size={30} />
+            </TouchableOpacity>
+        )
+    }
+}
+
+// Home.navigationOptions = {
+//     title: 'Luminous',
+//     headerTitleStyle: { color: 'black' },
+//     headerStyle: { backgroundColor: 'white' },
+//     headerRight: (
+//         <TouchableOpacity onPress={() =>this.props.navigation.navigate('CreateLog')}>
+//             <Ionicons name="ios-add-circle" style={{ marginRight: 15, color: 'purple' }} size={30} />
+//         </TouchableOpacity>
+//     )
+// }
 
 const styles = StyleSheet.create({
     container: {

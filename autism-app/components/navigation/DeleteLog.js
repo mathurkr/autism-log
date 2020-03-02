@@ -43,7 +43,7 @@ export default class DeleteLog extends Component {
 
     _fetchLogs = (doc_id, id, date) => {
         // Test this date for now
-        const ddate = "Feb 25 2020";
+        const ddate = "Feb 24 2020";
 
         // First find logs to keep in the logs collection
         DB.firestore().collection("logs").doc(doc_id)

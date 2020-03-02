@@ -4,6 +4,13 @@ import { StyleSheet, Text, View } from 'react-native';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
+
+import IndexScreen from './src/screens/IndexScreen';
+import { Provider } from './src/context/BlogContext'
+import ShowScreen from './src/screens/ShowScreen'
+import CreateScreen from './src/screens/CreateScreen'
+import EditScreen from './src/screens/EditScreen';
+
 // Components for the SignUp process
 import Welcome from './components/Welcome';
 import SignUp from './components/login/SignUp';
@@ -31,6 +38,11 @@ import Settings from './components/navigation/Settings'
 import Home from './components/navigation/Home'
 
 
+
+///
+
+
+
 // SignUpNavigator holds all components associated with SignUp process -- may divide them up in the future
 const SignUpNavigator = createStackNavigator({
     Welcome: { screen: Welcome },
@@ -51,9 +63,39 @@ const SignUpNavigator = createStackNavigator({
     ChildSetup: { screen: ChildSetup },
 
 
-    // ExpandedLog: { screen: ExpandedLog },
+    ExpandedLog: { screen: ExpandedLog },
 
-});
+    // Index: { screen: IndexScreen },
+    // Show: { screen: ShowScreen },
+    // Create: { screen: CreateScreen },
+    // Edit: { screen: EditScreen }
+    // Welcome: { screen: Welcome },
+    // SignUp: { screen: SignUp },
+    // SignUpPassword: { screen: SignUpPassword },
+    // SignUpForm: { screen: SignUpForm },
+    // NameSetup: { screen: NameSetup},
+    // AgeSetup: { screen: AgeSetup },
+    // PaymentInfo: { screen: PaymentInfo },
+    // Home: { screen: Home},
+    // TermsOfService: { screen: TermsOfService },
+    // PrivatePolicy: { screen: PrivatePolicy },
+    // Authenticate: { screen: Authenticate },
+    // Login: { screen: Login },
+    // ForgotPassword: { screen: ForgotPassword },
+    // VerifyCode: { screen: VerifyCode },
+    //  LoggerSelection: { screen: LoggerSelection },
+    //  ChildSetup: {screen: ChildSetup},
+    //  ProfileSetUp: { screen: ProfileSetUp },
+
+    // Settings: { screen: Settings},
+    //  Profile: { screen: Profile},
+    //ExpandedLog: {screen: ExpandedLog},
+
+}
+
+
+
+);
 
 // class MainAppNav extends Component {
 //     render() {
@@ -74,22 +116,10 @@ const UniversalNavigator = createSwitchNavigator({
 
 const App = createAppContainer(UniversalNavigator);
 
-export default App;
-
-
-// export default function App() {
-//     return (
-//         <View style={styles.container}>
-//             <WelcomeScreen />
-//         </View>
-//     );
-// }
-
-// const styles = StyleSheet.create({
-//     container: {
-//         flex: 1,
-//         backgroundColor: '#fff',
-//         alignItems: 'center',
-//         justifyContent: 'center',
-//     },
-// });
+export default () => {
+    return (
+        <Provider>
+            <App />
+        </Provider>
+    )
+}

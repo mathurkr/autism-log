@@ -20,6 +20,7 @@ import moment from "moment";
 import { LinearGradient } from 'expo-linear-gradient'
 import { connectActionSheet } from '@expo/react-native-action-sheet'
 import { SingleImage } from 'react-native-zoom-lightbox';
+import { HeaderBackButton } from 'react-navigation-stack';
 
 var { width, height } = Dimensions.get('window')
 
@@ -33,7 +34,8 @@ export default class ExpandedLog extends Component {
             message: 'hey',
             headerTitleStyle: { color: 'black' },
             headerStyle: { backgroundColor: 'white' },
-            headerRight: <Ionicons name="ios-more" style={{ marginRight: 15, color: 'black' }} size={30} onPress={() => params.handleActionSheet()} />
+            headerRight: <Ionicons name="ios-more" style={{ marginRight: 15, color: 'black' }} size={30} onPress={() => params.handleActionSheet()} />,
+            headerLeft: <HeaderBackButton style={{ padding: 25 }} onPress={() => navigation.navigate("Home")} />,
         };
 
     }
