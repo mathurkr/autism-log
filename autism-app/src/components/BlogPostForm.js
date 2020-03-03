@@ -75,7 +75,7 @@ const BlogPostForm = ({onSubmit, initialValues}) => {
             var stateName = responseJson.results[0].address_components.filter(x => x.types.filter(t => t == 'administrative_area_level_1').length > 0)[0].short_name;
             var cityName = responseJson.results[0].address_components.filter(x => x.types.filter(t => t == 'administrative_area_level_2').length > 0)[0].short_name;
             setLocation(cityName + " " +  stateName)
-})
+        })
 
 
         // Geocoder.init('AIzaSyDku9k2XFLfH8r-s0a2OTniB0-3z4TxPhM');
@@ -200,20 +200,6 @@ const BlogPostForm = ({onSubmit, initialValues}) => {
         </View>
 
 
-        <View style={{backgroundColor:''}}>
-        <TouchableOpacity onPress={_getLocationAsync} > 
-            <View style={styles.notificationBox}>
-                <Ionicons name="ios-pin" size={20} color="#77909c" style={styles.icon }  />
-                <View style={styles.btntextcontainer}> 
-                <Text style={styles.description}>Location</Text>
-
-            </View>
-                <Text numberOfLines={2} style={styles.subDescription}> {(location)} </Text>
-
-                <Ionicons  style={styles.mblTxt} name="ios-arrow-forward" size={20} color="#77909c" style={styles.icon }  />
-            </View>
-        </TouchableOpacity>
-
         <TouchableOpacity onPress={_getLocationAsync} > 
             <View style={styles.notificationBox}>
                 <Ionicons name="ios-time" size={20} color="#77909c" style={styles.icon }  />
@@ -254,6 +240,23 @@ const BlogPostForm = ({onSubmit, initialValues}) => {
                     <Ionicons  style={styles.mblTxt} name="ios-arrow-forward" size={20} color="#77909c" style={styles.icon }  />
             </View>
         </TouchableOpacity>
+
+
+        <View style={{backgroundColor:''}}>
+        <TouchableOpacity onPress={_getLocationAsync} > 
+            <View style={styles.notificationBox}>
+                <Ionicons name="ios-pin" size={20} color="#C4C6CE" style={styles.icon }  />
+                <View style={styles.btntextcontainer}> 
+                <Text style={styles.description}>Location</Text>
+
+            </View>
+                <Text numberOfLines={2} style={styles.subDescription}> {(location)} </Text>
+
+                <Ionicons  style={styles.mblTxt} name="ios-arrow-forward" size={20} color="#77909c" style={styles.icon }  />
+            </View>
+        </TouchableOpacity>
+
+
         
 
         <View style={styles.notificationBox}>
@@ -340,7 +343,7 @@ const BlogPostForm = ({onSubmit, initialValues}) => {
             borderWidth: 1
             }} 
             onPress={
-                () => {this.setTriggers('social', 'ios-people');
+                () => {this.setTriggers('Social', 'ios-people');
                 this._onPressSocial()
             }}>
                 <View style={{flexDirection:"row"}}>
@@ -363,7 +366,7 @@ const BlogPostForm = ({onSubmit, initialValues}) => {
                 borderWidth: 1
                 }} 
                 onPress={
-                    () => {this.setTriggers('routine', 'ios-calendar');
+                    () => {this.setTriggers('Routine', 'ios-calendar');
                     this._onPressRoutine()
                 }}
             >
@@ -387,7 +390,7 @@ const BlogPostForm = ({onSubmit, initialValues}) => {
                 borderWidth: 1
             }} 
             onPress={
-                () => {this.setTriggers('routine', 'ios-calendar');
+                () => {this.setTriggers('Food', 'ios-pizza');
                 this._onPressFood()
             }}>
                 <View style={{flexDirection:"row"}}>
@@ -409,7 +412,7 @@ const BlogPostForm = ({onSubmit, initialValues}) => {
                 borderWidth: 1
             }} 
             onPress={
-                () => {this.setTriggers('routine', 'ios-calendar');
+                () => {this.setTriggers('Item taken away', 'ios-sad');
                 this._onPressItem()
             }}>
 
@@ -437,9 +440,7 @@ const BlogPostForm = ({onSubmit, initialValues}) => {
             <View style={{ flex: 1, marginTop: 10 }}>
                 <TouchableOpacity style={{ alignSelf: 'stretch',backgroundColor: '#29d2e4', borderRadius:27, marginHorizontal: 60  }} 
                 onPress={  
-                    () => onSubmit(title,content,location, date, triggers, severity, tags, media )
-                    
-                    
+                    () => onSubmit(title,content,location, date, triggers, severity, tags, media )       
                 }>
 
                     <Text style={{ alignSelf: 'center',
@@ -784,7 +785,7 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         paddingRight: 2,
         marginHorizontal: 10,
-        color: '#0047cc'
+        color: '#C4C6CE'
 
       },
 

@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import {Feather} from '@expo/vector-icons'
 import CalendarStrip from 'react-native-calendar-strip';
 import moment from "moment";
+var { width, height } = Dimensions.get('window')
 
 let deviceWidth = Dimensions.get('window').width;
 
@@ -94,16 +95,17 @@ const IndexScreen = ({navigation}) => {
                         resizeMode="cover"
                       />
 
-                    <Text style={{marginHorizontal:10, marginTop: 20, fontSize: 1, }}> Meltdown Type </Text> 
+                <View style={{flexDirection: "row", marginTop: 15, marginLeft:15 } }>
+                   <Ionicons name="ios-pin" size={20} color="#C4C6CE"  style={{marginRight: 3}} />
+                   <Text style={styles.timestamp}> {(item.location)} </Text>
+                </View>
+
 
                     <View style={[styles.cardContent, styles.tagsContent]}>
                     {this.renderTags(item)}
                     </View>
 
-                    <View style={{flexDirection: "row", marginTop: 15, marginLeft:15 } }>
-                            <Ionicons name="ios-pin" size={20} color="#C4C6CE"  style={{marginRight: 3}} />
-                            <Text style={styles.timestamp}> {(item.location)} </Text>
-                </View>
+
 
 
             </TouchableOpacity>
@@ -197,7 +199,7 @@ const styles = StyleSheet.create({
     marginTop:-40,
   },
   tagsContent:{
-    marginTop:10,
+    marginTop:5,
     flexWrap:'wrap'
   },
   tag:
@@ -222,7 +224,7 @@ const styles = StyleSheet.create({
     marginHorizontal:3,
     backgroundColor:'rgba(110,211,225,0.30)',
     marginTop:5,
-    marginLeft: 20
+    marginLeft: 15,
   },
 
 
