@@ -11,6 +11,9 @@ import Profile from './Profile';
 import Settings from './Settings';
 import Logs from './Logs';
 
+import MainHelper from './MainHelper';
+import HomeHelper from './HomeHelper';
+
 import IndexScreen from '../../src/screens/IndexScreen';
 import  CreateScreen from '../../src/screens/CreateScreen';
 import  EditScreen from '../../src/screens/EditScreen';
@@ -121,17 +124,22 @@ const TabNavigator = createBottomTabNavigator({
     ProfileStack,
     SettingsStack,
     LogsStack
-});
+},
+{
+    initialRouteName: "HomeStack"
+}
+);
 
 TabNavigator.path = '';
 
-const AppNavigator = createMaterialTopTabNavigator(
+const AppNavigator = createSwitchNavigator(
     {
-        QuickCamera: QuickCamera,
-        TabsNavigator: TabNavigator
+        MainHelper: MainHelper,       // Used to convert params received from Login, SignUp pages
+        TabsNavigator: TabNavigator,  // Holds the main navigation tabs 
+        HomeHelper: HomeHelper        // Helper to reload Home page when changing the date on the calendar
     },
     {
-        initialRouteName: "TabsNavigator",
+        initialRouteName: "MainHelper",
         animationEnabled: true,
         tabBarOptions: {
             showLabel: false,
@@ -140,7 +148,6 @@ const AppNavigator = createMaterialTopTabNavigator(
         }
     }
 );
-
 // const AppNavigator = createSwitchNavigator(
 //     {
 //         Tabs: TabNavigator,

@@ -84,14 +84,8 @@ const SignUpNavigator = createStackNavigator(
 // Universal App Navigator
 const UniversalNavigator = createSwitchNavigator({
     SignUp: SignUpNavigator,
-    Main: {screen: MainAppNavigator,
-        navigationOptions: {
-            title: 'Home',
-            headerShown: false
-          }
-
+    Main: MainAppNavigator
     
-    },
 
 });
 

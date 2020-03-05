@@ -9,7 +9,8 @@ var { width, height } = Dimensions.get('window')
 
 let deviceWidth = Dimensions.get('window').width;
 
-
+const email = ''; //here I want to load the values from class component
+const date = new Date();
 
 renderTags = (item) =>{
   //console.log(item);
@@ -30,9 +31,14 @@ renderTags = (item) =>{
 
 
 const IndexScreen = ({navigation}) => {
-  
 
+  const password = navigation.getParam('password');
+  const email = navigation.getParam('email');
 
+  console.log("EMAIL: " + email);
+  console.log("PASSWORD: " + password);
+
+  //console.log(password);
 
   const {state, deleteBlogPost} = useContext(Context);
   return (
