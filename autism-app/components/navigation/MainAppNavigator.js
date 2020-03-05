@@ -11,10 +11,17 @@ import Profile from './Profile';
 import Settings from './Settings';
 import Logs from './Logs';
 
+import IndexScreen from '../../src/screens/IndexScreen';
+import  CreateScreen from '../../src/screens/CreateScreen';
+import  EditScreen from '../../src/screens/EditScreen';
+import  ShowScreen from '../../src/screens/ShowScreen';
+
+
 // Import device components
 // import CameraLog from './camera/CameraLog';
 import QuickCamera from './camera/QuickCamera';
 import MainCamera from './camera/MainCamera';
+import { createStackNavigator } from 'react-navigation-stack';
 
 
 const config = Platform.select({
@@ -22,11 +29,25 @@ const config = Platform.select({
     default: {},
 });
 
-const HomeStack = createSwitchNavigator(
+const HomeStack = createStackNavigator(
     {
-        Home: Home
+        IndexScreen: {
+            screen:IndexScreen,
+            navigationOptions: {
+                title: 'Home',  
+            },
+
+        },
+        
+        Show: ShowScreen,
+        CreateScreen: CreateScreen,
+        EditScreen: EditScreen
+         //Home: Home
     },
-    config
+    {
+        initialRouteName: "IndexScreen"
+    }
+    //config
 );
 
 HomeStack.navigationOptions = {

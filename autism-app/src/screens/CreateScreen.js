@@ -7,7 +7,7 @@ const CreateScreen = ({navigation}) => {
 
     const {addBlogPost} = useContext(Context);
     return <BlogPostForm onSubmit={(title, content, location, date, triggers, severity, tags,  media)=> {
-        addBlogPost(title,content,location, date, triggers, severity, tags, media, () => navigation.navigate("Index"))
+        addBlogPost(title,content,location, date, triggers, severity, tags, media, () => navigation.navigate("IndexScreen"))
     }}
     />
 }

@@ -46,31 +46,34 @@ import NameSetup from './components/login/NameSetup';
 // SignUpNavigator holds all components associated with SignUp process -- may divide them up in the future
 const SignUpNavigator = createStackNavigator(
     { 
-        Index: IndexScreen,
-        Show: ShowScreen,
-        Create: CreateScreen,
-        Edit: EditScreen
-    // Welcome: { screen: Welcome },
-    // SignUp: { screen: SignUp },
-    // SignUpPassword: { screen: SignUpPassword },
-    // SignUpForm: { screen: SignUpForm },
-    // NameSetup: { screen: NameSetup},
-    // AgeSetup: { screen: AgeSetup },
-    // PaymentInfo: { screen: PaymentInfo },
-    // Home: { screen: Home},
-    // TermsOfService: { screen: TermsOfService },
-    // PrivatePolicy: { screen: PrivatePolicy },
-    // Authenticate: { screen: Authenticate },
-    // Login: { screen: Login },
-    // ForgotPassword: { screen: ForgotPassword },
-    // VerifyCode: { screen: VerifyCode },
-    //  LoggerSelection: { screen: LoggerSelection },
-    //  ChildSetup: {screen: ChildSetup},
-    //  ProfileSetUp: { screen: ProfileSetUp },
+    Welcome: { screen: Welcome,
+        navigationOptions:{
+            header: null  
+        } },
+    SignUp: { screen: SignUp },
+    SignUpPassword: { screen: SignUpPassword },
+    SignUpForm: { screen: SignUpForm },
+    NameSetup: { screen: NameSetup},
+    AgeSetup: { screen: AgeSetup },
+    PaymentInfo: { screen: PaymentInfo },
+    Home: { screen: Home},
+    TermsOfService: { screen: TermsOfService },
+    PrivatePolicy: { screen: PrivatePolicy },
+    Authenticate: { screen: Authenticate },
+    Login: { screen: Login },
+    ForgotPassword: { screen: ForgotPassword },
+    VerifyCode: { screen: VerifyCode },
+     LoggerSelection: { screen: LoggerSelection },
+     ChildSetup: {screen: ChildSetup},
+     ProfileSetUp: { screen: ProfileSetUp },
     
-    // Settings: { screen: Settings},
-    //  Profile: { screen: Profile},
-    //ExpandedLog: {screen: ExpandedLog},
+    Settings: { screen: Settings},
+     Profile: { screen: Profile},
+    ExpandedLog: {screen: ExpandedLog},
+    // IndexScreen: IndexScreen,
+    // Show: ShowScreen,
+    // CreateScreen: CreateScreen,
+    // EditScreen: EditScreen
 
     }
 
@@ -81,7 +84,15 @@ const SignUpNavigator = createStackNavigator(
 // Universal App Navigator
 const UniversalNavigator = createSwitchNavigator({
     SignUp: SignUpNavigator,
-    Main: MainAppNavigator
+    Main: {screen: MainAppNavigator,
+        navigationOptions: {
+            title: 'Home',
+            headerShown: false
+          }
+
+    
+    },
+
 });
 
 const App = createAppContainer(UniversalNavigator);

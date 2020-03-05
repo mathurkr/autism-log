@@ -30,6 +30,10 @@ renderTags = (item) =>{
 
 
 const IndexScreen = ({navigation}) => {
+  
+
+
+
   const {state, deleteBlogPost} = useContext(Context);
   return (
     <View style={{flex:1, backgroundColor:'#EFEFEF'}}>                
@@ -125,7 +129,7 @@ IndexScreen.navigationOptions=({navigation})=>{
       headerTitleStyle :{color:'black'},
       headerStyle: {backgroundColor:'white'},
       headerRight:(
-          <TouchableOpacity onPress={()=> navigation.navigate('Create')}> 
+          <TouchableOpacity onPress={()=> navigation.navigate('CreateScreen')}> 
           <Ionicons name="ios-add-circle" style={{ marginRight:15,color:'purple' }} size={30}  />
           </TouchableOpacity>
       )

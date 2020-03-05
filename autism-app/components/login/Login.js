@@ -48,7 +48,7 @@ class Login extends Component {
                 .signInWithEmailAndPassword(this.state.email, this.state.password)
                 .then(() => this.props.navigation.navigate('Main', { name: "Test" }))
                 .catch(error => "User does not exist");
-                this.props.navigation.navigate('Home');
+                this.props.navigation.navigate('IndexScreen');
 
         }
     }

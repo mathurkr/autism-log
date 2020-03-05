@@ -91,7 +91,7 @@ const ShowScreen = ({navigation}) => {
                 }
                 if(buttonIndex == 3)
                 {
-                    navigation.navigate("Edit", {id:navigation.getParam('id')})
+                    navigation.navigate("EditScreen", {id:navigation.getParam('id')})
 
                 }
             }
