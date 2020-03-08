@@ -224,16 +224,16 @@ export default class Home extends Component {
     }
 
     _retrieveLogs = (doc_id, date) => {
-        let ddate = "Feb 24 2020"  // Test this for now
+        // let ddate = "Feb 24 2020"  // Test this for now
         DB.firestore().collection("logs").doc(doc_id)
             .get()
             .then((doc) => {
                 if (doc.exists) {
-                    if (doc.get(ddate) != null) {
+                    if (doc.get(date) != null) {
                         const data = doc.data();
-                        for (let i = 0; i < data[ddate].length; i++) {
+                        for (let i = 0; i < data[date].length; i++) {
                             this.setState({
-                                posts: [...this.state.posts, data[ddate][i]]
+                                posts: [...this.state.posts, data[date][i]]
                             });
                         }
 
@@ -572,8 +572,8 @@ export default class Home extends Component {
 }
 
 Home.navigationOptions = ({ navigation = this.props.navigation }) => {
-    // const date = navigation.state.params.date;
-    const date = "Feb 24 2020"; // Test for now
+    const date = navigation.state.params.date;
+    // const date = "Feb 24 2020"; // Test for now
     const doc_id = navigation.state.params.doc_id;
     // alert(`${date}, ${doc_id}`);
     return {

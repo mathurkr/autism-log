@@ -31,22 +31,37 @@ class CreateLog extends Component {
         toggleSocial: false,
         toggleRoutine: false,
         toggleFood: false,
+        toggleItem: false,
+        height: 50,
+        id: '',
+
+        // Color borders/buttons
+        buttonBg: 'white',
+        borderClr: 'grey',
+        buttonBgSocial: 'white',
+        borderClrSocial: 'grey',
+        buttonBgRoutine: 'white',
+        borderClrRoutine: 'grey',
+        buttonBgFood: 'white',
+        borderClrFood: 'grey',
+        buttonBgItem: 'white',
+        borderClrItem: 'grey',
     }
 
-    buttonBg = this.state.toggle ? "white" : "rgba(110,211,225,0.30)";
-    borderClr = this.state.toggle ? "grey" : "white";
+    // buttonBg = this.state.toggle ? "white" : "rgba(110,211,225,0.30)";
+    // borderClr = this.state.toggle ? "grey" : "white";
 
-    buttonBgSocial = this.state.toggleSocial ? "white" : "rgba(110,211,225,0.30)";
-    borderClrSocial = this.state.toggleSocial ? "grey" : "white";
+    // buttonBgSocial = this.state.toggleSocial ? "white" : "rgba(110,211,225,0.30)";
+    // borderClrSocial = this.state.toggleSocial ? "grey" : "white";
 
-    buttonBgRoutine = this.state.toggleRoutine ? "white" : "rgba(110,211,225,0.30)";
-    borderClrRoutine = this.state.toggleRoutine ? "grey" : "white";
+    // buttonBgRoutine = this.state.toggleRoutine ? "white" : "rgba(110,211,225,0.30)";
+    // borderClrRoutine = this.state.toggleRoutine ? "grey" : "white";
 
-    buttonBgFood = this.state.toggleFood ? "white" : "rgba(110,211,225,0.30)";
-    borderClrFood = this.state.toggleFood ? "grey" : "white";
+    // buttonBgFood = this.state.toggleFood ? "white" : "rgba(110,211,225,0.30)";
+    // borderClrFood = this.state.toggleFood ? "grey" : "white";
 
-    buttonBgItem = this.state.toggleItem ? "white" : "rgba(110,211,225,0.30)";
-    borderClrItem = this.state.toggleItem ? "grey" : "white";
+    // buttonBgItem = this.state.toggleItem ? "white" : "rgba(110,211,225,0.30)";
+    // borderClrItem = this.state.toggleItem ? "grey" : "white";
 
     _getLocationAsync = async () => {
         const { status } = await Permissions.askAsync(Permissions.LOCATION);
@@ -59,17 +74,20 @@ class CreateLog extends Component {
         let region = {
             latitude: regionData.coords.latitude,
             longitude: regionData.coords.longitude,
-            latitudeDelta: 0.045,
-            longitudeDelta: 0.45
+            // latitudeDelta: 0.045,
+            // longitudeDelta: 0.45
         }
-        // let regionInfo = ({
-        //     latitude: location.coords.latitude,
-        //     longitude: location.coords.longitude,
-        //     latitudeDelta: 0.045,
-        //     longitudeDelta: 0.045
-        // })
 
-        this.setState({ region: region });
+        fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + region.latitude + ',' + region.longitude + '&key=' + 'AIzaSyDku9k2XFLfH8r-s0a2OTniB0-3z4TxPhM')
+            .then((response) => response.json())
+            .then((responseJson) => {
+                //console.log('ADDRESS GEOCODE is BACK!! => ' + JSON.stringify(responseJson));
+                var stateName = responseJson.results[0].address_components.filter(x => x.types.filter(t => t == 'administrative_area_level_1').length > 0)[0].short_name;
+                var cityName = responseJson.results[0].address_components.filter(x => x.types.filter(t => t == 'administrative_area_level_2').length > 0)[0].short_name;
+                this.setState({ location: cityName + " " + stateName });
+            })
+
+        // this.setState({ region: region });
         // setRegion(region)
 
     }
@@ -115,104 +133,250 @@ class CreateLog extends Component {
     _uploadImage = async (uri, name, date) => {
         const response = await fetch(uri);
         const blob = await response.blob();
+        const id = Math.floor(Math.random() * 99999).toString();
+        this.setState({ id: id });
 
-        let ref = firebase.storage().ref().child("images/logs/" + name + "/" + date);
+        let ref = firebase.storage().ref().child("images/logs/" + name + "/" + date + "/" + id);
         return ref.put(blob);
     }
 
     _onPress = () => {
-        this.setState({ toggle: !this.state.toggle });
+        if (this.state.toggle) {
+            this.setState({ toggle: false, buttonBg: 'white', borderClr: 'grey' })
+        }
+        else {
+            this.setState({ toggle: true, buttonBg: 'rgba(110,211,225,0.30)', borderClr: 'white' })
+        }
+        // this.setState({ toggle: !this.state.toggle });
         // setToggle(!toggle)
     }
 
     _onPressSocial = () => {
-        this.setState({ toggleSocial: !this.state.toggleSocial });
+        if (this.state.toggleSocial) {
+            this.setState({ toggleSocial: false, buttonBgSocial: 'white', borderClrSocial: 'grey' })
+        }
+        else {
+            this.setState({ toggleSocial: true, buttonBgSocial: 'rgba(110,211,225,0.30)', borderClrSocial: 'white' })
+        }
+        // this.setState({ toggleSocial: !this.state.toggleSocial });
         // setToggleSocial(!toggleSocial)
     }
 
     _onPressRoutine = () => {
+        if (this.state.toggleRoutine) {
+            this.setState({ toggleRoutine: false, buttonBgRoutine: 'white', borderClrRoutine: 'grey' })
+        }
+        else {
+            this.setState({ toggleRoutine: true, buttonBgRoutine: 'rgba(110,211,225,0.30)', borderClrRoutine: 'white' })
+        }
         // setToggleRoutine(!toggleRoutine)
-        this.setState({ toggleRoutine: !this.state.toggleRoutine });
+        // this.setState({ toggleRoutine: !this.state.toggleRoutine });
     }
 
     _onPressFood = () => {
+        if (this.state.toggleFood) {
+            this.setState({ toggleFood: false, buttonBgFood: 'white', borderClrFood: 'grey' })
+        }
+        else {
+            this.setState({ toggleFood: true, buttonBgFood: 'rgba(110,211,225,0.30)', borderClrFood: 'white' })
+        }
         // setToggleFood(!toggleFood)
-        this.setState({ toggleFood: !this.state.toggleFood });
+        // this.setState({ toggleFood: !this.state.toggleFood });
     }
 
     _onPressItem = () => {
+        if (this.state.toggleItem) {
+            this.setState({ toggleItem: false, buttonBgItem: 'white', borderClrItem: 'grey' })
+        }
+        else {
+            this.setState({ toggleItem: true, buttonBgItem: 'rgba(110,211,225,0.30)', borderClrItem: 'white' })
+        }
         // setToggleItem(!toggleItem)
-        this.setState({ toggleItem: !this.state.toggleItem }); c
+        // this.setState({ toggleItem: !this.state.toggleItem });
     }
 
-    _submitLog = (title, content, location, time, triggers, severity, media) => {
-        // alert(`${title}, ${content}, ${location}, ${date}, ${triggers}, ${severity}, ${media}`);
+    severityLevelTitle = (severity) => {
+        // console.log(severity)
+        this.setState({ severity: severity })
 
-        // Hard code values for now (except for media)
+        if (severity >= 0 && severity <= 20) {
+            this.setState({ title: "Slight Pain" });
+        }
+        else if (severity >= 20 && severity <= 40) {
+            this.setState({ title: "Mild" });
+        }
+        else if (severity >= 40 && severity <= 60) {
+            this.setState({ title: "Moderate" });
+        }
+        else if (severity >= 60 && severity <= 80) {
+            this.setState({ title: "Severe" });
+        }
+        else if (severity >= 80 && severity <= 100) {
+            this.setState({ title: "Worst Pain" });
+        }
+    }
+
+    _submitLog = () => {
+        // alert(`${title}, ${content}, ${location}, ${date}, ${triggers}, ${severity}, ${media}`);
+        console.log(this.state.title);
+        console.log(this.state.content);
+        console.log(this.state.location);
+        console.log(this.state.date);
+        console.log(this.state.triggers);
+        console.log(this.state.severity);
+        console.log(this.state.media);
+
+        // Hard behaviors and resolution for now 
         const behaviors = ["Yelling", "Screaming", "Shouting"];
         const resolution = ["Waited it Out", "Gave some medicine", "Redirection"];
-        const scale = "Very Severe"
+        const scale = this.state.title;
         const avatar = "";  // May no longer be necessary 
-        const tags =
-            [
-                {
-                    name: "Sensory",
-                    icon: "ios-body",
-                },
-                {
-                    name: "Routine",
-                    icon: "ios-calendar"
-                },
-                {
-                    name: "Social",
-                    icon: "ios-people"
-                },
-            ];
-        const text = "Charles felt uncomfortable during Math class";
-        const timestamp = 1569109273726;
-        const id = Math.floor(Math.random() * 99999).toString();
+        const tags = this.state.triggers;
+        const text = this.state.content;
+        const timestamp = new Date(this.state.date).getTime();
+        const id = this.state.id;
+        const location = this.state.location;
+        const severity = Math.floor(this.state.severity);
+        // console.log(timestamp);
+        // const scale = "Very Severe"
+        // const avatar = "";  // May no longer be necessary 
+        // const tags =
+        //     [
+        //         {
+        //             name: "Sensory",
+        //             icon: "ios-body",
+        //         },
+        //         {
+        //             name: "Routine",
+        //             icon: "ios-calendar"
+        //         },
+        //         {
+        //             name: "Social",
+        //             icon: "ios-people"
+        //         },
+        //     ];
+        // const text = "Charles felt uncomfortable during Math class";
+        // const timestamp = 1569109273726;
+        // const id = Math.floor(Math.random() * 99999).toString();
 
 
-        const loc = "Anaheim, California";
+        // const loc = "Anaheim, California";
 
-        // const { params } = navigation.state;
+        // // const { params } = navigation.state;
 
         const { params } = this.props.navigation.state;
 
-        // const { doc_id } = route.params;
-        // const { date } = route.params;
+        // // const { doc_id } = route.params;
+        // // const { date } = route.params;
 
         const doc_id = params.doc_id;
         const date = params.date;
+        console.log(date);
+        console.log(id);
 
         const collection = DB.firestore().collection('logs');
-        let ref = firebase.storage().ref().child("images/logs/" + doc_id + "/" + date);
+        let ref = firebase.storage().ref().child("images/logs/" + doc_id + "/" + date + "/" + id);
 
         // Get download url from storage to store in profiles collection
         ref.getDownloadURL()
             .then((url) => {
+                // First check if date is in logs collection
                 collection.doc(doc_id)
-                    .update({
-                        [date]: firebase.firestore.FieldValue.arrayUnion({
-                            "id": id,
-                            "avatar": avatar,
-                            "image": url,
-                            "location": loc,
-                            "scale": scale,
-                            "text": text,
-                            "timestamp": timestamp,
-                            "behaviors": behaviors,
-                            "resolution": resolution,
-                            "tags": tags
-                        })
-                    })
-                // .catch(function (error) {
-                //     alert(error);
-                // });
+                    .get()
+                    .then((doc) => {
+                        if (doc.exists) {
+                            if (doc.get(date) != null) {
+                                console.log("Executing");
+                                // Append new log to logs collection for that date
+                                collection.doc(doc_id)
+                                    .update({
+                                        [date]: firebase.firestore.FieldValue.arrayUnion({
+                                            "id": id,
+                                            "avatar": avatar,
+                                            "image": url,
+                                            "location": location,
+                                            "scale": scale,
+                                            "severity": severity,
+                                            "text": text,
+                                            "timestamp": timestamp,
+                                            "behaviors": behaviors,
+                                            "resolution": resolution,
+                                            "tags": tags
+                                        })
+                                    })
+                                    .catch((error) => {
+                                        alert("Error while appending: " + error);
+                                    });
+                                // .catch(function (error) {
+                                //     alert(error);
+                                // });
 
-                // Return to Home page
-                this._navigateToHome(doc_id);
+                            }
+                            // Create new date to hold logs in log collection
+                            else {
+
+                                const post = [
+                                    {
+                                        id: id,
+                                        avatar: avatar,
+                                        image: url,
+                                        location: location,
+                                        scale: scale,
+                                        severity: severity,
+                                        text: text,
+                                        timestamp: timestamp,
+                                        behaviors: behaviors,
+                                        resolution: resolution,
+                                        tags: tags
+                                    }
+                                ];
+
+                                collection.doc(doc_id)
+                                    .set({
+                                        [date]: post
+                                    })
+                                    .catch((error) => {
+                                        alert("Error while adding: " + error);
+                                    });
+                            }
+                            // Return to Home page
+                            this._navigateToHome(doc_id);
+                        }
+                        else {
+                            alert('There are currently no logs associated with the user');
+                        }
+                    })
+                    .catch(function (error) {
+                        alert("Error getting documents from log collection: ", error);
+                    });
             })
+            .catch(function (error) {
+                alert("Couldn't retrieve image URL: ", error);
+            });
+
+        //     collection.doc(doc_id)
+        //         .update({
+        //             [date]: firebase.firestore.FieldValue.arrayUnion({
+        //                 "id": id,
+        //                 "avatar": avatar,
+        //                 "image": url,
+        //                 "location": location,
+        //                 "scale": scale,
+        //                 "severity": severity,
+        //                 "text": text,
+        //                 "timestamp": timestamp,
+        //                 "behaviors": behaviors,
+        //                 "resolution": resolution,
+        //                 "tags": tags
+        //             })
+        //         })
+        //     // .catch(function (error) {
+        //     //     alert(error);
+        //     // });
+
+        //     // Return to Home page
+        //     this._navigateToHome(doc_id);
+        // })
         // .catch((error) => {
         //     alert(error);
         // });
@@ -306,9 +470,9 @@ class CreateLog extends Component {
                                     date={this.state.date} //initial date from state
                                     mode="date" //The enum of date, datetime and time
                                     placeholder="select date"
-                                    format="DD-MM-YYYY"
-                                    minDate="01-01-2016"
-                                    maxDate="01-01-2019"
+                                    format="MM/DD/YYYY"
+                                    minDate="01-01-2018"
+                                    maxDate="01-01-2021"
                                     confirmBtnText="Confirm"
                                     cancelBtnText="Cancel"
                                     showIcon={false}
@@ -345,17 +509,17 @@ class CreateLog extends Component {
                                         minimumValue={1}
                                         maximumValue={100}
                                         value={this.state.severity}
-                                        onValueChange={(severity) => this.setState({ severity: severity })}
+                                        onValueChange={(severity) => this.severityLevelTitle(severity)}
                                         thumbTintColor='purple'
                                         maximumTrackTintColor='#d3d3d3'
                                         minimumTrackTintColor='blue'
                                     />
                                     <View style={styles.textCon}>
-                                        <Text style={{ color: '#48AAAD' }}> Moderate </Text>
+                                        <Text style={{ color: '#48AAAD' }}> Slight Pain </Text>
                                         <Text style={{ color: "#77869e" }}>
-                                            {Math.floor(this.state.severity.severity)}
+                                            {Math.floor(this.state.severity)}
                                         </Text>
-                                        <Text style={{ color: "#3200DF" }}> Very Severe </Text>
+                                        <Text style={{ color: "#3200DF" }}> Worst Pain </Text>
                                     </View>
                                 </View>
                             </View>
@@ -382,14 +546,14 @@ class CreateLog extends Component {
                     <View style={[styles.cardContent, styles.tagsContent]}>
 
                         <TouchableOpacity style={{
-                            backgroundColor: this.buttonBg,
+                            backgroundColor: this.state.buttonBg,
                             padding: 8,
                             borderRadius: 30,
                             marginHorizontal: 3,
                             marginTop: 5,
                             marginLeft: 20,
                             marginBottom: 10,
-                            borderColor: this.borderClr,
+                            borderColor: this.state.borderClr,
                             borderWidth: 1
                         }}
                             onPress={
@@ -407,14 +571,14 @@ class CreateLog extends Component {
 
                         <TouchableOpacity
                             style={{
-                                backgroundColor: this.buttonBgSocial,
+                                backgroundColor: this.state.buttonBgSocial,
                                 padding: 8,
                                 borderRadius: 30,
                                 marginHorizontal: 3,
                                 marginTop: 5,
                                 marginLeft: 20,
                                 marginBottom: 10,
-                                borderColor: this.borderClrSocial,
+                                borderColor: this.state.borderClrSocial,
                                 borderWidth: 1
                             }}
                             onPress={
@@ -431,14 +595,14 @@ class CreateLog extends Component {
 
                         <TouchableOpacity
                             style={{
-                                backgroundColor: this.buttonBgRoutine,
+                                backgroundColor: this.state.buttonBgRoutine,
                                 padding: 8,
                                 borderRadius: 30,
                                 marginHorizontal: 3,
                                 marginTop: 5,
                                 marginLeft: 20,
                                 marginBottom: 10,
-                                borderColor: this.borderClrRoutine,
+                                borderColor: this.state.borderClrRoutine,
                                 borderWidth: 1
                             }}
                             onPress={
@@ -456,19 +620,19 @@ class CreateLog extends Component {
 
                         <TouchableOpacity
                             style={{
-                                backgroundColor: this.buttonBgFood,
+                                backgroundColor: this.state.buttonBgFood,
                                 padding: 8,
                                 borderRadius: 30,
                                 marginHorizontal: 3,
                                 marginTop: 5,
                                 marginLeft: 20,
                                 marginBottom: 10,
-                                borderColor: this.borderClrFood,
+                                borderColor: this.state.borderClrFood,
                                 borderWidth: 1
                             }}
                             onPress={
                                 () => {
-                                    this.setTriggers('routine', 'ios-calendar');
+                                    this.setTriggers('Food', 'ios-pizza');
                                     this._onPressFood()
                                 }}>
                             <View style={{ flexDirection: "row" }}>
@@ -479,19 +643,19 @@ class CreateLog extends Component {
 
                         <TouchableOpacity
                             style={{
-                                backgroundColor: this.buttonBgItem,
+                                backgroundColor: this.state.buttonBgItem,
                                 padding: 8,
                                 borderRadius: 30,
                                 marginHorizontal: 3,
                                 marginTop: 5,
                                 marginLeft: 20,
                                 marginBottom: 10,
-                                borderColor: this.borderClrItem,
+                                borderColor: this.state.borderClrItem,
                                 borderWidth: 1
                             }}
                             onPress={
                                 () => {
-                                    this.setTriggers('routine', 'ios-calendar');
+                                    this.setTriggers('Item taken away', 'ios-sad');
                                     this._onPressItem()
                                 }}>
 
@@ -504,10 +668,19 @@ class CreateLog extends Component {
 
                     </View>
 
+                    <View style={styles.inputContainer}>
+                        <TextInput
+                            multiline
+                            placeholder=" Add Note..."
+                            placeholderText="#999999 "
+                            onContentSizeChange={e => this.setState({ height: e.nativeEvent.contentSize.height })}
+                            style={[styles.inputs, { height: this.state.height }]} value={this.state.content} onChangeText={(text) => this.setState({ content: text })} />
+                    </View>
+
 
 
                     <View style={{ flex: 1, marginTop: 10 }}>
-                        <TouchableOpacity style={{ alignSelf: 'stretch', backgroundColor: '#29d2e4', borderRadius: 27, marginHorizontal: 30 }} onPress={() => this._submitLog(this.state.title, this.state.content, this.state.location, this.state.date, this.state.triggers, this.state.severity, this.state.media)}>
+                        <TouchableOpacity style={{ alignSelf: 'stretch', backgroundColor: '#29d2e4', borderRadius: 27, marginHorizontal: 30 }} onPress={() => this._submitLog()}>
                             <Text style={{
                                 alignSelf: 'center',
                                 color: '#ffffff',
