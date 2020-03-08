@@ -10,3 +10,7 @@ export default class HomeHelper extends Component {
         return null;
     }
 }
+//         this.props.navigation.navigate('IndexScreen', { email: params.email, doc_id: params.doc_id, date: params.date })
+//         return null;
+//     }
+// }

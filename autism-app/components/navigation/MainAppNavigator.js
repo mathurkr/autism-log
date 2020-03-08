@@ -20,10 +20,17 @@ import CreateLog from './CreateLog';
 import MainHelper from './MainHelper';
 import HomeHelper from './HomeHelper';
 
+import IndexScreen from '../../src/screens/IndexScreen';
+import CreateScreen from '../../src/screens/CreateScreen';
+import EditScreen from '../../src/screens/EditScreen';
+import ShowScreen from '../../src/screens/ShowScreen';
+
+
 // Import device components
 // import CameraLog from './camera/CameraLog';
 import QuickCamera from './camera/QuickCamera';
 import MainCamera from './camera/MainCamera';
+// import { createStackNavigator } from 'react-navigation-stack';
 
 
 const config = Platform.select({
@@ -58,6 +65,25 @@ const HomeStack = createStackNavigator(
     {
         initialRouteName: "Home"
     }
+    // const HomeStack = createStackNavigator(
+    //     {
+    //         IndexScreen: {
+    //             screen: IndexScreen,
+    //             navigationOptions: {
+    //                 title: 'Home',
+    //             },
+
+    //         },
+
+    //         Show: ShowScreen,
+    //         CreateScreen: CreateScreen,
+    //         EditScreen: EditScreen
+    //         //Home: Home
+    //     },
+    //     {
+    //         initialRouteName: "IndexScreen"
+    //     }
+    //     //config
 );
 
 HomeStack.navigationOptions = {
@@ -126,13 +152,12 @@ LogsStack.navigationOptions = {
 
 LogsStack.path = '';
 
-const TabNavigator = createBottomTabNavigator(
-    {
-        HomeStack,
-        ProfileStack,
-        SettingsStack,
-        LogsStack
-    },
+const TabNavigator = createBottomTabNavigator({
+    HomeStack,
+    ProfileStack,
+    SettingsStack,
+    LogsStack
+},
     {
         initialRouteName: "HomeStack"
     }
@@ -156,7 +181,6 @@ const AppNavigator = createSwitchNavigator(
         }
     }
 );
-
 // const AppNavigator = createSwitchNavigator(
 //     {
 //         Tabs: TabNavigator,

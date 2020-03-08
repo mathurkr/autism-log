@@ -44,54 +44,40 @@ import Home from './components/navigation/Home'
 
 
 // SignUpNavigator holds all components associated with SignUp process -- may divide them up in the future
-const SignUpNavigator = createStackNavigator({
-    Welcome: { screen: Welcome },
-    SignUp: { screen: SignUp },
-    SignUpPassword: { screen: SignUpPassword },
-    SignUpForm: { screen: SignUpForm },
-    NameSetup: { screen: NameSetup },
-    AgeSetup: { screen: AgeSetup },
-    PaymentInfo: { screen: PaymentInfo },
-    TermsOfService: { screen: TermsOfService },
-    PrivatePolicy: { screen: PrivatePolicy },
-    Authenticate: { screen: Authenticate },
-    Login: { screen: Login },
-    ForgotPassword: { screen: ForgotPassword },
-    VerifyCode: { screen: VerifyCode },
-    LoggerSelection: { screen: LoggerSelection },
-    ProfileSetUp: { screen: ProfileSetUp },
-    ChildSetup: { screen: ChildSetup },
+const SignUpNavigator = createStackNavigator(
+    {
+        Welcome: {
+            screen: Welcome,
+            navigationOptions: {
+                header: null
+            }
+        },
+        SignUp: { screen: SignUp },
+        SignUpPassword: { screen: SignUpPassword },
+        SignUpForm: { screen: SignUpForm },
+        NameSetup: { screen: NameSetup },
+        AgeSetup: { screen: AgeSetup },
+        PaymentInfo: { screen: PaymentInfo },
+        Home: { screen: Home },
+        TermsOfService: { screen: TermsOfService },
+        PrivatePolicy: { screen: PrivatePolicy },
+        Authenticate: { screen: Authenticate },
+        Login: { screen: Login },
+        ForgotPassword: { screen: ForgotPassword },
+        VerifyCode: { screen: VerifyCode },
+        LoggerSelection: { screen: LoggerSelection },
+        ChildSetup: { screen: ChildSetup },
+        ProfileSetUp: { screen: ProfileSetUp },
 
+        Settings: { screen: Settings },
+        Profile: { screen: Profile },
+        ExpandedLog: { screen: ExpandedLog },
+        // IndexScreen: IndexScreen,
+        // Show: ShowScreen,
+        // CreateScreen: CreateScreen,
+        // EditScreen: EditScreen
 
-    ExpandedLog: { screen: ExpandedLog },
-
-    // Index: { screen: IndexScreen },
-    // Show: { screen: ShowScreen },
-    // Create: { screen: CreateScreen },
-    // Edit: { screen: EditScreen }
-    // Welcome: { screen: Welcome },
-    // SignUp: { screen: SignUp },
-    // SignUpPassword: { screen: SignUpPassword },
-    // SignUpForm: { screen: SignUpForm },
-    // NameSetup: { screen: NameSetup},
-    // AgeSetup: { screen: AgeSetup },
-    // PaymentInfo: { screen: PaymentInfo },
-    // Home: { screen: Home},
-    // TermsOfService: { screen: TermsOfService },
-    // PrivatePolicy: { screen: PrivatePolicy },
-    // Authenticate: { screen: Authenticate },
-    // Login: { screen: Login },
-    // ForgotPassword: { screen: ForgotPassword },
-    // VerifyCode: { screen: VerifyCode },
-    //  LoggerSelection: { screen: LoggerSelection },
-    //  ChildSetup: {screen: ChildSetup},
-    //  ProfileSetUp: { screen: ProfileSetUp },
-
-    // Settings: { screen: Settings},
-    //  Profile: { screen: Profile},
-    //ExpandedLog: {screen: ExpandedLog},
-
-}
+    }
 
 
 
@@ -112,6 +98,8 @@ const SignUpNavigator = createStackNavigator({
 const UniversalNavigator = createSwitchNavigator({
     SignUp: SignUpNavigator,
     Main: MainAppNavigator
+
+
 });
 
 const App = createAppContainer(UniversalNavigator);

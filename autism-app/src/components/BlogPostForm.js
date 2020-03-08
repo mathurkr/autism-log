@@ -9,6 +9,7 @@ import { Ionicons } from "@expo/vector-icons";
 import * as ImagePicker from 'expo-image-picker';
 import UserPermissions from '../../components/utlitities/UserPermissions'
 import { FontAwesome } from '@expo/vector-icons';
+// import Geocoder from 'react-native-geocoder';
 
 import { connectActionSheet } from '@expo/react-native-action-sheet';
 
@@ -31,6 +32,8 @@ const BlogPostForm = ({ onSubmit, initialValues }) => {
     const [toggleRoutine, setToggleRoutine] = useState(initialValues, toggleRoutine)
     const [toggleFood, setToggleFood] = useState(initialValues, toggleFood)
     const [toggleItem, setToggleItem] = useState(initialValues, toggleItem)
+
+    const [height, setHeight] = useState(50)
 
 
 
@@ -61,9 +64,47 @@ const BlogPostForm = ({ onSubmit, initialValues }) => {
         let region = {
             latitude: regionData.coords.latitude,
             longitude: regionData.coords.longitude,
-            latitudeDelta: 0.045,
-            longitudeDelta: 0.45
+            // latitudeDelta: 0.045,
+            // longitudeDelta: 0.45
         }
+
+        fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + region.latitude + ',' + region.longitude + '&key=' + 'AIzaSyDku9k2XFLfH8r-s0a2OTniB0-3z4TxPhM')
+            .then((response) => response.json())
+            .then((responseJson) => {
+                //console.log('ADDRESS GEOCODE is BACK!! => ' + JSON.stringify(responseJson));
+                var stateName = responseJson.results[0].address_components.filter(x => x.types.filter(t => t == 'administrative_area_level_1').length > 0)[0].short_name;
+                var cityName = responseJson.results[0].address_components.filter(x => x.types.filter(t => t == 'administrative_area_level_2').length > 0)[0].short_name;
+                setLocation(cityName + " " + stateName)
+            })
+
+
+        // Geocoder.init('AIzaSyDku9k2XFLfH8r-s0a2OTniB0-3z4TxPhM');
+        // Geocoder.from(41.89, 12.49)
+        // .tehn(jason => {
+        //     var addressComponent = json.results[0].address_components[0];
+        //     console.log(addressComponent);
+        // })
+        // .catch(error =>
+        //         console.log()
+        //     )
+
+        // console.log(ret);
+        // setLocation(region)
+        // let lat =  region.latitude
+        // let lng = region.longitude
+
+        // var pos = { 
+        //     lat, lng
+        // }
+        // console.log("POS: " + pos)
+
+        // Geocoder.geocodePosition(pos).then(res=>{
+        //     alert(res[0].formattedAddress);
+        // })
+        // .catch(error => alert(error));
+
+
+
         // let regionInfo = ({
         //     latitude: location.coords.latitude,
         //     longitude: location.coords.longitude,
@@ -71,12 +112,10 @@ const BlogPostForm = ({ onSubmit, initialValues }) => {
         //     longitudeDelta: 0.045
         // })
 
-        setRegion(region)
-
     }
 
     test = () => {
-        console.log("tested")
+        console.warn(error)
     }
 
     handleMedia = async () => {
@@ -113,7 +152,30 @@ const BlogPostForm = ({ onSubmit, initialValues }) => {
         setToggleItem(!toggleItem)
     }
 
-    return <View styles={{ flex: 1, backgroundColor: '#EFEFEF' }}>
+
+    severityLevelTitle = (severity) => {
+        console.log(severity)
+
+        if (severity >= 0 && severity <= 20) {
+            return ("Slight Pain")
+        }
+        else if (severity >= 20 && severity <= 40) {
+            return ("Mild")
+        }
+        else if (severity >= 40 && severity <= 60) {
+            return ("Moderate")
+        }
+        else if (severity >= 60 && severity <= 80) {
+            return ("Severe")
+        }
+        else if (severity >= 80 && severity <= 100) {
+            return ("Worst Pain")
+        }
+    }
+
+
+
+    return <View styles={{ flex: 1, backgroundColor: '' }}>
         <ScrollView styles={{}}>
             <View style={styles.header}>
                 <Image
@@ -134,59 +196,63 @@ const BlogPostForm = ({ onSubmit, initialValues }) => {
             </View>
 
 
-            <View style={{ backgroundColor: '#EFEFEF' }}>
+            <TouchableOpacity onPress={_getLocationAsync} >
+                <View style={styles.notificationBox}>
+                    <Ionicons name="ios-time" size={20} color="#77909c" style={styles.icon} />
+                    <View style={styles.btntextcontainer}>
+                        <Text style={styles.description}>Date & Time</Text>
+                    </View>
+                    <Text numberOfLines={2} style={styles.subDescription}> {JSON.stringify(date)} </Text>
+                    <DatePicker
+                        style={{ width: 50, marginRight: 15, }}
+                        date={date} //initial date from state
+                        mode="date" //The enum of date, datetime and time
+                        placeholder="select date"
+                        format="DD-MM-YYYY"
+                        minDate="01-01-2016"
+                        maxDate="01-01-2019"
+                        confirmBtnText="Confirm"
+                        cancelBtnText="Cancel"
+                        hideText
+                        customStyles={{
+                            dateInput: {
+                                borderWidth: 0,
+                                borderBottomWidth: 2,
+                                alignItems: "flex-start"
+                            },
+                            placeholderText: {
+                                fontSize: 17,
+                                color: "white"
+                            },
+                            dateText: {
+                                fontSize: 17,
+                                color: "white",
+                            }
+                        }}
+                        onDateChange={
+                            (d) => setDate(d)
+                        }
+                    />
+                    <Ionicons style={styles.mblTxt} name="ios-arrow-forward" size={20} color="#77909c" style={styles.icon} />
+                </View>
+            </TouchableOpacity>
+
+
+            <View style={{ backgroundColor: '' }}>
                 <TouchableOpacity onPress={_getLocationAsync} >
                     <View style={styles.notificationBox}>
-                        <Ionicons name="ios-pin" size={20} color="#77909c" style={styles.icon} />
+                        <Ionicons name="ios-pin" size={20} color="#C4C6CE" style={styles.icon} />
                         <View style={styles.btntextcontainer}>
                             <Text style={styles.description}>Location</Text>
 
                         </View>
-                        <Text numberOfLines={2} style={styles.subDescription}> Santa Margarita, California{JSON.stringify(region)} }</Text>
+                        <Text numberOfLines={2} style={styles.subDescription}> {(location)} </Text>
 
                         <Ionicons style={styles.mblTxt} name="ios-arrow-forward" size={20} color="#77909c" style={styles.icon} />
                     </View>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={_getLocationAsync} >
-                    <View style={styles.notificationBox}>
-                        <Ionicons name="ios-time" size={20} color="#77909c" style={styles.icon} />
-                        <View style={styles.btntextcontainer}>
-                            <Text style={styles.description}>Date & Time</Text>
-                        </View>
-                        <Text numberOfLines={2} style={styles.subDescription}> {JSON.stringify(date)}</Text>
-                        <DatePicker
-                            style={{ width: 50, marginRight: 15, }}
-                            date={date} //initial date from state
-                            mode="date" //The enum of date, datetime and time
-                            placeholder="select date"
-                            format="DD-MM-YYYY"
-                            minDate="01-01-2016"
-                            maxDate="01-01-2019"
-                            confirmBtnText="Confirm"
-                            cancelBtnText="Cancel"
-                            showIcon={false}
-                            hideText
-                            customStyles={{
-                                dateInput: {
-                                    borderWidth: 0,
-                                    borderBottomWidth: 2,
-                                    alignItems: "flex-start"
-                                },
-                                placeholderText: {
-                                    fontSize: 17,
-                                    color: "white"
-                                },
-                                dateText: {
-                                    fontSize: 17,
-                                    color: "white",
-                                }
-                            }}
-                            onDateChange={(d) => setDate(d)}
-                        />
-                        <Ionicons style={styles.mblTxt} name="ios-arrow-forward" size={20} color="#77909c" style={styles.icon} />
-                    </View>
-                </TouchableOpacity>
+
 
 
                 <View style={styles.notificationBox}>
@@ -199,197 +265,215 @@ const BlogPostForm = ({ onSubmit, initialValues }) => {
                                 minimumValue={1}
                                 maximumValue={100}
                                 value={BlogPostForm.defaultProps.initialValues.severity}
-                                onValueChange={(severity) => setSeverity({ severity })}
+                                onValueChange={
+                                    (severity) => {
+                                        setSeverity({ severity })
+                                        setTitle(severityLevelTitle(severity))
+                                    }
+                                }
                                 thumbTintColor='purple'
                                 maximumTrackTintColor='#d3d3d3'
                                 minimumTrackTintColor='blue'
                             />
                             <View style={styles.textCon}>
-                                <Text style={{ color: '#48AAAD' }}> Moderate </Text>
+                                <Text style={{ color: '#48AAAD' }}> Slight Pain </Text>
                                 <Text style={{ color: "#77869e" }}>
                                     {Math.floor(severity.severity)}
                                 </Text>
-                                <Text style={{ color: "#3200DF" }}> Very Severe </Text>
+                                <Text style={{ color: "#3200DF" }}> Worst Pain </Text>
                             </View>
                         </View>
+                        <Text numberOfLines={2} style={styles.subDescription}></Text>
                     </View>
-                    <Text numberOfLines={2} style={styles.subDescription}></Text>
+
+
+                </View>
+
+
+
+
+
+
+                {/* <Text style={styles.label}> Enter Title </Text>
+        <TextInput style={styles.input} value={title} onChangeText={(text => setTitle(text))} />  */}
+
+
+                {/* <Text style={styles.label}> Location </Text>
+        <TextInput style={styles.input} onChangeText={(text) => setLocation(text)} value={location} /> */}
+                <Text style={styles.iconTitle}>Triggers</Text>
+                <View style={[styles.cardContent, styles.tagsContent]}>
+
+                    <TouchableOpacity style={{
+                        backgroundColor: buttonBg,
+                        padding: 8,
+                        borderRadius: 30,
+                        marginHorizontal: 3,
+                        marginTop: 5,
+                        marginLeft: 20,
+                        marginBottom: 10,
+                        borderColor: borderClr,
+                        borderWidth: 1
+                    }}
+                        onPress={
+                            () => {
+                                this.setTriggers('sensory', 'ios-body');
+                                this._onPress()
+                            }}
+                    >
+                        <View style={{ flexDirection: "row" }}>
+                            <Ionicons color="#0047cc" name="ios-body" size={15} />
+                            <Text style={styles.tag}> Sensory </Text>
+                            {console.log(triggers)}
+                        </View>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={{
+                            backgroundColor: buttonBgSocial,
+                            padding: 8,
+                            borderRadius: 30,
+                            marginHorizontal: 3,
+                            marginTop: 5,
+                            marginLeft: 20,
+                            marginBottom: 10,
+                            borderColor: borderClrSocial,
+                            borderWidth: 1
+                        }}
+                        onPress={
+                            () => {
+                                this.setTriggers('Social', 'ios-people');
+                                this._onPressSocial()
+                            }}>
+                        <View style={{ flexDirection: "row" }}>
+                            <Ionicons color="#0047cc" name="ios-people" size={15} />
+                            <Text style={styles.tag}> Social </Text>
+                        </View>
+                    </TouchableOpacity>
+
+
+                    <TouchableOpacity
+                        style={{
+                            backgroundColor: buttonBgRoutine,
+                            padding: 8,
+                            borderRadius: 30,
+                            marginHorizontal: 3,
+                            marginTop: 5,
+                            marginLeft: 20,
+                            marginBottom: 10,
+                            borderColor: borderClrRoutine,
+                            borderWidth: 1
+                        }}
+                        onPress={
+                            () => {
+                                this.setTriggers('Routine', 'ios-calendar');
+                                this._onPressRoutine()
+                            }}
+                    >
+                        <View style={{ flexDirection: "row" }}>
+                            <Ionicons color="#0047cc" name="ios-calendar" size={15} />
+                            <Text style={styles.tag}> Routine </Text>
+                        </View>
+                    </TouchableOpacity>
+
+
+                    <TouchableOpacity
+                        style={{
+                            backgroundColor: buttonBgFood,
+                            padding: 8,
+                            borderRadius: 30,
+                            marginHorizontal: 3,
+                            marginTop: 5,
+                            marginLeft: 20,
+                            marginBottom: 10,
+                            borderColor: borderClrFood,
+                            borderWidth: 1
+                        }}
+                        onPress={
+                            () => {
+                                this.setTriggers('Food', 'ios-pizza');
+                                this._onPressFood()
+                            }}>
+                        <View style={{ flexDirection: "row" }}>
+                            <Ionicons color="#0047cc" name="ios-pizza" size={15} />
+                            <Text style={styles.tag}> Food </Text>
+                        </View>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={{
+                            backgroundColor: buttonBgItem,
+                            padding: 8,
+                            borderRadius: 30,
+                            marginHorizontal: 3,
+                            marginTop: 5,
+                            marginLeft: 20,
+                            marginBottom: 10,
+                            borderColor: borderClrItem,
+                            borderWidth: 1
+                        }}
+                        onPress={
+                            () => {
+                                this.setTriggers('Item taken away', 'ios-sad');
+                                this._onPressItem()
+                            }}>
+
+                        <View style={{ flexDirection: "row" }}>
+                            <Ionicons color="#0047cc" name="ios-sad" size={15} />
+                            <Text style={styles.tag}> Item taken away </Text>
+                        </View>
+                    </TouchableOpacity>
+
+
+                </View>
+
+
+                <View style={styles.inputContainer}>
+                    <TextInput
+                        multiline
+                        placeholder=" Add Note..."
+                        placeholderText="#999999 "
+                        onContentSizeChange={e => setHeight(e.nativeEvent.contentSize.height)}
+                        style={[styles.inputs, { height: height }]} value={content} onChangeText={(text) => setContent(text)} />
+                </View>
+
+
+
+                <View style={{ flex: 1, marginTop: 10 }}>
+                    <TouchableOpacity style={{ alignSelf: 'stretch', backgroundColor: '#29d2e4', borderRadius: 27, marginHorizontal: 60 }}
+                        onPress={
+                            () => onSubmit(title, content, location, date, triggers, severity, tags, media)
+                        }>
+
+                        <Text style={{
+                            alignSelf: 'center',
+                            color: '#ffffff',
+                            fontSize: 16,
+                            fontWeight: '600',
+                            paddingTop: 10,
+                            paddingBottom: 10
+                        }}>Submit Quick Log</Text>
+                    </TouchableOpacity>
+                </View>
+
+                <View style={{ flex: 1, marginTop: 10 }}>
+                    <TouchableOpacity style={{ alignSelf: 'stretch', backgroundColor: 'white', borderRadius: 27, marginHorizontal: 60, borderWidth: 1, borderColor: "black", marginTop: 10 }} onPress={() => { onCancelPress }}>
+                        <Text style={{
+                            alignSelf: 'center',
+                            color: 'black',
+                            fontSize: 16,
+                            fontWeight: '600',
+                            paddingTop: 10,
+                            paddingBottom: 10
+                        }}>Add More Info</Text>
+                    </TouchableOpacity>
                 </View>
 
 
             </View>
-
-
-
-
-
-
-            {/* <Text style={styles.label}> Enter Title </Text>
-        <TextInput style={styles.input} value={title} onChangeText={(text => setTitle(text))} /> 
-        <Text style={styles.label}> Enter Content </Text>
-        <TextInput style={styles.input}value={content} onChangeText={(text) => setContent(text)}/>  */}
-
-            {/* <Text style={styles.label}> Location </Text>
-        <TextInput style={styles.input} onChangeText={(text) => setLocation(text)} value={location} /> */}
-
-            <Text style={styles.iconTitle}>Triggers</Text>
-            <View style={[styles.cardContent, styles.tagsContent]}>
-
-                <TouchableOpacity style={{
-                    backgroundColor: buttonBg,
-                    padding: 8,
-                    borderRadius: 30,
-                    marginHorizontal: 3,
-                    marginTop: 5,
-                    marginLeft: 20,
-                    marginBottom: 10,
-                    borderColor: borderClr,
-                    borderWidth: 1
-                }}
-                    onPress={
-                        () => {
-                            this.setTriggers('sensory', 'ios-body');
-                            this._onPress()
-                        }}
-                >
-                    <View style={{ flexDirection: "row" }}>
-                        <Ionicons color="#0047cc" name="ios-body" size={15} />
-                        <Text style={styles.tag}> Sensory </Text>
-                        {console.log(triggers)}
-                    </View>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                    style={{
-                        backgroundColor: buttonBgSocial,
-                        padding: 8,
-                        borderRadius: 30,
-                        marginHorizontal: 3,
-                        marginTop: 5,
-                        marginLeft: 20,
-                        marginBottom: 10,
-                        borderColor: borderClrSocial,
-                        borderWidth: 1
-                    }}
-                    onPress={
-                        () => {
-                            this.setTriggers('social', 'ios-people');
-                            this._onPressSocial()
-                        }}>
-                    <View style={{ flexDirection: "row" }}>
-                        <Ionicons color="#0047cc" name="ios-people" size={15} />
-                        <Text style={styles.tag}> Social </Text>
-                    </View>
-                </TouchableOpacity>
-
-
-                <TouchableOpacity
-                    style={{
-                        backgroundColor: buttonBgRoutine,
-                        padding: 8,
-                        borderRadius: 30,
-                        marginHorizontal: 3,
-                        marginTop: 5,
-                        marginLeft: 20,
-                        marginBottom: 10,
-                        borderColor: borderClrRoutine,
-                        borderWidth: 1
-                    }}
-                    onPress={
-                        () => {
-                            this.setTriggers('routine', 'ios-calendar');
-                            this._onPressRoutine()
-                        }}
-                >
-                    <View style={{ flexDirection: "row" }}>
-                        <Ionicons color="#0047cc" name="ios-calendar" size={15} />
-                        <Text style={styles.tag}> Routine </Text>
-                    </View>
-                </TouchableOpacity>
-
-
-                <TouchableOpacity
-                    style={{
-                        backgroundColor: buttonBgFood,
-                        padding: 8,
-                        borderRadius: 30,
-                        marginHorizontal: 3,
-                        marginTop: 5,
-                        marginLeft: 20,
-                        marginBottom: 10,
-                        borderColor: borderClrFood,
-                        borderWidth: 1
-                    }}
-                    onPress={
-                        () => {
-                            this.setTriggers('routine', 'ios-calendar');
-                            this._onPressFood()
-                        }}>
-                    <View style={{ flexDirection: "row" }}>
-                        <Ionicons color="#0047cc" name="ios-pizza" size={15} />
-                        <Text style={styles.tag}> Food </Text>
-                    </View>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                    style={{
-                        backgroundColor: buttonBgItem,
-                        padding: 8,
-                        borderRadius: 30,
-                        marginHorizontal: 3,
-                        marginTop: 5,
-                        marginLeft: 20,
-                        marginBottom: 10,
-                        borderColor: borderClrItem,
-                        borderWidth: 1
-                    }}
-                    onPress={
-                        () => {
-                            this.setTriggers('routine', 'ios-calendar');
-                            this._onPressItem()
-                        }}>
-
-                    <View style={{ flexDirection: "row" }}>
-                        <Ionicons color="#0047cc" name="ios-sad" size={15} />
-                        <Text style={styles.tag}> Item taken away </Text>
-                    </View>
-                </TouchableOpacity>
-
-
-            </View>
-
-
-
-            <View style={{ flex: 1, marginTop: 10 }}>
-                <TouchableOpacity style={{ alignSelf: 'stretch', backgroundColor: '#29d2e4', borderRadius: 27, marginHorizontal: 30 }} onPress={() => onSubmit(title, content, location, date, triggers, severity, tags)}>
-                    <Text style={{
-                        alignSelf: 'center',
-                        color: '#ffffff',
-                        fontSize: 16,
-                        fontWeight: '600',
-                        paddingTop: 10,
-                        paddingBottom: 10
-                    }}>Submit Quick Log</Text>
-                </TouchableOpacity>
-            </View>
-
-            <View style={{ flex: 1, marginTop: 10 }}>
-                <TouchableOpacity style={{ alignSelf: 'stretch', backgroundColor: 'white', borderRadius: 27, marginHorizontal: 30, borderWidth: 1, borderColor: "black", marginTop: 10 }} onPress={() => { onCancelPress }}>
-                    <Text style={{
-                        alignSelf: 'center',
-                        color: 'black',
-                        fontSize: 16,
-                        fontWeight: '600',
-                        paddingTop: 10,
-                        paddingBottom: 10
-                    }}>Add More Info</Text>
-                </TouchableOpacity>
-            </View>
-
-
-
         </ScrollView>
     </View>
+
+
 }
 
 BlogPostForm.defaultProps = {
@@ -410,6 +494,7 @@ BlogPostForm.defaultProps = {
 
     }
 }
+
 
 
 
@@ -581,20 +666,20 @@ const styles = StyleSheet.create({
     },
 
     inputContainer: {
-        height: 50,
-        backgroundColor: 'white',
-        paddingVertical: 5,
+        backgroundColor: '#F5F5F5',
+        paddingVertical: 10,
         borderRadius: 5,
-        paddingHorizontal: 30,
-        width: '69%',
-        borderColor: "grey",
-        borderWidth: 1
+        width: '88%',
+        borderColor: "#D4D4D4",
+        borderWidth: 1,
+        marginLeft: 15,
+        marginBottom: 15,
+        marginTop: 15
     },
 
     inputs: {
         height: 45,
-        marginLeft: 16,
-        marginRight: 16
+        marginLeft: 15
     },
 
     inputIcon: {
@@ -705,7 +790,7 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         paddingRight: 2,
         marginHorizontal: 10,
-        color: '#0047cc'
+        color: '#C4C6CE'
 
     },
 

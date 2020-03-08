@@ -89,77 +89,110 @@ const ShowScreen = ({ navigation }) => {
                     _shareMessage()
                 }
                 if (buttonIndex == 3) {
-                    navigation.navigate("Edit", { id: navigation.getParam('id') })
+                    navigation.navigate("EditScreen", { id: navigation.getParam('id') })
 
                 }
             }
         )
     }
     return (
-        <View>
-            <View style={[styles.card, { borderColor: "white" }]}>
-                <View style={{ flexDirection: "row" }}>
-                    <View style={[styles.circle, { backgroundColor: "purple" }]} />
-                    <Text style={[styles.name, { color: "purple" }]}>{item.title}</Text>
-                    <Text style={styles.timestamp2}> {moment(item.data).fromNow()}  </Text>
-                </View>
-                <Text style={styles.post}> {item.content}  </Text>
-                <SingleImage uri='https://i.redd.it/0lhcsz48lmc31.png' style={styles.postImage} />
-                <Text style={{ marginHorizontal: 10, marginTop: 20, fontSize: 14, }}> Meltdown Type </Text>
-                <View style={[styles.cardContent, styles.tagsContent]}>
-                    {this.renderTags(item)}
-                </View>
+        <View styles={{ flex: 1 }}>
+            <ScrollView styles={{}}>
 
-                <View style={{ flexDirection: "row", marginTop: 15, marginLeft: 15 }}>
-                    <Ionicons name="ios-pin" size={20} color="#C4C6CE" style={{ marginRight: 3 }} />
-                    <Text style={styles.timestamp}> {item.location}  </Text>
-                </View>
+                <View style={[styles.card, { borderColor: "white" }]}>
+                    <View style={{ flexDirection: "row" }}>
+                        <View style={[styles.circle, { backgroundColor: "purple" }]} />
+                        <Text style={[styles.name, { color: "purple" }]}>{item.title}</Text>
+                        <Text style={styles.timestamp2}> {moment(item.timestamp).fromNow()}  </Text>
+                    </View>
+                    <Text style={styles.post}> {item.content}  </Text>
+                    <SingleImage uri={item.media} style={styles.postImage} />
 
-                <View style={{
-                    borderBottomColor: 'grey',
-                    borderBottomWidth: 0.8,
-                    width: width - 40,
-                    alignSelf: 'center',
-                    marginVertical: 20
-                }}>
-                </View>
 
-                {/* <View style={{}}>
+                    <View style={{ flexDirection: "row", marginTop: 15, marginLeft: 15 }}>
+                        <Ionicons name="ios-pin" size={20} color="#C4C6CE" style={{ marginRight: 3 }} />
+                        <Text style={styles.timestamp}> {item.location}  </Text>
+                    </View>
+
+                    <View style={{
+                        borderBottomColor: 'grey',
+                        borderBottomWidth: 0.5,
+                        width: width - 40,
+                        alignSelf: 'center',
+                        marginTop: 20
+                    }}>
+                    </View>
+
+                    <Text style={{ marginHorizontal: 20, marginTop: 20, fontSize: 14, fontWeight: 'bold' }}> Meltdown Type </Text>
+                    <View style={[styles.cardContent, styles.tagsContent]}>
+                        {this.renderTags(item)}
+                    </View>
+
+
+                    <View style={{
+                        borderBottomColor: 'grey',
+                        borderBottomWidth: 0.5,
+                        width: width - 40,
+                        alignSelf: 'center',
+                        marginTop: 20
+                    }}>
+                    </View>
+
+
+                    <Text style={{ marginHorizontal: 20, marginTop: 20, fontSize: 14, fontWeight: 'bold' }}> Date of Meltdown </Text>
+                    <Text style={{ marginHorizontal: 20, marginTop: 20, fontSize: 14, }}> {item.date} </Text>
+
+                    <View style={{
+                        borderBottomColor: 'grey',
+                        borderBottomWidth: 0.5,
+                        width: width - 40,
+                        alignSelf: 'center',
+                        marginTop: 20
+                    }}>
+                    </View>
+
+
+                    <Text style={{ marginHorizontal: 20, marginTop: 20, fontSize: 14, fontWeight: 'bold' }}> Resolution </Text>
+
+
+                    {/* <View style={{}}>
                 <Text style={styles.behaviors}> Behaviors Shown </Text>
                 <View style={[styles.cardContent, styles.tagsContent]}>
                     {this.renderBehavior(item)}
                 </View>
              </View> */}
 
-                <View style={{
-                    borderBottomColor: 'grey',
-                    borderBottomWidth: 0.8,
-                    width: width - 40,
-                    alignSelf: 'center',
-                    marginVertical: 20
-                }}>
-                </View>
+
+                    {/* <View style={{
+                        borderBottomColor: 'grey', 
+                        borderBottomWidth: 0.8, 
+                        width: width - 40,
+                        alignSelf: 'center',
+                        marginVertical: 20}}>
+            </View> */}
 
 
-                <View style={{
-                    borderBottomColor: 'grey',
-                    borderBottomWidth: 0.8,
-                    width: width - 40,
-                    alignSelf: 'center',
-                    marginVertical: 20
-                }}>
-                </View>
 
-                <View style={{}}>
-                    <Text style={styles.behaviors}> Resolution </Text>
-                    <View style={[styles.cardContent, styles.tagsContent]}>
-                        {/* {this.renderResolution(item)} */}
+
+                    <View style={{
+                        borderBottomColor: 'grey',
+                        borderBottomWidth: 0.8,
+                        width: width - 40,
+                        alignSelf: 'center',
+                        marginVertical: 20
+                    }}>
                     </View>
+
+                    <View style={{}}>
+                        <Text style={styles.behaviors}> Resolution </Text>
+                        <View style={[styles.cardContent, styles.tagsContent]}>
+                            {/* {this.renderResolution(item)} */}
+                        </View>
+                    </View>
+
+
                 </View>
-
-
-            </View>
-            {/* <TouchableOpacity onPress={()=>navigation.navigate("Edit", {id:navigation.getParam('id')})}>
+                {/* <TouchableOpacity onPress={()=>navigation.navigate("Edit", {id:navigation.getParam('id')})}>
             <Text> Edit </Text>
         </TouchableOpacity>
         
@@ -170,6 +203,7 @@ const ShowScreen = ({ navigation }) => {
         <Text> {blogPost.date} </Text>
 
         {console.log(blogPost.severity)} */}
+            </ScrollView>
         </View>
     )
 }

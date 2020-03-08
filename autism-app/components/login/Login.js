@@ -71,7 +71,7 @@ class Login extends Component {
                 // })
                 // => this.props.navigation.navigate('Home', { email: this.state.email, password: this.state.password, name: "Test" }))
                 .catch(error => "Error occurred while trying to login in user: " + error);
-
+            // this.props.navigation.navigate('IndexScreen', { email: this.state.email, password: this.state.password, date: new Date() })
             // alert("User account does not exist with provided email and password");
             // this.props.navigation.navigate('Home');
 
@@ -127,7 +127,7 @@ class Login extends Component {
                                     placeholder="Enter Email"
                                     placeholderTextColor='#999999'
                                     returnKeyType={"next"}
-                                    autoCapitalize={"none"}
+                                    autoCapitalize='none'
                                     autoCorrect={false}
                                     onSubmitEditing={() => { this.secondTextInputRef.current.focus(); }}
                                     placeholder="Email Address"
@@ -139,11 +139,11 @@ class Login extends Component {
                                 <Ionicons name="ios-lock" size={30} color="#77909c" style={[styles.inputIcon, styles.icon]} />
                                 <TextInput
                                     placeholder="Enter password"
+                                    autoCapitalize='none'
                                     placeholderTextColor='#999999'
                                     returnKeyType="go"
                                     secureTextEntry
                                     autoCorrect={false}
-                                    autoCapitalize={"none"}
                                     ref={this.secondTextInputRef}
                                     onSubmitEditing={() => this._userLogin()}
                                     style={styles.inputs}

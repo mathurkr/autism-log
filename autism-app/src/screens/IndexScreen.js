@@ -5,10 +5,12 @@ import { Ionicons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons'
 import CalendarStrip from 'react-native-calendar-strip';
 import moment from "moment";
+var { width, height } = Dimensions.get('window')
 
 let deviceWidth = Dimensions.get('window').width;
 
-
+const email = ''; //here I want to load the values from class component
+const date = new Date();
 
 renderTags = (item) => {
     //console.log(item);
@@ -29,6 +31,19 @@ renderTags = (item) => {
 
 
 const IndexScreen = ({ navigation }) => {
+
+    const date = navigation.getParam('date');
+    // const password = navigation.getParam('password');
+    const email = navigation.getParam('email');
+
+    const doc_id = navigation.getParam('doc_id');
+
+    console.log("EMAIL: " + email);
+    console.log("DATE: " + date);
+    console.log("Doc ID: " + doc_id);
+
+    //console.log(password);
+
     const { state, deleteBlogPost } = useContext(Context);
     return (
         <View style={{ flex: 1, backgroundColor: '#EFEFEF' }}>
@@ -68,7 +83,7 @@ const IndexScreen = ({ navigation }) => {
                             <View style={{ flexDirection: "row" }}>
                                 <View style={[styles.circle, { backgroundColor: 'purple' }]} />
                                 <Text style={[styles.name, { color: item.color }]}> {item.title} </Text>
-                                <Text style={styles.timestamp2}> {moment(item.date).fromNow()}  </Text>
+                                <Text style={styles.timestamp2}> {moment(item.timestamp).fromNow()}  </Text>
 
                                 {/* <TouchableOpacity onPress={() => deleteBlogPost(item.id)}>
                 <Text>
@@ -90,20 +105,20 @@ const IndexScreen = ({ navigation }) => {
                                     height: 150,
                                     width: undefined,
                                 }}
-                                source={{ uri: 'https://52f4e29a8321344e30ae-0f55c9129972ac85d6b1f4e703468e6b.ssl.cf2.rackcdn.com/products/pictures/177384.jpg' }}
+                                source={{ uri: item.media }}
                                 resizeMode="cover"
                             />
 
-                            <Text style={{ marginHorizontal: 10, marginTop: 20, fontSize: 1, }}> Meltdown Type </Text>
+                            <View style={{ flexDirection: "row", marginTop: 15, marginLeft: 15 }}>
+                                <Ionicons name="ios-pin" size={20} color="#C4C6CE" style={{ marginRight: 3 }} />
+                                <Text style={styles.timestamp}> {(item.location)} </Text>
+                            </View>
+
 
                             <View style={[styles.cardContent, styles.tagsContent]}>
                                 {this.renderTags(item)}
                             </View>
 
-                            <View style={{ flexDirection: "row", marginTop: 15, marginLeft: 15 }}>
-                                <Ionicons name="ios-pin" size={20} color="#C4C6CE" style={{ marginRight: 3 }} />
-                                <Text style={styles.timestamp}> {item.location}  </Text>
-                            </View>
 
 
                         </TouchableOpacity>
@@ -123,7 +138,7 @@ IndexScreen.navigationOptions = ({ navigation }) => {
         headerTitleStyle: { color: 'black' },
         headerStyle: { backgroundColor: 'white' },
         headerRight: (
-            <TouchableOpacity onPress={() => navigation.navigate('Create')}>
+            <TouchableOpacity onPress={() => navigation.navigate('CreateScreen')}>
                 <Ionicons name="ios-add-circle" style={{ marginRight: 15, color: 'purple' }} size={30} />
             </TouchableOpacity>
         )
@@ -131,7 +146,7 @@ IndexScreen.navigationOptions = ({ navigation }) => {
 }
 
 
-IndexScreen.naviationOptions = () => {
+IndexScreen.navigationOptions = () => {
     return {
     }
 }
@@ -197,7 +212,7 @@ const styles = StyleSheet.create({
         marginTop: -40,
     },
     tagsContent: {
-        marginTop: 10,
+        marginTop: 5,
         flexWrap: 'wrap'
     },
     tag:
@@ -222,7 +237,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 3,
         backgroundColor: 'rgba(110,211,225,0.30)',
         marginTop: 5,
-        marginLeft: 20
+        marginLeft: 15,
     },
 
 
