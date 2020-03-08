@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react';
-import { StyleSheet, View, Linking, Image, ScrollView, FlatList, TouchableOpacity, Share, Alert} from 'react-native';
+import { StyleSheet, View, Linking, Image, ScrollView, FlatList, Modal, TouchableOpacity, TextInput, TouchableHighlight,  Share, Alert} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient'
 import { Button, Text, Input } from 'galio-framework';
 import { FontAwesome } from '@expo/vector-icons';
@@ -15,20 +15,10 @@ const dataSection = [{icon: "bar-chart-o", description: 'Weekly Reports', subDes
 ]
 
 export default class Profile extends Component {
-  
-    constructor(props){
-        super(props)
-        {
-
-          // this.dataSource = [{id: 0, toggle: false, icon: "cog", description: 'Profile Settings', subDescription: 'Update and modify Charles profile', arrow: require('../../assets/images/test2.png')},
-          // {id: 1, toggle:false, icon: "bell", description: 'Notifications', subDescription: 'Change your notifications settings', arrow: require('../../assets/images/test2.png')},
-          // {id: 2, toggle: false, icon: "star", description: 'Goals', subDescription: "Update and manage Charles' goals", arrow: require('../../assets/images/test2.png')},
-          // {id: 3, toggle: false, icon: 'group', description: 'Tell your Friends', subDescription: 'Let other know about this app', arrow: require('../../assets/images/test2.png')},
-          // ]
-        }
+    state = {
+        modalOpen: false
     }
 
-    
     onPress = (item, index) => {
       //console.log(item.key);
       //console.log(id);
@@ -65,7 +55,9 @@ export default class Profile extends Component {
 
           if(index==0)
           {
-            Alert.alert("Navigate to Profile Settings")
+            //Alert.alert("Navigate to Profile Settings")
+            this.setState({modalOpen: !this.state.modalOpen})
+
           }
 
           if(index==1)
@@ -104,18 +96,105 @@ export default class Profile extends Component {
       onLinkToIns
      
     render() {
-
+      const { modalOpen } = this.state;
 
         return (
-          
-          <ScrollView style={styles.container}>
+        <ScrollView style={styles.container}>
+            
+            {/* Modal Markup */}
+            <Modal visible={modalOpen} animationType="slide">
+              <View style={styles.modal}>
+                
+                <FontAwesome name="times-circle" style={{margin:30}}size={35} onPress={()=> this.setState({modalOpen: false})}/>  
+
+                    <View style={styles.headerContent2}>
+                        <Image style={styles.avatar2} source={{uri: 'https://images.unsplash.com/photo-1525111149894-307b4255c9ff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80'}}/>
+                    </View>
+
+                    <Text style={styles.sectionTitle2}> CHILD PROFILE </Text>
+
+                    <TouchableOpacity style={styles.inputContainerModal}>
+                                <TextInput
+                                    placeholder="Enter Email"
+                                    placeholderTextColor='#999999'
+                                    returnKeyType={"next"}
+                                    autoCapitalize={"none"}
+                                    autoCorrect={false}
+                                    editable={false}
+                                    // onSubmitEditing={() => { this.secondTextInputRef.current.focus(); }}
+                                    keyboardType={'email-address'} style={styles.inputs} onChangeText={(text) => this.setState({ email: text })} />  
+                                <Text style={styles.dataModal}> Charles </Text>
+                      </TouchableOpacity>
+
+
+                      <TouchableOpacity style={styles.inputContainerModal}>
+                                <TextInput
+                                    placeholder="Last name"
+                                    placeholderTextColor='#999999'
+                                    returnKeyType={"next"}
+                                    autoCapitalize={"none"}
+                                    autoCorrect={false}
+                                    editable={false}
+                                    // onSubmitEditing={() => { this.secondTextInputRef.current.focus(); }}
+                                    keyboardType={'email-address'} style={styles.inputs} onChangeText={(text) => this.setState({ email: text })} />  
+                                <Text style={styles.dataModal}> Darwin </Text>
+                      </TouchableOpacity>
+
+                      <TouchableOpacity style={styles.inputContainerModal}>
+                                <TextInput
+                                    placeholder="Sex"
+                                    placeholderTextColor='#999999'
+                                    returnKeyType={"next"}
+                                    autoCapitalize={"none"}
+                                    autoCorrect={false}
+                                    editable={false}
+                                    // onSubmitEditing={() => { this.secondTextInputRef.current.focus(); }}
+                                    keyboardType={'email-address'} style={styles.inputs} onChangeText={(text) => this.setState({ email: text })} />  
+                                <Text style={styles.dataModal}> Boy </Text>
+                      </TouchableOpacity>
+
+
+                      <TouchableOpacity style={styles.inputContainerModal}>
+                                <TextInput
+                                    placeholder="Birthday"
+                                    placeholderTextColor='#999999'
+                                    returnKeyType={"next"}
+                                    autoCapitalize={"none"}
+                                    autoCorrect={false}
+                                    editable={false}
+                                    // onSubmitEditing={() => { this.secondTextInputRef.current.focus(); }}
+                                    keyboardType={'email-address'} style={styles.inputs} onChangeText={(text) => this.setState({ email: text })} />  
+                                <Text style={styles.dataModal}> 02/15/2015 </Text>
+                      </TouchableOpacity>
+
+
+                      <TouchableOpacity style={styles.inputContainerModal}>
+                                <TextInput
+                                    placeholder="Relationship to the baby?"
+                                    placeholderTextColor='#999999'
+                                    returnKeyType={"next"}
+                                    autoCapitalize={"none"}
+                                    autoCorrect={false}
+                                    editable={false}
+                                    // onSubmitEditing={() => { this.secondTextInputRef.current.focus(); }}
+                                    keyboardType={'email-address'} style={styles.inputs} onChangeText={(text) => this.setState({ email: text })} />  
+                                <Text style={styles.dataModal}> Mother </Text>
+                      </TouchableOpacity>
+                
+                
+
+
+              </View>
+          </Modal>
+
+
           <LinearGradient
                 colors={['#4AD4D4', '#C395FF']}
                 style={{flex: 1}}
                 start={{x:0, y:0}}
                 end={{x: 1, y:1}}> 
            <View style={styles.header}></View>
-          <Image style={styles.avatar} source={{uri: 'https://bootdey.com/img/Content/avatar/avatar6.png'}}/>
+          <Image style={styles.avatar} source={{uri: 'https://images.unsplash.com/photo-1525111149894-307b4255c9ff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80'}}/>
           </LinearGradient>
 
           <View style={styles.body}>
@@ -163,7 +242,7 @@ export default class Profile extends Component {
 
 
           </View>
-          <Image style={styles.avatar} source={{uri: 'https://bootdey.com/img/Content/avatar/avatar6.png'}}/>
+          <Image style={styles.avatar} source={{uri: 'https://images.unsplash.com/photo-1525111149894-307b4255c9ff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80'}}/>
           
           </ScrollView>
            
@@ -184,6 +263,26 @@ const styles = StyleSheet.create({
         paddingLeft: 20,
         fontWeight: 'bold'
     },
+    sectionTitle2: {
+      color: '#8485f9',
+      fontWeight: 'bold',
+      fontSize: 13,
+      paddingLeft: 0,
+      fontWeight: 'bold',
+      marginLeft: 15,
+      marginBottom: 10,
+  },
+
+  dataModal: {
+    color: '#8485f9',
+    fontWeight: 'bold',
+    fontSize: 13,
+    paddingLeft: 0,
+    fontWeight: 'bold',
+    marginRight: 15,
+
+},
+
 
 ////
 
@@ -277,9 +376,65 @@ const styles = StyleSheet.create({
       cogIcon: {
         marginRight: 18,
         color: "#5574c3"
-      }
+      },
 
-      
+      modal:{
+        flex: 1,
+        backgroundColor: '#EFEFEF',
+        padding: 0
+      },
 
+
+      header2:{
+        backgroundColor: "#20B2AA",
+      },
+      headerContent2:{
+        alignItems: 'center',
+        backgroundColor: '#EFEFEF',
+
+      },
+      avatar2: {
+        width: 100,
+        height: 100,
+        borderRadius: 50,
+        borderWidth: 4,
+        borderColor: "#FFFFFF",
+        marginBottom:10,
+      },
+
+      name2:{
+        fontSize:22,
+        color:"#FFFFFF",
+        fontWeight:'600',
+      },
+
+      inputContainer: {
+        marginTop: 10, 
+        height: 50,
+        backgroundColor: 'white',
+        marginBottom: 30,
+        flexDirection: "row",
+        alignItems: 'center',
+        borderRadius: 5,
+        width: '100%'
+    },
+
+    inputContainerModal: {
+      height: 50,
+      backgroundColor: 'white',
+      flexDirection: "row",
+      alignItems: 'center',
+      borderRadius: 5,
+      width: '100%',
+      borderBottomColor: 'grey',
+      borderBottomWidth: .25,
+    
+  },
+
+    inputs: {
+        height: 45,
+        marginLeft: 20,
+        flex: 1
+    },
 });
 

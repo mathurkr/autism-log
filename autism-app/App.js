@@ -31,6 +31,8 @@ import ChildSetup from './components/login/ChildSetup';
 import AgeSetup from './components/login/AgeSetup';
 import ExpandedLog from './components/navigation/ExpandedLog'
 
+import NotificationScreen from './components/navigation/NotificationsScreen';
+
 // Include MainTabNavigator for main application navigation
 import MainAppNavigator from './components/navigation/MainAppNavigator';
 import Profile from './components/navigation/Profile';
@@ -46,30 +48,32 @@ import NameSetup from './components/login/NameSetup';
 // SignUpNavigator holds all components associated with SignUp process -- may divide them up in the future
 const SignUpNavigator = createStackNavigator(
     { 
-    Welcome: { screen: Welcome,
-        navigationOptions:{
-            header: null  
-        } },
-    SignUp: { screen: SignUp },
-    SignUpPassword: { screen: SignUpPassword },
-    SignUpForm: { screen: SignUpForm },
-    NameSetup: { screen: NameSetup},
-    AgeSetup: { screen: AgeSetup },
-    PaymentInfo: { screen: PaymentInfo },
-    Home: { screen: Home},
-    TermsOfService: { screen: TermsOfService },
-    PrivatePolicy: { screen: PrivatePolicy },
-    Authenticate: { screen: Authenticate },
-    Login: { screen: Login },
-    ForgotPassword: { screen: ForgotPassword },
-    VerifyCode: { screen: VerifyCode },
-     LoggerSelection: { screen: LoggerSelection },
-     ChildSetup: {screen: ChildSetup},
-     ProfileSetUp: { screen: ProfileSetUp },
+    // Welcome: { screen: Welcome,
+    //     navigationOptions:{
+    //         header: null  
+    //     } },
+    // SignUp: { screen: SignUp },
+    // SignUpPassword: { screen: SignUpPassword },
+    // SignUpForm: { screen: SignUpForm },
+    // NameSetup: { screen: NameSetup},
+    // AgeSetup: { screen: AgeSetup },
+    // PaymentInfo: { screen: PaymentInfo },
+    // Home: { screen: Home},
+    // TermsOfService: { screen: TermsOfService },
+    // PrivatePolicy: { screen: PrivatePolicy },
+    // Authenticate: { screen: Authenticate },
+    // Login: { screen: Login },
+    // ForgotPassword: { screen: ForgotPassword },
+    // VerifyCode: { screen: VerifyCode },
+    //  LoggerSelection: { screen: LoggerSelection },
+    //  ChildSetup: {screen: ChildSetup},
+    //  ProfileSetUp: { screen: ProfileSetUp },
     
-    Settings: { screen: Settings},
+    // Settings: { screen: Settings},
      Profile: { screen: Profile},
-    ExpandedLog: {screen: ExpandedLog},
+    // ExpandedLog: {screen: ExpandedLog},
+    
+    //NotificationScreen: {screen: NotificationScreen }
     // IndexScreen: IndexScreen,
     // Show: ShowScreen,
     // CreateScreen: CreateScreen,

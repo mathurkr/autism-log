@@ -1,16 +1,22 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState} from 'react';
 import { View, Text, FlatList, Button,TouchableOpacity, StyleSheet, Dimensions, Image} from 'react-native';
 import {Context} from '../context/BlogContext';
 import { Ionicons } from '@expo/vector-icons';
 import {Feather} from '@expo/vector-icons'
 import CalendarStrip from 'react-native-calendar-strip';
 import moment from "moment";
+import { LinearGradient } from 'expo-linear-gradient'
+
 var { width, height } = Dimensions.get('window')
 
 let deviceWidth = Dimensions.get('window').width;
 
 const email = ''; //here I want to load the values from class component
 const date = new Date();
+
+
+
+
 
 renderTags = (item) =>{
   //console.log(item);
@@ -32,6 +38,13 @@ renderTags = (item) =>{
 
 const IndexScreen = ({navigation}) => {
 
+  const [months, setMonths] = useState(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'])
+  const [caldendarDate, setcaldendarDate] = useState('')
+  const [posts, setPosts] = useState([])
+
+  
+
+  
   const password = navigation.getParam('password');
   const email = navigation.getParam('email');
 
@@ -39,10 +52,13 @@ const IndexScreen = ({navigation}) => {
   console.log("PASSWORD: " + password);
 
   //console.log(password);
+  
 
   const {state, deleteBlogPost} = useContext(Context);
+  console.log("THREE LOGS: " + state);
+
   return (
-    <View style={{flex:1, backgroundColor:'#EFEFEF'}}>                
+    <View style={{flex:1, backgroundColor:'#f7f7f7'}}>                
     <View>
 
     <CalendarStrip
@@ -64,6 +80,10 @@ const IndexScreen = ({navigation}) => {
             // iconLeft={require('./img/left-arrow.png')}
             // iconRight={require('./img/right-arrow.png')}
             iconContainer={{ flex: 0.1 }}
+            style={{  top: 0, marginTop:0, marginBottom: 5, borderColor:'#BEBEBE', borderWidth: .5 
+            
+          }}
+
         />
     </View>
 
@@ -131,13 +151,30 @@ const IndexScreen = ({navigation}) => {
 
 IndexScreen.navigationOptions=({navigation})=>{
   return{
-      title: 'Luminous',
-      headerTitleStyle :{color:'black'},
-      headerStyle: {backgroundColor:'white'},
+      Title: 'Luminous',
+      headerStyle: {
+        elevation: 0,
+        shadowOpacity: 0,
+        borderBottomWidth: 0,      
+        backgroundColor:'white'
+      },
       headerRight:(
+        <View> 
           <TouchableOpacity onPress={()=> navigation.navigate('CreateScreen')}> 
-          <Ionicons name="ios-add-circle" style={{ marginRight:15,color:'purple' }} size={30}  />
+          <Ionicons name="ios-add-circle-outline" style={{ marginRight:15,color:'#29d2e4' }} size={30}  />
           </TouchableOpacity>
+
+        </View>
+      ),
+
+      // headerTitle:(
+      //   <Image style={{alignSelf:'center', width:30, height: 30}} source={{uri:'https://www.chronaly.com/assets/images/favicon.png'}}/>
+      // ),
+      headerLeft:(
+
+          <Image style={styles.avatar} source={{uri: 'https://images.unsplash.com/photo-1525111149894-307b4255c9ff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60'}}/>
+
+
       )
   }
 }
@@ -181,7 +218,7 @@ const styles = StyleSheet.create({
     height:null,
     //paddingTop:10,
     paddingBottom:10,
-    marginTop:5,
+    marginTop:0,
     backgroundColor: '#FFFFFF',
     flexDirection: 'column',
     borderTopWidth:10,
@@ -279,9 +316,18 @@ bottomCircle: {
     borderRadius: 5/2,
     marginTop: 9,
     marginLeft: 10
-}
+},
 
-
+avatar: {
+  width: 38,
+  height: 38,
+  borderRadius: 38/2,
+  borderWidth: 4,
+  borderColor: "#FFFFFF",
+  marginLeft:15,
+  marginTop: 5,
+  paddingRight: 15
+},
 
 });   
 

@@ -37,7 +37,6 @@ const HomeStack = createStackNavigator(
         IndexScreen: {
             screen:IndexScreen,
             navigationOptions: {
-                title: 'Home',  
             },
 
         },
