@@ -444,6 +444,7 @@ export default class Home extends Component {
             image: post.image,
             location: post.location,
             resolution: post.resolution,
+            severity: post.severity,
             scale: post.scale,
             tags: post.tags,
             text: post.text,

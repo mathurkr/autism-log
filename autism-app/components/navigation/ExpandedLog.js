@@ -66,6 +66,7 @@ export default class ExpandedLog extends Component {
                     text: params.text,
                     behaviors: params.behaviors,
                     resolution: params.resolution,
+                    severity: params.severity,
                     image: params.image,
                     location: params.location
                 }
@@ -206,6 +207,43 @@ export default class ExpandedLog extends Component {
         this.props.navigation.navigate('DeleteLog', { doc_id: this.state.posts[0].doc_id, date: this.state.posts[0].date, id: this.state.posts[0].id });
     }
 
+    _toEditLog = () => {
+        // Navigate to EditLog component
+        // doc_id: params.doc_id,
+        // date: params.date,
+        // id: params.id,
+        // color: "#3200DF",
+        // icon: params.avatar,
+        // name: params.scale,
+        // timestamp: params.timestamp,
+        // tags: params.tags,
+        // text: params.text,
+        // behaviors: params.behaviors,
+        // resolution: params.resolution,
+        // severity: params.severity,
+        // image: params.image,
+        // location: params.location
+        const { params } = this.props.navigation.state;
+
+        this.props.navigation.navigate('EditLog', {
+            doc_id: this.state.posts[0].doc_id,
+            date: this.state.posts[0].date,
+            // date: this.state.posts[0].date,
+            id: this.state.posts[0].id,
+            // color: "#3200DF",
+            // icon: params.avatar,
+            title: params.scale,
+            timestamp: params.timestamp,
+            triggers: this.state.posts[0].tags,
+            content: params.text,
+            behaviors: params.behaviors,
+            resolution: params.resolution,
+            severity: params.severity,
+            media: params.image,
+            location: params.location
+        });
+    }
+
     render() {
         const { value } = this.state;
 
@@ -241,6 +279,7 @@ export default class ExpandedLog extends Component {
                                         <View style={[styles.circle, { backgroundColor: item.color }]} />
                                         <Text style={[styles.name, { color: item.color }]}>{item.name}</Text>
                                         <Text style={styles.timestamp2}> {moment(item.timestamp).fromNow()}  </Text>
+                                        <Ionicons name="md-create" style={{ marginLeft: 'auto', paddingLeft: 60 }} size={30} onPress={() => this._toEditLog()} />
                                         <Ionicons name="md-trash" style={{ marginLeft: 'auto', marginRight: 15 }} size={30} onPress={() => this._deleteLogDialog()} />
                                     </View>
 
@@ -269,6 +308,41 @@ export default class ExpandedLog extends Component {
                                         alignSelf: 'center',
                                         marginVertical: 20
                                     }}>
+                                    </View>
+
+                                    <View style={styles.notificationBox}>
+                                        {/* <Ionicons name="ios-warning" size={20} color="#77909c" style={styles.icon} /> */}
+                                        <View style={styles.btntextcontainer}>
+                                            <Text style={styles.description}>Severity</Text>
+                                            <View style={styles.SliderContainer}>
+                                                <Slider
+                                                    style={{ width: 300, height: 30, borderRadius: 50 }}
+                                                    minimumValue={1}
+                                                    maximumValue={100}
+                                                    disabled={true}
+                                                    value={this.state.posts[0].severity}
+                                                    // onValueChange={
+                                                    //     (severity) => {
+                                                    //         setSeverity({ severity })
+                                                    //         setTitle(severityLevelTitle(severity))
+                                                    //     }
+                                                    // }
+                                                    thumbTintColor='purple'
+                                                    maximumTrackTintColor='#d3d3d3'
+                                                    minimumTrackTintColor='blue'
+                                                />
+                                                <View style={styles.textCon}>
+                                                    <Text style={{ color: '#48AAAD' }}> Slight Pain </Text>
+                                                    <Text style={{ color: "#77869e" }}>
+                                                        {Math.floor(this.state.posts[0].severity)}
+                                                    </Text>
+                                                    <Text style={{ color: "#3200DF" }}> Worst Pain </Text>
+                                                </View>
+                                            </View>
+                                            <Text numberOfLines={2} style={styles.subDescription}></Text>
+                                        </View>
+
+
                                     </View>
 
                                     <View style={{}}>
@@ -445,6 +519,63 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: "black",
     },
+
+    SliderContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+    icon: {
+        width: 30,
+        height: 30,
+    },
+
+    description: {
+        fontSize: 16,
+        color: "#042c5c",
+        marginLeft: 2,
+        fontWeight: 'bold',
+        marginTop: 10,
+        marginBottom: 10
+
+    },
+
+    subDescription: {
+        fontSize: 10,
+        color: "#77869e",
+        marginLeft: 10,
+        paddingBottom: 8,
+        marginTop: 14,
+        alignItems: 'flex-end'
+
+    },
+
+    btntextcontainer: {
+        flex: 1,
+        flexDirection: 'column',
+        alignItems: 'flex-start'
+    },
+
+    notificationBox: {
+        padding: 5,
+        marginTop: 5,
+        marginBottom: 10,
+        backgroundColor: 'white',
+        flexDirection: 'row',
+        borderRadius: 10,
+        borderColor: 'grey',
+        borderBottomWidth: .4,
+    },
+
+    textCon: {
+        width: 320,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 15,
+        marginTop: 15
+    }
+
+
 
 
 });   

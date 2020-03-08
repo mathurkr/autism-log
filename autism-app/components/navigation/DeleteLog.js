@@ -43,33 +43,34 @@ export default class DeleteLog extends Component {
 
     _fetchLogs = (doc_id, id, date) => {
         // Test this date for now
-        const ddate = "Feb 24 2020";
+        // const ddate = "Feb 24 2020";
 
         // First find logs to keep in the logs collection
         DB.firestore().collection("logs").doc(doc_id)
             .get()
             .then((doc) => {
                 if (doc.exists) {
-                    if (doc.get(ddate) != null) {
+                    if (doc.get(date) != null) {
                         const data = doc.data();
-                        for (let i = 0; i < data[ddate].length; i++) {
-                            if (data[ddate][i].id == id) {
+                        for (let i = 0; i < data[date].length; i++) {
+                            if (data[date][i].id == id) {
                                 // Retrieve attributes to be removed from array
-                                const avatar = data[ddate][i].avatar;
-                                const image = data[ddate][i].image;
-                                const id = data[ddate][i].id;
-                                const location = data[ddate][i].location;
-                                const scale = data[ddate][i].scale;
-                                const text = data[ddate][i].text;
-                                const timestamp = data[ddate][i].timestamp;
-                                const behaviors = data[ddate][i].behaviors;
-                                const resolution = data[ddate][i].resolution;
-                                const tags = data[ddate][i].tags;
+                                const avatar = data[date][i].avatar;
+                                const image = data[date][i].image;
+                                const id = data[date][i].id;
+                                const location = data[date][i].location;
+                                const scale = data[date][i].scale;
+                                const text = data[date][i].text;
+                                const timestamp = data[date][i].timestamp;
+                                const behaviors = data[date][i].behaviors;
+                                const resolution = data[date][i].resolution;
+                                const tags = data[date][i].tags;
+                                const severity = data[date][i].severity;
 
                                 // Remove log from logs collection
                                 DB.firestore().collection("logs").doc(doc_id)
                                     .update({
-                                        [ddate]: firebase.firestore.FieldValue.arrayRemove({
+                                        [date]: firebase.firestore.FieldValue.arrayRemove({
                                             "id": id,
                                             "avatar": avatar,
                                             "image": image,
@@ -79,7 +80,8 @@ export default class DeleteLog extends Component {
                                             "timestamp": timestamp,
                                             "behaviors": behaviors,
                                             "resolution": resolution,
-                                            "tags": tags
+                                            "tags": tags,
+                                            "severity": severity
                                         })
                                     })
                                     .catch(function (error) {

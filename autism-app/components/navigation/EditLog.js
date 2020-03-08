@@ -16,7 +16,7 @@ import { connectActionSheet } from '@expo/react-native-action-sheet';
 import DB from '../config/DatabaseConfig';
 import * as firebase from 'firebase';
 
-class CreateLog extends Component {
+class EditLog extends Component {
     state = {
         title: '',
         content: '',
@@ -46,6 +46,94 @@ class CreateLog extends Component {
         borderClrFood: 'grey',
         buttonBgItem: 'white',
         borderClrItem: 'grey',
+    }
+
+    componentWillMount() {
+        const { params } = this.props.navigation.state;
+
+        // Set date
+        let timestamp = params.timestamp;
+        let date = new Date(timestamp);
+        let formatted_date = (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear();
+
+        // Set triggers and button colors
+        let toggle = false;
+        let toggleSocial = false;
+        let toggleRoutine = false;
+        let toggleFood = false;
+        let toggleItem = false;
+
+
+        let buttonBg = 'white';
+        let borderClr = 'grey';
+        let buttonBgSocial = 'white';
+        let borderClrSocial = 'grey';
+        let buttonBgRoutine = 'white';
+        let borderClrRoutine = 'grey';
+        let buttonBgFood = 'white';
+        let borderClrFood = 'grey';
+        let buttonBgItem = 'white';
+        let borderClrItem = 'grey';
+
+        let tags = params.triggers;
+        for (let trigger = 0; trigger < tags.length; trigger++) {
+            if (tags[trigger].name == "sensory") {
+                toggle = true;
+                buttonBg = "rgba(110,211,225,0.30)";
+                borderClr = "white";
+            }
+            else if (tags[trigger].name == "social") {
+                toggleSocial = true;
+                buttonBgSocial = "rgba(110,211,225,0.30)";
+                borderClrSocial = "white";
+            }
+            else if (tags[trigger].name == "routine") {
+                toggleRoutine = true;
+                buttonBgRoutine = "rgba(110,211,225,0.30)";
+                borderClrRoutine = "white";
+            }
+            else if (tags[trigger].name == "food") {
+                toggleFood = true;
+                buttonBgFood = "rgba(110,211,225,0.30)";
+                borderClrFood = "white";
+            }
+            else if (tags[trigger].name == "item taken away") {
+                toggleItem = true;
+                buttonBgItem = "rgba(110,211,225,0.30)";
+                borderClrItem = "white";
+            }
+        }
+
+        this.setState({
+            title: params.title,
+            content: params.content,
+            id: params.id,
+            media: params.media,
+            severity: params.severity,
+            location: params.location,
+            date: formatted_date,
+            height: 50,
+            tags: '',
+            region: {},
+            triggers: tags,
+            toggle: toggle,
+            toggleSocial: toggleSocial,
+            toggleRoutine: toggleRoutine,
+            toggleFood: toggleFood,
+            toggleItem: toggleItem,
+
+            buttonBg: buttonBg,
+            borderClr: borderClr,
+            buttonBgSocial: buttonBgSocial,
+            borderClrSocial: borderClrSocial,
+            buttonBgRoutine: buttonBgRoutine,
+            borderClrRoutine: borderClrRoutine,
+            buttonBgFood: buttonBgFood,
+            borderClrFood: borderClrFood,
+            buttonBgItem: buttonBgItem,
+            borderClrItem: borderClrItem
+
+        });
     }
 
     // buttonBg = this.state.toggle ? "white" : "rgba(110,211,225,0.30)";
@@ -133,8 +221,8 @@ class CreateLog extends Component {
     _uploadImage = async (uri, name, date) => {
         const response = await fetch(uri);
         const blob = await response.blob();
-        const id = Math.floor(Math.random() * 99999).toString();
-        this.setState({ id: id });
+        const id = this.state.id;
+        // this.setState({ id: id });
 
         let ref = firebase.storage().ref().child("images/logs/" + name + "/" + date + "/" + id);
         return ref.put(blob);
@@ -216,7 +304,7 @@ class CreateLog extends Component {
         }
     }
 
-    _submitLog = () => {
+    _updateLog = () => {
         // alert(`${title}, ${content}, ${location}, ${date}, ${triggers}, ${severity}, ${media}`);
         console.log(this.state.title);
         console.log(this.state.content);
@@ -277,47 +365,24 @@ class CreateLog extends Component {
         const collection = DB.firestore().collection('logs');
         let ref = firebase.storage().ref().child("images/logs/" + doc_id + "/" + date + "/" + id);
 
-        // Get download url from storage to store in profiles collection
+        let all_logs = [];
+        // Get download url from storage to store in logs collection
         ref.getDownloadURL()
             .then((url) => {
-                // First check if date is in logs collection
+                // Add unchanged logs to log collection and only alter log with the same id 
                 console.log(url);
                 collection.doc(doc_id)
                     .get()
                     .then((doc) => {
                         if (doc.exists) {
-                            if (doc.get(date) != null) {
-                                console.log("Executing");
-                                // Append new log to logs collection for that date
-                                collection.doc(doc_id)
-                                    .update({
-                                        [date]: firebase.firestore.FieldValue.arrayUnion({
-                                            "id": id,
-                                            "avatar": avatar,
-                                            "image": url,
-                                            "location": location,
-                                            "scale": scale,
-                                            "severity": severity,
-                                            "text": text,
-                                            "timestamp": timestamp,
-                                            "behaviors": behaviors,
-                                            "resolution": resolution,
-                                            "tags": tags
-                                        })
-                                    })
-                                    .catch((error) => {
-                                        alert("Error while appending: " + error);
-                                    });
-                                // .catch(function (error) {
-                                //     alert(error);
-                                // });
-
-                            }
-                            // Create new date to hold logs in log collection
-                            else {
-
-                                const post = [
-                                    {
+                            console.log("Executing");
+                            const data = doc.data();
+                            for (let i = 0; i < data[date].length; i++) {
+                                if (data[date][i].id != id) {
+                                    all_logs.push(data[date][i]);
+                                }
+                                else {
+                                    all_logs.push({
                                         id: id,
                                         avatar: avatar,
                                         image: url,
@@ -329,17 +394,71 @@ class CreateLog extends Component {
                                         behaviors: behaviors,
                                         resolution: resolution,
                                         tags: tags
-                                    }
-                                ];
-
-                                collection.doc(doc_id)
-                                    .set({
-                                        [date]: post
-                                    })
-                                    .catch((error) => {
-                                        alert("Error while adding: " + error);
                                     });
+                                }
                             }
+
+                            // Set logs collection at date to update logs array
+                            collection.doc(doc_id)
+                                .set({
+                                    [date]: all_logs
+                                })
+                                .catch((error) => {
+                                    alert("Error while updating: " + error);
+                                });
+
+                            // // Append new log to logs collection for that date
+                            // collection.doc(doc_id)
+                            //     .update({
+                            //         [date]: firebase.firestore.FieldValue.arrayUnion({
+                            //             "id": id,
+                            //             "avatar": avatar,
+                            //             "image": url,
+                            //             "location": location,
+                            //             "scale": scale,
+                            //             "severity": severity,
+                            //             "text": text,
+                            //             "timestamp": timestamp,
+                            //             "behaviors": behaviors,
+                            //             "resolution": resolution,
+                            //             "tags": tags
+                            //         })
+                            //     })
+                            //     .catch((error) => {
+                            //         alert("Error while appending: " + error);
+                            //     });
+                            // .catch(function (error) {
+                            //     alert(error);
+                            // });
+
+
+                            // Create new date to hold logs in log collection
+                            // else {
+
+                            //     const post = [
+                            //         {
+                            //             id: id,
+                            //             avatar: avatar,
+                            //             image: url,
+                            //             location: location,
+                            //             scale: scale,
+                            //             severity: severity,
+                            //             text: text,
+                            //             timestamp: timestamp,
+                            //             behaviors: behaviors,
+                            //             resolution: resolution,
+                            //             tags: tags
+                            //         }
+                            //     ];
+
+                            //     collection.doc(doc_id)
+                            //         .set({
+                            //             [date]: post
+                            //         })
+                            //         .catch((error) => {
+                            //             alert("Error while adding: " + error);
+                            //         });
+                            // }
                             // Return to Home page
                             this._navigateToHome(doc_id);
                         }
@@ -633,7 +752,7 @@ class CreateLog extends Component {
                             }}
                             onPress={
                                 () => {
-                                    this.setTriggers('food', 'ios-pizza');
+                                    this.setTriggers('Food', 'ios-pizza');
                                     this._onPressFood()
                                 }}>
                             <View style={{ flexDirection: "row" }}>
@@ -681,7 +800,7 @@ class CreateLog extends Component {
 
 
                     <View style={{ flex: 1, marginTop: 10 }}>
-                        <TouchableOpacity style={{ alignSelf: 'stretch', backgroundColor: '#29d2e4', borderRadius: 27, marginHorizontal: 30 }} onPress={() => this._submitLog()}>
+                        <TouchableOpacity style={{ alignSelf: 'stretch', backgroundColor: '#29d2e4', borderRadius: 27, marginHorizontal: 30 }} onPress={() => this._updateLog()}>
                             <Text style={{
                                 alignSelf: 'center',
                                 color: '#ffffff',
@@ -689,7 +808,7 @@ class CreateLog extends Component {
                                 fontWeight: '600',
                                 paddingTop: 10,
                                 paddingBottom: 10
-                            }}>Submit Quick Log</Text>
+                            }}>Update Quick Log</Text>
                         </TouchableOpacity>
                     </View>
 
@@ -1727,4 +1846,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default CreateLog;
+export default EditLog;
