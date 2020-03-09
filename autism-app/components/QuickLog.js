@@ -5,38 +5,79 @@ import { TextInput} from 'react-native';
 import { Button, Block } from 'galio-framework';
 //import Slider from '@react-native-community/slider';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import DatePicker from 'react-native-datepicker';
 import * as ImagePicker from 'expo-image-picker';
-//import ImagePicker from 'react-native-image-picker';
+import { Ionicons } from '@expo/vector-icons';
+import {Notifications} from 'expo';
 // import UserPermissions from 'utlitities/UserPermissions';
+
+//import firebase from '../config/DatabaseConfig';
 
 export default class QuickLog extends Component {
     static navigationOptions = {
         title: 'Quick Log'
     };
+    //pass userID as a prop
+    static defaultProps = {
+        mediaSource:null,
+        location: '',
+        date: new Date(),
+        show: false,
+        triggers: [],
+        severity: 5,
+    };
+    //GOAL: Look at Jason's code for the concept of 'context'
 
     constructor(props) {
         super(props);
         this.state = {
-            mediaSource:null,
-            location: '',
-            date: new Date(),
-            show: false,
-            triggers: [],//[sensory,social,routine,food,item]
-            severity: 5,
+            mediaSource:this.props.mediaSource,
+            location: this.props.location,
+            date: this.props.date,
+            show: this.props.show,
+            triggers: this.props.triggers,//array of objects
+            severity: this.props.severity,
+            id: null
             
         };
 
       }
 
+    //Notifications
+    //https://snack.expo.io/@wapeo/local-notification-with-ios
+    handleNotification = () => {
+        const localnotification = {
+          title: 'Luminous',
+          body: 'Do you need to log any meltdowns this week?',
+          android: {
+            sound: false,
+          },
+          ios: {
+            sound: false,
+          },
+        };
+        let NotifTime = Date.now();
+        NotifTime += 10000;
+    
+        const schedulingOptions = { time: NotifTime };
+        let promise = Notifications.scheduleLocalNotificationAsync(
+          localnotification,
+          schedulingOptions
+        );
+        this.setState({id : promise});
+        console.log(this.state.id);
+    };
+
     //View-related
     toggleDatePicker = ()=>{
+        console.log(this.state);
         if(!this.show){
             this.setState({show:true});
-            console.log("toggle is now "+this.show);
+            console.log("toggle is now "+this.state.show);
         }
         else{
             this.setState({show:false});
-            console.log("toggle is now "+this.show);
+            console.log("toggle is now "+this.state.show);
         }
         
     };
@@ -70,12 +111,17 @@ export default class QuickLog extends Component {
         
     };
     getTriggerStyle=(triggerType)=>{
-        if(triggerType in this.state.triggers){
-            return styles.triggerClicked;
+        
+        for(let t = 0;t<this.state.triggers.length;t++){
+            
+            if(this.state.triggers[t].name==triggerType){
+                console.log(triggerType + " clicked!");
+                return styles.triggerClicked;
+            }
         }
-        else{
-            return styles.triggerUnlicked;
-        }
+        console.log(triggerType + " unclicked!");
+        return styles.triggerUnclicked;
+        
     }
     //Client-side data handlers
     setDate = (date) => {
@@ -83,7 +129,6 @@ export default class QuickLog extends Component {
         date = date || this.state.date;
 
         this.setState({
-            show: Platform.OS === 'ios' ? true : false,
             date,
         });
     };
@@ -95,33 +140,39 @@ export default class QuickLog extends Component {
         });
     };
 
-    setTriggers = (trigger) => {        
+    setTriggers = (name,iconName) => {        
         let triggers = this.state.triggers;
         console.log('Trigger list before: '+JSON.stringify(triggers));
-        let i = triggers.indexOf(trigger);
-        if(i>=0){
-            console.log(trigger + ' found in array at index '+i+ ', removing...');
-            triggers.splice(i,1);
+        let addFlag=true;
+        for(let oldTrigger=0;oldTrigger<triggers.length;oldTrigger++){
+            let oldName=triggers[oldTrigger].name;
+            if(oldName==name){
+                triggers.splice(oldTrigger,1);
+                addFlag=false;
+            }
         }
-        else{
-            console.log(trigger + ' not found in array, adding at index 0...');
-            triggers.splice(0,0,trigger);
+        if(addFlag==true){
+            triggers.push({name:name,icon:iconName});
         }
         console.log('Trigger list AFTER: '+JSON.stringify(triggers));
         this.setState({
             triggers
         });
+        this.getTriggerStyle(name);
 
     };
     //Data submission
     _submitLog = ()=>{
         //Do data validation
-        alert('Severity: '+this.state.severity);
         if(this.state.location==''){
             alert('Please enter a location.');
         }
+        else if(this.state.triggers.length==0){
+            alert('Please select at least one trigger.');
+        }
         else{
-            alert('Location: '+this.state.location);
+            alert('No errors.\nSeverity: '+this.state.severity+ '\n' + 'Location: '+this.state.location);
+            
         }
         
     };
@@ -129,11 +180,11 @@ export default class QuickLog extends Component {
         return (
             <View style={styles.container}>
                 <Image source={{uri:this.state.mediaSource}} style={styles.uploadMedia} />
-                <TouchableOpacity style={styles.triggerUnclicked} onPress={this.toggleImagePicker}>
+                <TouchableOpacity style={styles.submitButton} onPress={this.toggleImagePicker}>
                     <Text>Upload Photo/Video</Text>
                 </TouchableOpacity>
-                <TouchableOpacity>
-
+                <TouchableOpacity style={styles.submitButton} onPress={this.handleNotification}>
+                    <Text>Set 10 second notificaiton</Text>
                 </TouchableOpacity>
                 <Text>Location</Text>
                 {/* Start with single-line text field, transition to location search if a library exists for react native. */}
@@ -147,34 +198,38 @@ export default class QuickLog extends Component {
                     <Text>{this.state.date.toLocaleString('en-US')}</Text> 
                 </Button> */}
                 {/* Date picker broken for now... stack trace "Unhandled promise rejection: TypeError: null is not an object (evaluating.....RNDatePickerAndroid.open" */}
-                {this.state.show && <DateTimePicker value={this.state.date}
-                    mode='date'
-                    is24Hour={true}
-                    display="default"
-                    onChange={this.setDate} />}
+                {/* {this.state.show && <DateTimePicker value={this.state.date} mode='date' is24Hour={true} display="default" onChange={this.setDate} /> } */}
+                <DatePicker 
+                    date={this.state.date}
+                    mode="datetime"
+                    format="MMMM Do YYYY, h:mm a"
+                    onDateChange={this.setDate}/>
+                
                 
                 {/* <Text>Picker: {this.state.show.toString()}</Text> */}
                 <Text>Meltdown Triggers</Text>
                 {/* Need 5 custom buttons with images inside of them. Maybe create a component? */}
                 <View style={styles.triggerContainer}>
-                    <TouchableOpacity style={styles.triggerUnclicked} onPress={()=>this.setTriggers('sensory')}>
-                        <Image source= {require('../assets/hand.png')}/>
+                    <TouchableOpacity style={this.getTriggerStyle('sensory')} onPress={()=>this.setTriggers('sensory','ios-body')}>
+                        {/* <Image source= {require('../assets/hand.png')}/> */}
+                        {/* <Ionicons name="ios-body" size={30} /> */}
                         <Text>Sensory</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.triggerUnclicked}>
-
+                    <TouchableOpacity style={this.getTriggerStyle('social')} onPress={()=>this.setTriggers('social','ios-people')}>
+                        <Ionicons name="ios-people" size={30} />
                         <Text>Social</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.triggerUnclicked}>
-                        
+                    <TouchableOpacity style={this.getTriggerStyle('routine')} onPress={()=>this.setTriggers('routine','ios-calendar')}>
+                        <Ionicons name="ios-calendar" size={30} />
                         <Text>Routine</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.triggerUnclicked}>
-
+                    <TouchableOpacity style={this.getTriggerStyle('food')} onPress={()=>this.setTriggers('food','fast-food')}>
+                        <Ionicons name="ios-restaurant" size={30} />
                         <Text>Food</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.triggerUnclicked}>
-
+                    <TouchableOpacity style={this.getTriggerStyle('item')} onPress={()=>this.setTriggers('item','fast-food')}>
+                        <Ionicons name='ios-arrow-dropleft-circle' size={30}/>
+                    {/* ios-arrow-dropleft-circle */}
                         <Text>Item Taken Away</Text>
                     </TouchableOpacity>
                 </View>
@@ -198,9 +253,11 @@ export default class QuickLog extends Component {
                 /> */}
                
                 
-                
+               {/* <Button shadowless round color="#ffffff" style={styles.submitButton} onPress={}>
+                    <Text>Additional Info</Text>
+                </Button> */}
                 <Button shadowless round color="#ffffff" style={styles.submitButton} onPress={() => this._submitLog()}>
-                    <Text>Submit </Text>
+                    <Text>Submit</Text>
                 </Button>
             </View>
         );
@@ -241,15 +298,21 @@ const styles = StyleSheet.create({
         height: 100,
         color: '#ffffff',
         borderWidth: 1,
-        borderRadius: 10 
+        borderRadius: 10,
+        alignContent: 'center',
+
+        
     },
 
     triggerClicked: {
         width: 100,
-        height: 100,
+        height: 50,
         color: '#ffffff',
         borderWidth: 1,
-        borderRadius: 10
+        borderRadius: 10,
+        alignContent: 'center',
+
+        
         
     },
 
