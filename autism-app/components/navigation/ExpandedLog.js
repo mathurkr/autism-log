@@ -22,6 +22,8 @@ import { connectActionSheet } from '@expo/react-native-action-sheet'
 import { SingleImage } from 'react-native-zoom-lightbox';
 import { HeaderBackButton } from 'react-navigation-stack';
 
+import { Video } from 'expo-av';
+
 var { width, height } = Dimensions.get('window')
 
 var Lightbox = require('react-native-lightbox');
@@ -67,7 +69,8 @@ export default class ExpandedLog extends Component {
                     behaviors: params.behaviors,
                     resolution: params.resolution,
                     severity: params.severity,
-                    image: params.image,
+                    media: params.media,
+                    mediaType: params.mediaType,
                     location: params.location
                 }
             ],
@@ -239,7 +242,8 @@ export default class ExpandedLog extends Component {
             behaviors: params.behaviors,
             resolution: params.resolution,
             severity: params.severity,
-            media: params.image,
+            media: params.media,
+            mediaType: params.mediaType,
             location: params.location
         });
     }
@@ -272,6 +276,15 @@ export default class ExpandedLog extends Component {
                     }}
 
                     renderItem={({ item }) => {
+                        // Check if media is image or video
+                        const mediaType = item.mediaType;
+                        let mediaComponent = '';
+                        if (mediaType == 'jpg') {
+                            mediaComponent = <SingleImage uri={item.media} style={styles.postImage} />
+                        }
+                        else if (mediaType == 'mp4') {
+                            mediaComponent = <Video source={{ uri: item.media }} rate={1.0} volume={1.0} isMuted={false} shouldPlay isLooping style={styles.postImage} resizeMode="cover" />
+                        }
                         return (
                             <View>
                                 <View style={[styles.card, { borderColor: "white" }]} >
@@ -283,12 +296,10 @@ export default class ExpandedLog extends Component {
                                         <Ionicons name="md-trash" style={{ marginLeft: 'auto', marginRight: 15 }} size={30} onPress={() => this._deleteLogDialog()} />
                                     </View>
 
-
-
                                     <Text style={styles.post}> {item.text}  </Text>
 
-                                    <SingleImage uri={item.image} style={styles.postImage} />
-
+                                    {/* <SingleImage uri={item.media} style={styles.postImage} /> */}
+                                    {mediaComponent}
 
                                     <Text style={{ marginHorizontal: 10, marginTop: 20, fontSize: 14, }}> Meltdown Type </Text>
 
@@ -310,8 +321,8 @@ export default class ExpandedLog extends Component {
                                     }}>
                                     </View>
 
-                                    <View style={styles.notificationBox}>
-                                        {/* <Ionicons name="ios-warning" size={20} color="#77909c" style={styles.icon} /> */}
+                                    {/* <View style={styles.notificationBox}>
+                                        <Ionicons name="ios-warning" size={20} color="#77909c" style={styles.icon} />
                                         <View style={styles.btntextcontainer}>
                                             <Text style={styles.description}>Severity</Text>
                                             <View style={styles.SliderContainer}>
@@ -343,7 +354,7 @@ export default class ExpandedLog extends Component {
                                         </View>
 
 
-                                    </View>
+                                    </View> */}
 
                                     <View style={{}}>
                                         <Text style={styles.behaviors}> Behaviors Shown </Text>

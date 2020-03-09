@@ -16,6 +16,8 @@ import CalendarStrip from 'react-native-calendar-strip';
 import { Ionicons } from "@expo/vector-icons";
 import moment from "moment";
 
+import { Video } from 'expo-av';
+
 import DB from '../config/DatabaseConfig';
 
 // Currently storing posts below in the database for now -- then retrieves information to display
@@ -239,11 +241,11 @@ export default class Home extends Component {
 
                     }
                     else {
-                        alert('Could not find logs matching with date');
+                        // alert('Could not find logs matching with date');
                     }
                 }
                 else {
-                    alert('There are currently no logs associated with the user');
+                    // alert('There are currently no logs associated with the user');
                 }
 
             })
@@ -441,7 +443,8 @@ export default class Home extends Component {
             avatar: post.avatar,
             behaviors: post.behaviors,
             id: post.id,
-            image: post.image,
+            media: post.media,
+            mediaType: post.mediaType,
             location: post.location,
             resolution: post.resolution,
             severity: post.severity,
@@ -494,6 +497,15 @@ export default class Home extends Component {
                     }}
 
                     renderItem={({ item, index }) => {
+                        // Check if media is image or video
+                        const mediaType = item.mediaType;
+                        let mediaComponent = '';
+                        if (mediaType == 'jpg') {
+                            mediaComponent = <Image source={{ uri: item.media }} uri={item.media} style={styles.postImage} resizeMethod="auto" />
+                        }
+                        else if (mediaType == 'mp4') {
+                            mediaComponent = <Video source={{ uri: item.media }} rate={1.0} volume={1.0} isMuted={false} shouldPlay isLooping style={styles.postImage} resizeMode="cover" />
+                        }
                         return (
                             <View style={{ backgroundColor: '#EFEFEF' }}>
 
@@ -513,8 +525,8 @@ export default class Home extends Component {
                                     </View>
 
                                     <Text style={styles.post}> {item.text}  </Text>
-                                    <Image source={{ uri: item.image }} uri={item.image} style={styles.postImage} resizeMethod="auto" />
-
+                                    {/* <Image source={{ uri: item.media }} uri={item.media} style={styles.postImage} resizeMethod="auto" /> */}
+                                    {mediaComponent}
                                     <Text style={{ marginHorizontal: 10, marginTop: 20, fontSize: 14, }}> Meltdown Type </Text>
 
                                     <View style={[styles.cardContent, styles.tagsContent]}>

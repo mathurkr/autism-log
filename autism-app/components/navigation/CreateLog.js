@@ -27,6 +27,7 @@ class CreateLog extends Component {
         tags: '',
         region: {},
         media: 'https://st.depositphotos.com/1026531/3457/v/950/depositphotos_34579193-stock-illustration-seamless-background-of-digital-cameras.jpg',
+        mediaType: '',
         toggle: false,
         toggleSocial: false,
         toggleRoutine: false,
@@ -84,6 +85,8 @@ class CreateLog extends Component {
                 //console.log('ADDRESS GEOCODE is BACK!! => ' + JSON.stringify(responseJson));
                 var stateName = responseJson.results[0].address_components.filter(x => x.types.filter(t => t == 'administrative_area_level_1').length > 0)[0].short_name;
                 var cityName = responseJson.results[0].address_components.filter(x => x.types.filter(t => t == 'administrative_area_level_2').length > 0)[0].short_name;
+                console.log(stateName);
+                console.log(cityName);
                 this.setState({ location: cityName + ", " + stateName });
             })
 
@@ -108,7 +111,13 @@ class CreateLog extends Component {
         if (!result.cancelled) {
             this.setState({ media: result.uri }, () => {
                 const { params } = this.props.navigation.state;
-                this._uploadImage(result.uri, params.doc_id, params.date)
+
+                let media = result.uri;
+                let mediaType = media.substr(-3);
+                // const mediaType = result.uri
+                console.log(mediaType);
+
+                this._uploadMedia(media, mediaType, params.doc_id, params.date)
                     .then(() => {
                         // alert('Success!');
                     })
@@ -130,13 +139,13 @@ class CreateLog extends Component {
         }
     }
 
-    _uploadImage = async (uri, name, date) => {
+    _uploadMedia = async (uri, type, name, date) => {
         const response = await fetch(uri);
         const blob = await response.blob();
         const id = Math.floor(Math.random() * 99999).toString();
-        this.setState({ id: id });
+        this.setState({ id: id, mediaType: type });
 
-        let ref = firebase.storage().ref().child("images/logs/" + name + "/" + date + "/" + id);
+        let ref = firebase.storage().ref().child("media/logs/" + name + "/" + date + "/" + id);
         return ref.put(blob);
     }
 
@@ -237,6 +246,7 @@ class CreateLog extends Component {
         const id = this.state.id;
         const location = this.state.location;
         const severity = Math.floor(this.state.severity);
+        const mediaType = this.state.mediaType;
         // console.log(timestamp);
         // const scale = "Very Severe"
         // const avatar = "";  // May no longer be necessary 
@@ -275,7 +285,7 @@ class CreateLog extends Component {
         console.log(id);
 
         const collection = DB.firestore().collection('logs');
-        let ref = firebase.storage().ref().child("images/logs/" + doc_id + "/" + date + "/" + id);
+        let ref = firebase.storage().ref().child("media/logs/" + doc_id + "/" + date + "/" + id);
 
         // Get download url from storage to store in profiles collection
         ref.getDownloadURL()
@@ -294,7 +304,8 @@ class CreateLog extends Component {
                                         [date]: firebase.firestore.FieldValue.arrayUnion({
                                             "id": id,
                                             "avatar": avatar,
-                                            "image": url,
+                                            "media": url,
+                                            "mediaType": mediaType,
                                             "location": location,
                                             "scale": scale,
                                             "severity": severity,
@@ -320,7 +331,8 @@ class CreateLog extends Component {
                                     {
                                         id: id,
                                         avatar: avatar,
-                                        image: url,
+                                        media: url,
+                                        mediaType: mediaType,
                                         location: location,
                                         scale: scale,
                                         severity: severity,
@@ -453,7 +465,8 @@ class CreateLog extends Component {
                                     <Text style={styles.description}>Location</Text>
 
                                 </View>
-                                <Text numberOfLines={2} style={styles.subDescription}> Santa Margarita, California{JSON.stringify(this.state.region)} }</Text>
+                                {/* <Text numberOfLines={2} style={styles.subDescription}> Santa Margarita, California{JSON.stringify(this.state.region)} }</Text> */}
+                                <Text numberOfLines={2} style={styles.subDescription}>{JSON.stringify(this.state.location)}</Text>
 
                                 <Ionicons style={styles.mblTxt} name="ios-arrow-forward" size={20} color="#77909c" style={styles.icon} />
                             </View>
@@ -1466,14 +1479,16 @@ const styles = StyleSheet.create({
     },
 
     inputContainer: {
-        height: 50,
+        height: 75,
         backgroundColor: 'white',
         paddingVertical: 5,
         borderRadius: 5,
         paddingHorizontal: 30,
-        width: '69%',
+        marginVertical: 10,
+        width: '80%',
         borderColor: "grey",
-        borderWidth: 1
+        borderWidth: 1,
+        alignSelf: 'center'
     },
 
     inputs: {
