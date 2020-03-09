@@ -39,8 +39,7 @@ import Profile from './components/navigation/Profile';
 import Settings from './components/navigation/Settings'
 import Home from './components/navigation/Home'
 import NameSetup from './components/login/NameSetup';
-
-
+import Stats from './components/navigation/Stats';
 ///
 
 
@@ -68,7 +67,7 @@ const SignUpNavigator = createStackNavigator(
     //  LoggerSelection: { screen: LoggerSelection },
     //  ChildSetup: {screen: ChildSetup},
     //  ProfileSetUp: { screen: ProfileSetUp },
-    
+    Stats: { screen: Stats},
     // Settings: { screen: Settings},
      Profile: { screen: Profile},
     // ExpandedLog: {screen: ExpandedLog},
