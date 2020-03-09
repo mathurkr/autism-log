@@ -85,8 +85,8 @@ class CreateLog extends Component {
                 //console.log('ADDRESS GEOCODE is BACK!! => ' + JSON.stringify(responseJson));
                 var stateName = responseJson.results[0].address_components.filter(x => x.types.filter(t => t == 'administrative_area_level_1').length > 0)[0].short_name;
                 var cityName = responseJson.results[0].address_components.filter(x => x.types.filter(t => t == 'administrative_area_level_2').length > 0)[0].short_name;
-                console.log(stateName);
-                console.log(cityName);
+                // console.log(stateName);
+                // console.log(cityName);
                 this.setState({ location: cityName + ", " + stateName });
             })
 
@@ -115,7 +115,7 @@ class CreateLog extends Component {
                 let media = result.uri;
                 let mediaType = media.substr(-3);
                 // const mediaType = result.uri
-                console.log(mediaType);
+                // console.log(mediaType);
 
                 this._uploadMedia(media, mediaType, params.doc_id, params.date)
                     .then(() => {
@@ -227,13 +227,13 @@ class CreateLog extends Component {
 
     _submitLog = () => {
         // alert(`${title}, ${content}, ${location}, ${date}, ${triggers}, ${severity}, ${media}`);
-        console.log(this.state.title);
-        console.log(this.state.content);
-        console.log(this.state.location);
-        console.log(this.state.date);
-        console.log(this.state.triggers);
-        console.log(this.state.severity);
-        console.log(this.state.media);
+        // console.log(this.state.title);
+        // console.log(this.state.content);
+        // console.log(this.state.location);
+        // console.log(this.state.date);
+        // console.log(this.state.triggers);
+        // console.log(this.state.severity);
+        // console.log(this.state.media);
 
         // Hard behaviors and resolution for now 
         const behaviors = ["Yelling", "Screaming", "Shouting"];
@@ -281,8 +281,8 @@ class CreateLog extends Component {
 
         const doc_id = params.doc_id;
         const date = params.date;
-        console.log(date);
-        console.log(id);
+        // console.log(date);
+        // console.log(id);
 
         const collection = DB.firestore().collection('logs');
         let ref = firebase.storage().ref().child("media/logs/" + doc_id + "/" + date + "/" + id);
@@ -291,13 +291,13 @@ class CreateLog extends Component {
         ref.getDownloadURL()
             .then((url) => {
                 // First check if date is in logs collection
-                console.log(url);
+                // console.log(url);
                 collection.doc(doc_id)
                     .get()
                     .then((doc) => {
                         if (doc.exists) {
                             if (doc.get(date) != null) {
-                                console.log("Executing");
+                                // console.log("Executing");
                                 // Append new log to logs collection for that date
                                 collection.doc(doc_id)
                                     .update({
@@ -363,9 +363,9 @@ class CreateLog extends Component {
                         alert("Error getting documents from log collection: ", error);
                     });
             })
-            .catch(function (error) {
-                alert("Couldn't retrieve image URL: ", error);
-            });
+        // .catch(function (error) {
+        //     alert("Couldn't retrieve image URL: ", error);
+        // });
 
         //     collection.doc(doc_id)
         //         .update({

@@ -314,13 +314,13 @@ class EditLog extends Component {
 
     _updateLog = () => {
         // alert(`${title}, ${content}, ${location}, ${date}, ${triggers}, ${severity}, ${media}`);
-        console.log(this.state.title);
-        console.log(this.state.content);
-        console.log(this.state.location);
-        console.log(this.state.date);
-        console.log(this.state.triggers);
-        console.log(this.state.severity);
-        console.log(this.state.media);
+        // console.log(this.state.title);
+        // console.log(this.state.content);
+        // console.log(this.state.location);
+        // console.log(this.state.date);
+        // console.log(this.state.triggers);
+        // console.log(this.state.severity);
+        // console.log(this.state.media);
 
         // Hard behaviors and resolution for now 
         const behaviors = ["Yelling", "Screaming", "Shouting"];
@@ -368,8 +368,8 @@ class EditLog extends Component {
 
         const doc_id = params.doc_id;
         const date = params.date;
-        console.log(date);
-        console.log(id);
+        // console.log(date);
+        // console.log(id);
 
         const collection = DB.firestore().collection('logs');
         let ref = firebase.storage().ref().child("media/logs/" + doc_id + "/" + date + "/" + id);
@@ -379,34 +379,68 @@ class EditLog extends Component {
         ref.getDownloadURL()
             .then((url) => {
                 // Add unchanged logs to log collection and only alter log with the same id 
-                console.log(url);
+                // console.log(url);
                 collection.doc(doc_id)
                     .get()
                     .then((doc) => {
                         if (doc.exists) {
-                            console.log("Executing");
+                            // console.log("Executing");
                             const data = doc.data();
-                            for (let i = 0; i < data[date].length; i++) {
-                                if (data[date][i].id != id) {
-                                    all_logs.push(data[date][i]);
+                            // Iterate thru all dates
+                            for (const [key, value] of Object.entries(data)) {
+                                console.log(key, value);
+                                if (key == date) {
+                                    sub_logs = [];
+                                    for (let i = 0; i < data[date].length; i++) {
+                                        if (data[date][i].id != id) {
+                                            sub_logs.push(data[date][i]);
+                                        }
+                                        else {
+                                            sub_logs.push({
+                                                id: id,
+                                                avatar: avatar,
+                                                media: url,
+                                                mediaType: mediaType,
+                                                location: location,
+                                                scale: scale,
+                                                severity: severity,
+                                                text: text,
+                                                timestamp: timestamp,
+                                                behaviors: behaviors,
+                                                resolution: resolution,
+                                                tags: tags
+                                            })
+                                        }
+                                    }
+                                    all_logs.push({ key: sub_logs });
                                 }
                                 else {
-                                    all_logs.push({
-                                        id: id,
-                                        avatar: avatar,
-                                        media: url,
-                                        mediaType: mediaType,
-                                        location: location,
-                                        scale: scale,
-                                        severity: severity,
-                                        text: text,
-                                        timestamp: timestamp,
-                                        behaviors: behaviors,
-                                        resolution: resolution,
-                                        tags: tags
-                                    });
+                                    all_logs.push({ key: value });
                                 }
                             }
+                            console.log(all_logs);
+                            // for (let i = 0; i < data.length; i++) {
+                            //     if (d)
+                            //         if (data[date][i].id != id) {
+                            //             all_logs.push(data[date][i]);
+                            //         }
+                            //         else {
+                            //             all_logs.push({
+                            //                 id: id,
+                            //                 avatar: avatar,
+                            //                 media: url,
+                            //                 mediaType: mediaType,
+                            //                 location: location,
+                            //                 scale: scale,
+                            //                 severity: severity,
+                            //                 text: text,
+                            //                 timestamp: timestamp,
+                            //                 behaviors: behaviors,
+                            //                 resolution: resolution,
+                            //                 tags: tags
+                            //             });
+                            //         }
+                            // }
 
                             // Set logs collection at date to update logs array
                             collection.doc(doc_id)

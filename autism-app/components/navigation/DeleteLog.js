@@ -56,7 +56,8 @@ export default class DeleteLog extends Component {
                             if (data[date][i].id == id) {
                                 // Retrieve attributes to be removed from array
                                 const avatar = data[date][i].avatar;
-                                const image = data[date][i].image;
+                                const media = data[date][i].media;
+                                const mediaType = data[date][i].mediaType;
                                 const id = data[date][i].id;
                                 const location = data[date][i].location;
                                 const scale = data[date][i].scale;
@@ -73,7 +74,8 @@ export default class DeleteLog extends Component {
                                         [date]: firebase.firestore.FieldValue.arrayRemove({
                                             "id": id,
                                             "avatar": avatar,
-                                            "image": image,
+                                            "media": media,
+                                            "mediaType": mediaType,
                                             "location": location,
                                             "scale": scale,
                                             "text": text,
