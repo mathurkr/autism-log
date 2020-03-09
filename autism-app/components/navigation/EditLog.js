@@ -387,7 +387,7 @@ class EditLog extends Component {
                             // console.log("Executing");
                             const data = doc.data();
                             // Iterate thru all dates
-                            for (const [key, value] of Object.entries(data)) {
+                            for (let [key, value] of data) {
                                 console.log(key, value);
                                 if (key == date) {
                                     sub_logs = [];
@@ -443,13 +443,13 @@ class EditLog extends Component {
                             // }
 
                             // Set logs collection at date to update logs array
-                            collection.doc(doc_id)
-                                .set({
-                                    [date]: all_logs
-                                })
-                                .catch((error) => {
-                                    alert("Error while updating: " + error);
-                                });
+                            // collection.doc(doc_id)
+                            //     .set({
+                            //         [date]: all_logs
+                            //     })
+                            //     .catch((error) => {
+                            //         alert("Error while updating: " + error);
+                            //     });
 
                             // // Append new log to logs collection for that date
                             // collection.doc(doc_id)
