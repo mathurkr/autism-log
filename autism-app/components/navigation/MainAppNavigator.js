@@ -57,11 +57,22 @@ const config = Platform.select({
 
 const HomeStack = createStackNavigator(
     {
-        Home: Home,
-        ExpandedLog: ExpandedLog,
-        DeleteLog: DeleteLog,
-        EditLog: EditLog,
-        CreateLog: CreateLog
+        // Home: Home,
+        // ExpandedLog: ExpandedLog,
+        // DeleteLog: DeleteLog,
+        // EditLog: EditLog,
+        // CreateLog: CreateLog
+        IndexScreen: {
+            screen:IndexScreen,
+            navigationOptions: {
+            },
+
+        },
+        
+        Show: ShowScreen,
+        CreateScreen: CreateScreen,
+        EditScreen: EditScreen
+         //Home: Home
     },
     // config
     {

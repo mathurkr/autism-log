@@ -71,7 +71,7 @@ class Login extends Component {
                 // })
                 // => this.props.navigation.navigate('Home', { email: this.state.email, password: this.state.password, name: "Test" }))
                 .catch(error => "Error occurred while trying to login in user: " + error);
-            // this.props.navigation.navigate('IndexScreen', { email: this.state.email, password: this.state.password, date: new Date() })
+            this.props.navigation.navigate('IndexScreen', { email: this.state.email, password: this.state.password, date: new Date() })
             // alert("User account does not exist with provided email and password");
             // this.props.navigation.navigate('Home');
 

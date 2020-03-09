@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import { StyleSheet, View, TouchableOpacity, Image, PropTypes, Text, TouchableHighlight } from 'react-native';
 import { Button, Input, theme } from 'galio-framework';
