@@ -85,7 +85,7 @@ export default function Stats() {
                     // iconLeft={require('./img/left-arrow.png')}
                     // iconRight={require('./img/right-arrow.png')}
                     iconContainer={{ flex: 0.1 }}
-                    style={{  top: 0, marginTop:0, marginBottom: 5, borderColor:'#BEBEBE', borderWidth: .5 
+                    style={{  top: 0, marginTop:0, marginBottom: 5, borderColor:'#BEBEBE', borderWidth: .5, paddingVertical:10
                     
                 }}
 

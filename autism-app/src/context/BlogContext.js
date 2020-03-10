@@ -57,5 +57,5 @@ const editBlogPost = dispatch => {
 export const {Context, Provider} = createDataContext(
   blogReducer, 
   {addBlogPost, deleteBlogPost, editBlogPost},
-  [{title:"Test Post", location:'Anaheim, California', content: "TEST CONTENT", id:1, media:"https://images.unsplash.com/photo-1579099715178-d89708832bce?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80", triggers:[{name:'sensory', icon:'ios-body',},,  ]}]
+  [{title:"Test Post", location:'Anaheim, California', content: "TEST CONTENT", id:1, media: require('../../assets/images/sample-child-photo.jpg'), triggers:[{name:'sensory', icon:'ios-body',},,  ]}]
   );

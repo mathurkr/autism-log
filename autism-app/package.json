@@ -12,6 +12,7 @@
         "@react-native-community/datetimepicker": "^2.2.2",
         "@react-native-community/slider": "^2.0.8",
         "expo": "^35.0.0",
+        "expo-av": "~7.0.1",
         "expo-camera": "~7.0.0",
         "expo-constants": "^8.0.0",
         "expo-font": "~7.0.0",
@@ -48,14 +49,13 @@
         "react-native-modal-dropdown": "^0.7.0",
         "react-native-modalbox": "^2.0.0",
         "react-native-reanimated": "~1.2.0",
+        "react-native-svg": "9.9.5",
         "react-native-vector-icons": "^6.6.0",
         "react-native-web": "^0.11.7",
         "react-native-zoom-lightbox": "0.0.2",
         "react-navigation": "^4.0.10",
         "react-navigation-stack": "^1.10.3",
-        "react-navigation-tabs": "^2.6.2",
-        "expo-av": "~7.0.1",
-        "react-native-svg": "9.9.5"
+        "react-navigation-tabs": "^2.6.2"
     },
     "devDependencies": {
         "babel-preset-expo": "^7.1.0"

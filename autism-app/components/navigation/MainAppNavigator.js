@@ -76,7 +76,7 @@ const HomeStack = createStackNavigator(
     },
     // config
     {
-        initialRouteName: "Home"
+        initialRouteName: "IndexScreen"
     }
     // const HomeStack = createStackNavigator(
     //     {

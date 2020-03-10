@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
@@ -6,7 +6,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 
 import IndexScreen from './src/screens/IndexScreen';
-import { Provider } from './src/context/BlogContext'
+import { Provider } from  './src/context/BlogContext'
 import ShowScreen from './src/screens/ShowScreen'
 import CreateScreen from './src/screens/CreateScreen'
 import EditScreen from './src/screens/EditScreen';
@@ -26,7 +26,7 @@ import VerifyCode from './components/login/VerifyCode';
 import LoggerSelection from './components/login/LoggerSelection';
 import ProfileSetUp from './components/login/ProfileSetUp';
 
-import NameSetup from './components/login/NameSetup';
+
 import ChildSetup from './components/login/ChildSetup';
 import AgeSetup from './components/login/AgeSetup';
 import ExpandedLog from './components/navigation/ExpandedLog'
@@ -38,6 +38,7 @@ import MainAppNavigator from './components/navigation/MainAppNavigator';
 import Profile from './components/navigation/Profile';
 import Settings from './components/navigation/Settings'
 import Home from './components/navigation/Home'
+import NameSetup from './components/login/NameSetup';
 import Stats from './components/navigation/Stats';
 ///
 
@@ -45,20 +46,18 @@ import Stats from './components/navigation/Stats';
 
 // SignUpNavigator holds all components associated with SignUp process -- may divide them up in the future
 const SignUpNavigator = createStackNavigator(
-    {
-        Welcome: {
-            screen: Welcome,
-            navigationOptions: {
-                header: null
-            }
-        },
+    { 
+        Welcome: { screen: Welcome,
+            navigationOptions:{
+                header: null  
+            } },
         SignUp: { screen: SignUp },
         SignUpPassword: { screen: SignUpPassword },
         SignUpForm: { screen: SignUpForm },
-        NameSetup: { screen: NameSetup },
+        NameSetup: { screen: NameSetup},
         AgeSetup: { screen: AgeSetup },
         PaymentInfo: { screen: PaymentInfo },
-        Home: { screen: Home },
+        Home: { screen: Home},
         TermsOfService: { screen: TermsOfService },
         PrivatePolicy: { screen: PrivatePolicy },
         Authenticate: { screen: Authenticate },
@@ -66,39 +65,11 @@ const SignUpNavigator = createStackNavigator(
         ForgotPassword: { screen: ForgotPassword },
         VerifyCode: { screen: VerifyCode },
         LoggerSelection: { screen: LoggerSelection },
-        ChildSetup: { screen: ChildSetup },
+        ChildSetup: {screen: ChildSetup},
         ProfileSetUp: { screen: ProfileSetUp },
-
-        Settings: { screen: Settings },
-        Profile: { screen: Profile },
-        ExpandedLog: { screen: ExpandedLog },
-        // IndexScreen: IndexScreen,
-        // Show: ShowScreen,
-        // CreateScreen: CreateScreen,
-        // EditScreen: EditScreen 
-    // Welcome: { screen: Welcome,
-    //     navigationOptions:{
-    //         header: null  
-    //     } },
-    // SignUp: { screen: SignUp },
-    // SignUpPassword: { screen: SignUpPassword },
-    // SignUpForm: { screen: SignUpForm },
-    // NameSetup: { screen: NameSetup},
-    // AgeSetup: { screen: AgeSetup },
-    // PaymentInfo: { screen: PaymentInfo },
-    // Home: { screen: Home},
-    // TermsOfService: { screen: TermsOfService },
-    // PrivatePolicy: { screen: PrivatePolicy },
-    // Authenticate: { screen: Authenticate },
-    // Login: { screen: Login },
-    // ForgotPassword: { screen: ForgotPassword },
-    // VerifyCode: { screen: VerifyCode },
-    //  LoggerSelection: { screen: LoggerSelection },
-    //  ChildSetup: {screen: ChildSetup},
-    //  ProfileSetUp: { screen: ProfileSetUp },
-    // Stats: { screen: Stats},
+        Stats: { screen: Stats},
     // Settings: { screen: Settings},
-    //  Profile: { screen: Profile},
+        Profile: { screen: Profile},
     // ExpandedLog: {screen: ExpandedLog},
     
     //NotificationScreen: {screen: NotificationScreen }
@@ -113,22 +84,11 @@ const SignUpNavigator = createStackNavigator(
 
 );
 
-// class MainAppNav extends Component {
-//     render() {
-//         const { navigation } = this.props;
-//         return <MainAppNavigator
-//             screenProps={{
-//                 params: navigation.state.params,
-//                 rootNavigation: navigation
-//             }} />
-//     }
-// }
-
 // Universal App Navigator
 const UniversalNavigator = createSwitchNavigator({
     SignUp: SignUpNavigator,
     Main: MainAppNavigator
-
+    
 
 });
 

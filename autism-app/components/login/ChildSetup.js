@@ -7,10 +7,6 @@ import UserPermissions from '../utlitities/UserPermissions'
 import * as ImagePicker from 'expo-image-picker';
 
 import DB from '../config/DatabaseConfig';
-import * as firebase from 'firebase/app';
-// import 'firebase/firestore';
-// import 'firebase/auth';
-// import 'firebase/storage';
 
 export default class ChildSetup extends Component {
 
@@ -29,7 +25,6 @@ export default class ChildSetup extends Component {
 
     };
 
-
     handlePickAvatar = async () => {
         UserPermissions.getCameraPermission();
 
@@ -40,24 +35,8 @@ export default class ChildSetup extends Component {
         });
 
         if (!result.cancelled) {
-            this.setState({ user: { ...this.state.user, avatar: result.uri } });
-            const { params } = this.props.navigation.state;
-            this._uploadImage(result.uri, params.doc_id)
-                .then(() => {
-                    // alert('Success!');
-                })
-                .catch((error) => {
-                    alert(error);
-                })
+            this.setState({ user: { ...this.state.user, avatar: result.uri } })
         }
-    }
-
-    _uploadImage = async (uri, name) => {
-        const response = await fetch(uri);
-        const blob = await response.blob();
-
-        let ref = firebase.storage().ref().child("images/profiles/" + name);
-        return ref.put(blob);
     }
 
     _finishSignUp() {
@@ -74,38 +53,28 @@ export default class ChildSetup extends Component {
         }
         else {
             // Store profile into database using doc id of user -- change format in the future to support multiple profiles per user
+            
+            
 
-            // let metadata = {
-            //     contentType: 'image/jpeg',
-            // };
-
-            // let imageFile = new File(this.state.user.avatar);
-
+            const profiles = [
+                {
+                    name: this.state.user.name,
+                    age: this.state.user.age,
+                    gender: this.state.user.gender,
+                    avatar: this.state.user.avatar
+                }
+            ];
             const collection = DB.firestore().collection('profiles');
-            let ref = firebase.storage().ref().child("images/profiles/" + params.doc_id);
 
-            // Get download url from storage to store in profiles collection
-            ref.getDownloadURL()
-                .then((url) => {
-                    const profiles = [
-                        {
-                            name: this.state.user.name,
-                            age: this.state.user.age,
-                            gender: this.state.user.gender,
-                            avatar: url
-                        }
-                    ];
-
-                    collection.doc(params.doc_id).set({
-                        profiles: profiles
-                    });
-
-                    this.props.navigation.navigate('Main', { email: params.email, date: new Date() });
-                })
-                .catch((error) => {
-                    alert(error);
-                })
-
+            collection.doc(params.doc_id).set({
+                profiles: profiles
+            });
+            // collection.add({
+            //     profiles: profiles
+            // }).catch((error) => {
+            //     alert('There was an error adding profiles to the DB');
+            // });
+            this.props.navigation.navigate('Main', { email: params.email, date: new Date() });
         }
 
     }
@@ -187,9 +156,7 @@ export default class ChildSetup extends Component {
                     </View>
                 </View>
 
-                {/* <TouchableOpacity style={styles.button} onPress={() => this._finishSignUp()}>
-                    <Text style={{ color: "#FFF", fontWeight: "500" }}> Sign up </Text> */}
-                <TouchableOpacity style={styles.button} onPress={this.props.navigation.navigate('IndexScreen')}>
+                <TouchableOpacity style={styles.button} onPress={() => this._finishSignUp()}>
                     <Text style={{ color: "#FFF", fontWeight: "500" }}> Sign up </Text>
                 </TouchableOpacity>
 

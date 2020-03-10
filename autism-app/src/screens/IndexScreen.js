@@ -93,6 +93,7 @@ const IndexScreen = ({navigation}) => {
       data = {state}
       keyExtractor = {blogPost => blogPost.title}
       renderItem={({item}) =>{
+          console.log(item.media);
         return (
 
           <TouchableOpacity  style={[styles.card, {borderColor:'white'}]} onPress={()=> navigation.navigate("Show", {id: item.id})}> 
@@ -111,7 +112,6 @@ const IndexScreen = ({navigation}) => {
               <View style={[styles.cardContent]}>
 
               </View>
-
 
               <Text style={styles.post}> {item.content}  </Text>
                   <Image
