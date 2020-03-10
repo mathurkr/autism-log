@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react';
-import { StyleSheet, View, Linking, Image, ScrollView, FlatList, Modal, TouchableOpacity, TextInput, TouchableHighlight,  Share, Alert} from 'react-native';
+import { StyleSheet, View, Linking, Image, ScrollView, FlatList, Modal, TouchableOpacity, TextInput, TouchableHighlight,Switch,  Share, Alert} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient'
 import { Button, Text, Input } from 'galio-framework';
 import { FontAwesome } from '@expo/vector-icons';
@@ -187,6 +187,7 @@ export default class Profile extends Component {
                                 <Text style={styles.description}>{item.description}</Text>
                                 <Text style={styles.subDescription}>{item.subDescription}</Text>
                             </View>
+                          
                           <Image style={styles.arrow} source={item.arrow}/> 
                         </View>
                         </TouchableOpacity>

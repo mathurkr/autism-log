@@ -69,10 +69,10 @@ const SignUpNavigator = createStackNavigator(
     //  ProfileSetUp: { screen: ProfileSetUp },
     //  Stats: { screen: Stats},
     // Settings: { screen: Settings},
-    Profile: { screen: Profile},
+    //Profile: { screen: Profile},
     // ExpandedLog: {screen: ExpandedLog},
     
-    //NotificationScreen: {screen: NotificationScreen }
+    NotificationScreen: {screen: NotificationScreen }
      //IndexScreen: IndexScreen,
     // Show: ShowScreen,
     // CreateScreen: CreateScreen,
