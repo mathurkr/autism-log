@@ -217,7 +217,7 @@ export default function Stats() {
                         backgroundColor:'none',
                         fontSize:12 - 2 * 10,
                         lineHeight:12 - (Platform.OS === 'ios' ? 2 * 10 : 10),}}>
-                        10
+                        5
                     </Text>
                     </View>
 
@@ -269,7 +269,7 @@ export default function Stats() {
                         backgroundColor:'none',
                         fontSize:12 - 2 * 10,
                         lineHeight:12 - (Platform.OS === 'ios' ? 2 * 10 : 10),}}>
-                        10
+                        6
                     </Text>
                     </View>
 
@@ -295,7 +295,7 @@ export default function Stats() {
                         backgroundColor:'none',
                         fontSize:12 - 2 * 10,
                         lineHeight:12 - (Platform.OS === 'ios' ? 2 * 10 : 10),}}>
-                        10
+                        3
                     </Text>
                     </View>
 
@@ -333,7 +333,7 @@ export default function Stats() {
                         backgroundColor:'none',
                         fontSize:12 - 2 * 10,
                         lineHeight:12 - (Platform.OS === 'ios' ? 2 * 10 : 10),}}>
-                        10
+                        9
                     </Text>
                     </View>
 
@@ -358,7 +358,7 @@ export default function Stats() {
                         backgroundColor:'none',
                         fontSize:12 - 2 * 10,
                         lineHeight:12 - (Platform.OS === 'ios' ? 2 * 10 : 10),}}>
-                        10
+                        4
                     </Text>
                     </View>
 
@@ -385,7 +385,7 @@ export default function Stats() {
                         backgroundColor:'none',
                         fontSize:12 - 2 * 10,
                         lineHeight:12 - (Platform.OS === 'ios' ? 2 * 10 : 10),}}>
-                        10
+                        5
                     </Text>
                     </View>
 
@@ -521,3 +521,7 @@ const styles = StyleSheet.create({
   }
 
 });
+
+
+//https://snack.expo.io/r1JiAHXaz
+// Used this for text inside circle

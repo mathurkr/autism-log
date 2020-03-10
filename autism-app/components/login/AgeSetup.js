@@ -41,7 +41,7 @@ export default class AgeSetup extends Component {
                     <TextInput placeholder="Enter Age" style={styles.inputs} keyboardType={'numeric'} onChangeText={(text) => this.setState({ age: text })} />
                 </View>
 
-                <Text style={{ marginBottom: 10, paddingHorizontal: 65, textAlign: 'center', marginBottom: 28 }}> No one else will see this information </Text>
+                <Text style={{ marginBottom: 10, paddingHorizontal: 65, textAlign: 'center', fontWeight: 300, marginBottom: 28 }}> No one else will see this information </Text>
 
 
 

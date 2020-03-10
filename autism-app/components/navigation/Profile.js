@@ -33,22 +33,23 @@ export default class Profile extends Component {
     }
 
     static navigationOptions = {
-        title: "Profile(s)",
-        headerRight: () =>
-        (
-          <TouchableOpacity>
-            <FontAwesome name="cog" style={styles.cogIcon} size={30} />
-          </TouchableOpacity>
-        ),
+      header:null
+        // title: "Profile(s)",
+        // headerRight: () =>
+        // (
+        //   <TouchableOpacity>
+        //     <FontAwesome name="cog" style={styles.cogIcon} size={30} />
+        //   </TouchableOpacity>
+        // ),
 
-        headerBackground: (
-            <LinearGradient
-                colors={['#4AD4D4', '#C395FF']}
-                style={{flex: 1}}
-                start={{x:0, y:0}}
-                end={{x: 1, y:1}}
-            />
-          ),
+        // headerBackground: (
+        //     <LinearGradient
+        //         colors={['#4AD4D4', '#C395FF']}
+        //         style={{flex: 1}}
+        //         start={{x:0, y:0}}
+        //         end={{x: 1, y:1}}
+        //     />
+        //   ),
         }
 
         actionOnRow(item, index) {
@@ -114,72 +115,41 @@ export default class Profile extends Component {
                     <Text style={styles.sectionTitle2}> CHILD PROFILE </Text>
 
                     <TouchableOpacity style={styles.inputContainerModal}>
-                                <TextInput
-                                    placeholder="Enter Email"
-                                    placeholderTextColor='#999999'
-                                    returnKeyType={"next"}
-                                    autoCapitalize={"none"}
-                                    autoCorrect={false}
-                                    editable={false}
-                                    // onSubmitEditing={() => { this.secondTextInputRef.current.focus(); }}
-                                    keyboardType={'email-address'} style={styles.inputs} onChangeText={(text) => this.setState({ email: text })} />  
-                                <Text style={styles.dataModal}> Charles </Text>
+                        <View style={styles.textContainer}>
+                          <Text style={styles.dataName}> First Name</Text> 
+                          <Text style={styles.dataModal1} numberOfLines={2}> Charles </Text>
+                        </View>
+                      </TouchableOpacity>
+
+                      <TouchableOpacity style={styles.inputContainerModal}>
+                        <View style={styles.textContainer}>
+                          <Text style={styles.dataName}> Last Name</Text> 
+                          <Text style={styles.dataModal1} numberOfLines={2}>  Darwin </Text>
+                        </View>
                       </TouchableOpacity>
 
 
                       <TouchableOpacity style={styles.inputContainerModal}>
-                                <TextInput
-                                    placeholder="Last name"
-                                    placeholderTextColor='#999999'
-                                    returnKeyType={"next"}
-                                    autoCapitalize={"none"}
-                                    autoCorrect={false}
-                                    editable={false}
-                                    // onSubmitEditing={() => { this.secondTextInputRef.current.focus(); }}
-                                    keyboardType={'email-address'} style={styles.inputs} onChangeText={(text) => this.setState({ email: text })} />  
-                                <Text style={styles.dataModal}> Darwin </Text>
-                      </TouchableOpacity>
+                        <View style={styles.textContainer}>
+                          <Text style={styles.dataName}> Sex </Text> 
+                          <Text style={styles.dataModal1} numberOfLines={2}>  Boy </Text>
+                        </View>
+                      </TouchableOpacity>                
 
                       <TouchableOpacity style={styles.inputContainerModal}>
-                                <TextInput
-                                    placeholder="Sex"
-                                    placeholderTextColor='#999999'
-                                    returnKeyType={"next"}
-                                    autoCapitalize={"none"}
-                                    autoCorrect={false}
-                                    editable={false}
-                                    // onSubmitEditing={() => { this.secondTextInputRef.current.focus(); }}
-                                    keyboardType={'email-address'} style={styles.inputs} onChangeText={(text) => this.setState({ email: text })} />  
-                                <Text style={styles.dataModal}> Boy </Text>
-                      </TouchableOpacity>
+                        <View style={styles.textContainer}>
+                          <Text style={styles.dataName}> Birthday </Text> 
+                          <Text style={styles.dataModal1}> 2/15/16 </Text>
+                        </View>
+                      </TouchableOpacity>                
 
-
+  
                       <TouchableOpacity style={styles.inputContainerModal}>
-                                <TextInput
-                                    placeholder="Birthday"
-                                    placeholderTextColor='#999999'
-                                    returnKeyType={"next"}
-                                    autoCapitalize={"none"}
-                                    autoCorrect={false}
-                                    editable={false}
-                                    // onSubmitEditing={() => { this.secondTextInputRef.current.focus(); }}
-                                    keyboardType={'email-address'} style={styles.inputs} onChangeText={(text) => this.setState({ email: text })} />  
-                                <Text style={styles.dataModal}> 02/15/2015 </Text>
-                      </TouchableOpacity>
-
-
-                      <TouchableOpacity style={styles.inputContainerModal}>
-                                <TextInput
-                                    placeholder="Relationship to the baby?"
-                                    placeholderTextColor='#999999'
-                                    returnKeyType={"next"}
-                                    autoCapitalize={"none"}
-                                    autoCorrect={false}
-                                    editable={false}
-                                    // onSubmitEditing={() => { this.secondTextInputRef.current.focus(); }}
-                                    keyboardType={'email-address'} style={styles.inputs} onChangeText={(text) => this.setState({ email: text })} />  
-                                <Text style={styles.dataModal}> Mother </Text>
-                      </TouchableOpacity>
+                        <View style={styles.textContainer}>
+                          <Text style={styles.dataName}> Relationship to child? </Text> 
+                          <Text style={styles.dataModal1}> Mother</Text>
+                        </View>
+                      </TouchableOpacity>  
                 
                 
 
@@ -280,7 +250,29 @@ const styles = StyleSheet.create({
     paddingLeft: 0,
     fontWeight: 'bold',
     marginRight: 15,
+},
 
+dataModal1: {
+  color: '#8485f9',
+  fontWeight: 'bold',
+  fontSize: 13,
+  paddingLeft: 0,
+  fontWeight: 'bold',
+  flex: 1, flexWrap: 'wrap',
+  textAlign:'right',
+  marginRight: 15
+  
+},
+
+dataName: {
+  color: '#999999',
+  fontWeight: 'bold',
+  fontSize: 13,
+  paddingLeft: 0,
+  fontWeight: 'bold',
+  marginLeft: 15,
+  width: '77%',
+  
 },
 
 
@@ -416,7 +408,9 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: 'center',
         borderRadius: 5,
-        width: '100%'
+        width: '100%',
+        justifyContent: 'space-between',
+
     },
 
     inputContainerModal: {
@@ -428,6 +422,8 @@ const styles = StyleSheet.create({
       width: '100%',
       borderBottomColor: 'grey',
       borderBottomWidth: .25,
+      justifyContent: 'space-between',
+
     
   },
 
@@ -436,5 +432,11 @@ const styles = StyleSheet.create({
         marginLeft: 20,
         flex: 1
     },
+
+
+    textContainer: {
+      flexDirection: "row",
+      justifyContent: 'space-between',
+    }
 });
 

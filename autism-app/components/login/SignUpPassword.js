@@ -53,21 +53,21 @@ export default class SignUpPassword extends Component {
         return (
                 <KeyboardAwareScrollView> 
                 <View style={styles.pageContainer}>
-                <Image style={{ width: 50, height: 50, marginTop: "8%", marginBottom: 24,  }} source={{ uri: 'https://facebook.github.io/react-native/img/tiny_logo.png' }} />
-                <Text h5 style={{ marginBottom: 10, paddingHorizontal: '10%', textAlign: 'center', marginBottom: 15 }}>Welcome to Luminous! </Text>
+                <Image style={{ width: 70, height: 70, marginTop: "12%", marginBottom: 24,  }} source={{ uri: 'https://www.chronaly.com/assets/images/favicon.png' }} />
+                <Text h5 style={{ marginBottom: 10, paddingHorizontal: '10%',fontWeight: 'bold', textAlign: 'center', marginBottom: 15 }}>Welcome to Luminous! </Text>
                 <Text h5 style={{ fontSize: 16, marginBottom: 30, paddingHorizontal: 50, textAlign: 'center', }}> Realtime, convenient recording &amp; mangement of autism </Text>
-                <Text style={{  paddingHorizontal: 39, marginBottom: 10 }}>Set a password</Text>
+                <Text style={{ fontWeight: '300', paddingHorizontal: 39, marginBottom: 10 }}>Set a password</Text>
 
 
                 <View style={styles.inputContainer}> 
                     <Ionicons name="ios-lock" size={30} color="#73788B" style={[styles.inputIcon, styles.icon] }  />
-                    <TextInput placeholder="Enter Password" value={this.state.password} style={styles.inputs} password viewPass onChangeText={(text) => this.setState({ password: text })} />
+                    <TextInput secureTextEntry placeholder="Enter Password" value={this.state.password} style={styles.inputs} password viewPass onChangeText={(text) => this.setState({ password: text })} />
                 </View>
 
                 {/* <Input placeholder="Enter Password" style={styles.input} password viewPass onChangeText={(text) => this.setState({ password: text })} /> */}
 
 
-                <Text style={{ marginBottom: 10, paddingHorizontal: 65, textAlign: 'center', marginBottom: 20 }}>Your password should be at least 8 characters </Text>
+                <Text style={{ fontWeight: '300', marginBottom: 10, paddingHorizontal: 65, textAlign: 'center', marginBottom: 20 }}>Your password should be at least 8 characters </Text>
 
                 <Button shadowless round color="#29d2e4" style={{ marginTop: 5 }} onPress={() => this._storeEmailPassword()}>Continue</Button>
                 </View>
