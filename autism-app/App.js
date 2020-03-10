@@ -6,7 +6,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 
 import IndexScreen from './src/screens/IndexScreen';
-import { Provider } from  './src/context/BlogContext'
+import { Provider } from './src/context/BlogContext'
 import ShowScreen from './src/screens/ShowScreen'
 import CreateScreen from './src/screens/CreateScreen'
 import EditScreen from './src/screens/EditScreen';
@@ -46,18 +46,20 @@ import Stats from './components/navigation/Stats';
 
 // SignUpNavigator holds all components associated with SignUp process -- may divide them up in the future
 const SignUpNavigator = createStackNavigator(
-    { 
-        Welcome: { screen: Welcome,
-            navigationOptions:{
-                header: null  
-            } },
+    {
+        Welcome: {
+            screen: Welcome,
+            navigationOptions: {
+                header: null
+            }
+        },
         SignUp: { screen: SignUp },
         SignUpPassword: { screen: SignUpPassword },
         SignUpForm: { screen: SignUpForm },
-        NameSetup: { screen: NameSetup},
+        NameSetup: { screen: NameSetup },
         AgeSetup: { screen: AgeSetup },
         PaymentInfo: { screen: PaymentInfo },
-        Home: { screen: Home},
+        Home: { screen: Home },
         TermsOfService: { screen: TermsOfService },
         PrivatePolicy: { screen: PrivatePolicy },
         Authenticate: { screen: Authenticate },
@@ -65,18 +67,18 @@ const SignUpNavigator = createStackNavigator(
         ForgotPassword: { screen: ForgotPassword },
         VerifyCode: { screen: VerifyCode },
         LoggerSelection: { screen: LoggerSelection },
-        ChildSetup: {screen: ChildSetup},
+        ChildSetup: { screen: ChildSetup },
         ProfileSetUp: { screen: ProfileSetUp },
-        Stats: { screen: Stats},
-    // Settings: { screen: Settings},
-        Profile: { screen: Profile},
-    // ExpandedLog: {screen: ExpandedLog},
-    
-    //NotificationScreen: {screen: NotificationScreen }
-    // IndexScreen: IndexScreen,
-    // Show: ShowScreen,
-    // CreateScreen: CreateScreen,
-    // EditScreen: EditScreen
+        Stats: { screen: Stats },
+        // Settings: { screen: Settings},
+        Profile: { screen: Profile },
+        // ExpandedLog: {screen: ExpandedLog},
+
+        //NotificationScreen: {screen: NotificationScreen }
+        //IndexScreen: IndexScreen,
+        // Show: ShowScreen,
+        // CreateScreen: CreateScreen,
+        // EditScreen: EditScreen
 
     }
 
@@ -88,7 +90,7 @@ const SignUpNavigator = createStackNavigator(
 const UniversalNavigator = createSwitchNavigator({
     SignUp: SignUpNavigator,
     Main: MainAppNavigator
-    
+
 
 });
 

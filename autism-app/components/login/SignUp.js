@@ -100,7 +100,7 @@ class SignUp extends Component {
                                     </View>
                                 </TouchableOpacity>
 
-                                <Text style={{ marginTop: 5, marginBottom: 20, fontSize: 13 }}>OR LOGIN WITH EMAIL</Text>
+                                <Text style={{ marginTop: 5, marginBottom: 20, fontSize: 13, fontWeight: '300'}}>OR LOGIN WITH EMAIL</Text>
 
 
 
@@ -126,11 +126,11 @@ class SignUp extends Component {
 
 
                             <View style={{ alignItems: "center" }}>
-                                <Text style={{ fontSize: 13, marginTop: 20 }}>By signing up, you agree to Luminous's</Text>
+                                <Text style={{ fontSize: 13, marginTop: 20, fontWeight: '300' }}>By signing up, you agree to Luminous's</Text>
                                 <View style={{ flexDirection: "row" }}>
-                                    <Text style={{ fontSize: 13, textDecorationLine: 'underline' }} onPress={() => this._showTermsOfService()}>Terms of Service</Text>
+                                    <Text style={{ fontSize: 13, textDecorationLine: 'underline', fontWeight: '300'}} onPress={() => this._showTermsOfService()}>Terms of Service</Text>
                                     <Text style={{ fontSize: 13 }}> and </Text>
-                                    <Text style={{ fontSize: 13, textDecorationLine: 'underline' }} onPress={() => this._showPrivatePolicy()}>Private Policy</Text>
+                                    <Text style={{ fontSize: 13, textDecorationLine: 'underline',fontWeight: '300' }} onPress={() => this._showPrivatePolicy()}>Private Policy</Text>
                                 </View>
                             </View>
 

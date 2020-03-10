@@ -25,6 +25,9 @@ import { SingleImage } from 'react-native-zoom-lightbox';
 import { deleteBlogPost } from '../context/BlogContext'
 import { state } from '../context/BlogContext'
 
+import { Video } from 'expo-av';
+
+
 var { width, height } = Dimensions.get('window')
 var Lightbox = require('react-native-lightbox');
 
@@ -65,6 +68,14 @@ const ShowScreen = ({ navigation }) => {
 
     const item = state.find(blogPost => blogPost.id === navigation.getParam('id'))
 
+    const mediaType = item.mediaType;
+    let mediaComponent = null;
+    if (mediaType == "image") {
+        mediaComponent = <SingleImage uri={item.media} style={styles.postImage} />
+    }
+    else if (mediaType == "video") {
+        mediaComponent = <Video source={{ uri: item.media }} rate={1.0} volume={1.0} isMuted={false} shouldPlay isLooping style={styles.postImage} resizeMode="cover" />
+    }
 
     _onOpenActionSheet = (navigation) => {
 
@@ -106,8 +117,8 @@ const ShowScreen = ({ navigation }) => {
                         <Text style={styles.timestamp2}> {moment(item.timestamp).fromNow()}  </Text>
                     </View>
                     <Text style={styles.post}> {item.content}  </Text>
-                    <SingleImage uri={item.media} style={styles.postImage} />
-
+                    {/* <SingleImage uri={item.media} style={styles.postImage} /> */}
+                    {mediaComponent}
 
                     <View style={{ flexDirection: "row", marginTop: 15, marginLeft: 15 }}>
                         <Ionicons name="ios-pin" size={20} color="#C4C6CE" style={{ marginRight: 3 }} />

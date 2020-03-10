@@ -88,8 +88,8 @@ export default class LoggerSelection extends Component {
         const { params } = this.props.navigation.state;
         return (
             <View style={styles.container}>
-                <Text h5>I am using Luminous as a</Text>
-                <View style={{ flexDirection: "row", marginTop: 20, }}>
+                <Text  style={{ fontSize: 18, paddingHorizontal: 39, textAlign: 'center', marginBottom: 10, marginTop: 91 }}> I am using Luminous as a   </Text>
+                <View style={{ flexDirection: "row", marginTop: 10, }}>
                     <View style={styles.container}>
                         <TouchableOpacity
                             title="Dependent"
@@ -148,7 +148,7 @@ export default class LoggerSelection extends Component {
 
                     </View>
 
-                </View><Button shadowless round color="#29d2e4" style={{ marginTop: 10 }} onPress={() => this._continueToProfileSetUp()}>Continue</Button>
+                </View><Button shadowless round color="#29d2e4" style={{ marginTop: 20 }} onPress={() => this._continueToProfileSetUp()}>Continue</Button>
 
             </View>
         );
@@ -162,10 +162,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: '37%',
-
     },
 
 

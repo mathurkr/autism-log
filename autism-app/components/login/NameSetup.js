@@ -33,8 +33,8 @@ export default class NameSetup extends Component {
     render() {
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding">
-
-                <Text h5 style={{ paddingHorizontal: 39, textAlign: 'center', marginBottom: 28, marginTop: 91 }}> What's your name?</Text>
+                <Text h5 style={{ paddingHorizontal: 39, textAlign: 'center', fontWeight: 'bold', marginTop: "15%", flexWrap: 'wrap' }}> Lets get started! </Text>
+                <Text h5 style={{ paddingHorizontal: 39, textAlign: 'center', marginBottom: 28, marginTop: 15, flexWrap: 'wrap' }}> What's your name? </Text>
 
                 <View style={styles.inputContainer}>
                     <Ionicons name="ios-person" size={30} color="#73788B" style={[styles.inputIcon, styles.icon]} />

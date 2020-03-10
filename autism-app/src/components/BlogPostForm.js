@@ -26,6 +26,7 @@ const BlogPostForm = ({ onSubmit, initialValues }) => {
     const [region, setRegion] = useState(initialValues.region)
 
     const [media, setMedia] = useState(initialValues.media)
+    const [mediaType, setMediaType] = useState(initialValues.mediaType)
 
     const [toggle, setToggle] = useState(initialValues, toggle)
     const [toggleSocial, setToggleSocial] = useState(initialValues, toggleSocial)
@@ -122,13 +123,21 @@ const BlogPostForm = ({ onSubmit, initialValues }) => {
         UserPermissions.getCameraPermission();
 
         let result = await ImagePicker.launchImageLibraryAsync({
-            mediaType: ImagePicker.MediaTypeOptions.Images,
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
             allowsEditing: true,
             aspect: [4, 3]
         });
 
         if (!result.cancelled) {
             setMedia(result.uri)
+            const mediaURL = result.uri;
+            let mediaType = mediaURL.substr(-3);
+            if (mediaType == 'mp4') {
+                setMediaType("video");
+            }
+            else {
+                setMediaType("image");
+            }
         }
     }
 
@@ -208,9 +217,9 @@ const BlogPostForm = ({ onSubmit, initialValues }) => {
                         date={date} //initial date from state
                         mode="date" //The enum of date, datetime and time
                         placeholder="select date"
-                        format="DD-MM-YYYY"
-                        minDate="01-01-2016"
-                        maxDate="01-01-2019"
+                        format="MM-DD-YYYY"
+                        minDate="01-01-2018"
+                        maxDate="01-01-2021"
                         confirmBtnText="Confirm"
                         cancelBtnText="Cancel"
                         hideText
@@ -441,7 +450,7 @@ const BlogPostForm = ({ onSubmit, initialValues }) => {
                 <View style={{ flex: 1, marginTop: 10 }}>
                     <TouchableOpacity style={{ alignSelf: 'stretch', backgroundColor: '#29d2e4', borderRadius: 27, marginHorizontal: 60 }}
                         onPress={
-                            () => onSubmit(title, content, location, date, triggers, severity, tags, media)
+                            () => onSubmit(title, content, location, date, triggers, severity, tags, media, mediaType)
                         }>
 
                         <Text style={{
@@ -487,6 +496,7 @@ BlogPostForm.defaultProps = {
         tags: '',
         region: {},
         media: 'https://st.depositphotos.com/1026531/3457/v/950/depositphotos_34579193-stock-illustration-seamless-background-of-digital-cameras.jpg',
+        mediaType: "image",
         toggle: false,
         toggleSocial: false,
         toggleRoutine: false,
