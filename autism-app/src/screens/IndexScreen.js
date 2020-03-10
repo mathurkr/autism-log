@@ -151,7 +151,7 @@ const IndexScreen = ({navigation}) => {
 
 IndexScreen.navigationOptions=({navigation})=>{
   return{
-      Title: 'Luminous',
+      title: 'Luminous',
       headerStyle: {
         elevation: 0,
         shadowOpacity: 0,
